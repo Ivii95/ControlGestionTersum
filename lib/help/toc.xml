@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<toc version="1.0">
+       <tocitem text="Ventana Principal" target="principal">
+           <tocitem text="Archivos" target="archivos">
+               
+               <tocitem text="Trabajadores" target="trabajadores">
+                   <tocitem text="Vacaciones" target="vacaciones"/>
+                   <tocitem text="Incidencias de un trabajador" target="incidencias_trabajador"/>
+                   
+                   <tocitem text="Nóminas" target="nominas"/>
+                   <tocitem text="Horarios" target="horarios"/>
+               </tocitem>
+               <tocitem text="Clientes" target="clientes"/>
+               <tocitem text="Centros" target="centros"/>
+               <tocitem text="Contratos" target="contratos"/>
+               <tocitem text="Incidencias" target="incidencias"/>
+               <tocitem text="Faltas" target="faltas"/>
+           </tocitem>
+           <tocitem text="Procesos" target="procesos"/>
+           <tocitem text="Listados" target="listados"/>
+           <tocitem text="Configuración" target="configuracion">
+               <tocitem text="Usuarios" target="usuarios"/>
+               <tocitem text="Cerrar sesión" target="cerrarsesion"/>
+           </tocitem>
+           <tocitem text="Sobre mi" target="sobre"/>
+       </tocitem>
+</toc>

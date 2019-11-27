@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE map
+PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 2.0//EN"
+"http://java.sun.com/products/javahelp/map_2_0.dtd">
+<map version="1.0">
+
+    <mapID target= "principal" url="html/principal.html" />
+    <mapID target= "archivos" url="html/archivos.html" />
+    <mapID target= "trabajadores" url="html/trabajadores.html" />
+    <mapID target= "vacaciones" url="html/vacaciones.html" />
+    <mapID target= "incidencias_trabajador" url="html/incidencias_trabajador.html" />
+    <mapID target= "nominas" url="html/nominas.html" />
+    <mapID target= "horarios" url="html/horarios.html" />
+    <mapID target= "clientes" url="html/clientes.html" />
+    <mapID target= "centros" url="html/centros.html" />
+    <mapID target= "contratos" url="html/contratos.html" />
+    <mapID target= "incidencias" url="html/incidencias.html" />
+    <mapID target= "faltas" url="html/faltas.html" />
+    <mapID target= "procesos" url="html/procesos.html" />
+    <mapID target= "listados" url="html/listados.html" />
+    <mapID target= "configuracion" url="html/configuracion.html" />.
+    <mapID target= "usuarios" url="html/usuario.html" />
+    <mapID target= "cerrarsesion" url="html/cerrarsesion.html" />
+    <mapID target= "sobre" url="html/sobre.html" />
+</map>

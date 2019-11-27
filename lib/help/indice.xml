@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE index
+PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
+"http://java.sun.com/products/javahelp/index_1_0.dtd">
+<index version="1.0">
+   
+   <indexitem text="Ventana Principal" target="principal"/>
+   
+   <indexitem text="Archivos" target="archivos"/>
+   
+   <indexitem text="Trabajadores" target="trabajadores"/>
+   <indexitem text="Vacaciones" target="vacaciones"/>
+   <indexitem text="Incidencias de un trabajador" target="incidencias_trabajador"/>
+   
+   <indexitem text="Nóminas" target="nominas"/>
+   <indexitem text="Horarios" target="horarios"/>
+   <indexitem text="Clientes" target="clientes"/>
+   <indexitem text="Centros" target="centros"/>
+   <indexitem text="Contratos" target="contratos"/>
+   <indexitem text="Incidencias" target="incidencias"/>
+   <indexitem text="Faltas" target="faltas"/>
+   <indexitem text="Procesos" target="procesos"/>
+   <indexitem text="Listados" target="listados"/>
+   <indexitem text="Configuración" target="configuracion"/>
+   <indexitem text="Usuarios" target="usuarios"/>
+   <indexitem text="Cerrar sesion" target="cerrarsesion"/>
+   <indexitem text="Sobre mi" target="sobre"/>
+</index>
