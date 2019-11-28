@@ -59,6 +59,8 @@ public class Incidencias_vista extends javax.swing.JFrame {
         btn_modificar_incidencia.setVisible(false);
         btn_borrar_incidencia.setVisible(false);
         btn_limpiar_incidencia.setVisible(false);
+        //INICIAMOS REPO
+        repoIncidencia=new IncidenciaRepository();
         repoIncidencia.rellenarTablaByTrabajador(tabla_incidencias, trabajadorIncidencias.getCodigo());
         //TABLA INCIDENCIAS
         tabla_incidencias.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -454,6 +456,7 @@ public class Incidencias_vista extends javax.swing.JFrame {
         Incidencia incidencia;
         int id = (int) tabla_incidencias.getValueAt(filaSeleccionada, 0);
         incidencia = repoIncidencia.getById(id);
+        txt_codigo.setText(incidencia.getCodigo());
         comboExtras.setSelectedItem(incidencia.getExtras() + "");
         txt_fecha_inicio.setDate(incidencia.getFecha_inicio());
         txt_fecha_fin.setDate(incidencia.getFecha_fin());

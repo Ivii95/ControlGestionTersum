@@ -6,33 +6,41 @@
 package Vistas.Listado;
 
 import Modelo.Entidades.Centro;
-import Utilidades.Utilidades;
+import Modelo.Repository.CentroRepository;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaCentros;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
  * @author usuario
  */
 public class ListadoCentros extends javax.swing.JFrame {
-Utilidades utilidades = new Utilidades();
-
-            ;
+    CentroRepository repoCentros;
+    private boolean isAlreadyOneClick;        
     private Centro centroListadoClientes;
     /**
      * Creates new form ListadoCentros
      */
     public ListadoCentros() {
+        iniciarOtros();
+    }
+    public ListadoCentros(String codigo_trabajador) {
+        iniciarOtros();
+        repoCentros.rellenarTablaCentrosByTrabajador(listado_centros, codigo_trabajador);
+    }
+    private void iniciarOtros(){
         initComponents();
-         UtilidadesPantalla.centrarTablas(listado_centros);
+        repoCentros=new CentroRepository();
+        UtilidadesPantalla.centrarTablas(listado_centros);
         UtilidadesPantalla.resolucionPantalla(this);
         listado_centros.getColumnModel().getColumn(0).setMaxWidth(0);
         listado_centros.getColumnModel().getColumn(0).setMinWidth(0);
         listado_centros.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         listado_centros.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-        utilidades.rellenarTabla(listado_centros, "clientes", "");
     }
-
+            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,12 +53,15 @@ Utilidades utilidades = new Utilidades();
         jScrollPane1 = new javax.swing.JScrollPane();
         listado_centros = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1360, 762));
-        setSize(new java.awt.Dimension(1360, 762));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Centros");
+        setMaximumSize(null);
+        setMinimumSize(null);
+        setResizable(false);
+        setSize(new java.awt.Dimension(300, 150));
 
         listado_centros.setAutoCreateRowSorter(true);
-        listado_centros.setBackground(new java.awt.Color(204, 204, 204));
+        listado_centros.setBackground(new java.awt.Color(102, 102, 102));
         listado_centros.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         listado_centros.setForeground(new java.awt.Color(51, 51, 51));
         listado_centros.setModel(new javax.swing.table.DefaultTableModel(
@@ -58,14 +69,14 @@ Utilidades utilidades = new Utilidades();
 
             },
             new String [] {
-                "ID", "CODIGO", "NOMBRE", "APELLIDOS"
+                "ID", "CODIGO", "NOMBRE"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,6 +87,7 @@ Utilidades utilidades = new Utilidades();
                 return canEdit [columnIndex];
             }
         });
+        listado_centros.setPreferredSize(new java.awt.Dimension(300, 150));
         listado_centros.setRowHeight(30);
         listado_centros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -90,14 +102,14 @@ Utilidades utilidades = new Utilidades();
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -105,16 +117,22 @@ Utilidades utilidades = new Utilidades();
     }// </editor-fold>//GEN-END:initComponents
 
     private void listado_centrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listado_centrosMouseClicked
-        int id_centros = 0;
-        Centro centro = null;
-        id_centros = (Integer) (listado_centros.getValueAt(listado_centros.getSelectedRow(), 0));
-        /*for (int i = 0; i < utilidades.lista_de_centros.size(); i++) {
-            if (utilidades.lista_de_centros.get(i).getId() == id_centros) {
-                centro = utilidades.lista_de_centros.get(i);
-            }
-        }*/
-        FichaCentros ficha = new FichaCentros(this, rootPaneCheckingEnabled, centro);
-        ficha.setVisible(true);
+        if (isAlreadyOneClick) {
+            Centro centro;
+            int id = (Integer) (listado_centros.getValueAt(listado_centros.getSelectedRow(), 0));
+            FichaCentros ficha = new FichaCentros(this, rootPaneCheckingEnabled, repoCentros.getById(id));
+            ficha.setVisible(true);
+            isAlreadyOneClick = false;
+        } else {
+            isAlreadyOneClick = true;
+            Timer t = new Timer("doubleclickTimer", false);
+            t.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isAlreadyOneClick = false;
+                }
+            }, 250);
+        }
     }//GEN-LAST:event_listado_centrosMouseClicked
 
     /**
@@ -149,7 +167,6 @@ Utilidades utilidades = new Utilidades();
             new ListadoCentros().setVisible(true);
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable listado_centros;
