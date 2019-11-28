@@ -259,10 +259,10 @@ public class VistaAsignarTrabajadores extends javax.swing.JFrame {
             DefaultTableModel dm = (DefaultTableModel) tablaTrabajadores.getModel();
             dm.getDataVector().removeAllElements();
             dm.fireTableDataChanged();
-            cr.buscar(tabla_centros, txt_buscador.getText());
+            //cr.buscar(tabla_centros, txt_buscador.getText());
 
         } else {//SI POR EL CONTRARIO ESTA VACIO EL BUSCADOR, ENTONCES RELLENA LA TABLA CON TODO
-            cr.rellenarTablaDefault(tabla_centros);
+            //cr.rellenarTablaDefault(tabla_centros);
         }
     }//GEN-LAST:event_txt_buscadorKeyReleased
 
