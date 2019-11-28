@@ -5,10 +5,10 @@
  */
 package Vistas.Archivos.Trabajadores;
 
-import Modelo.Falta;
+import Modelo.Entidades.Falta;
 import Modelo.Repository.FaltaRepository;
 import Modelo.Repository.TrabajadorRepository;
-import Modelo.Trabajador;
+import Modelo.Entidades.Trabajador;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Principal.Principal_vista;
 import java.awt.Color;
@@ -44,6 +44,7 @@ public final class Faltas_vista extends javax.swing.JFrame {
 
     public Faltas_vista(Trabajador trabajador) {
         this.trabajadorFaltas = trabajador;
+        repoFalta=new FaltaRepository();
         initComponents();
         ponAyuda();
         pulsarX();

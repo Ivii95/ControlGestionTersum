@@ -5,7 +5,7 @@
  */
 package Vistas.Listado;
 
-import Modelo.Centro;
+import Modelo.Entidades.Centro;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaCentros;

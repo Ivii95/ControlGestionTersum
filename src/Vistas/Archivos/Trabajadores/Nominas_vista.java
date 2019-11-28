@@ -5,8 +5,8 @@
  */
 package Vistas.Archivos.Trabajadores;
 
-import Modelo.Nominas;
-import Modelo.Trabajador;
+import Modelo.Entidades.Nominas;
+import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Principal.Principal_vista;

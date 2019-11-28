@@ -5,9 +5,8 @@
  */
 package Modelo.Repository;
 
-import Modelo.Incidencia;
+import Modelo.Entidades.Incidencia;
 import static Modelo.Repository.UtilidadesRepository.*;
-import Modelo.Trabajador;
 import Utilidades.Conexion;
 import static Utilidades.Utilidades.conn;
 import static Utilidades.Utilidades.empresa;
@@ -26,6 +25,7 @@ public final class IncidenciaRepository {
 
     private final String nombreClase = IncidenciaRepository.class.getName();
     private final ArrayList<Incidencia> incidencias;
+    
     private final String TABLA = "incidencias";
     private final String consultaIncidencia = consultaPrincipal + TABLA;
     private final String id = "id";
@@ -35,6 +35,7 @@ public final class IncidenciaRepository {
     private final String fechaFin = "fecha_fin";
     private final String descripcion = "descripcion";
     private final String extras = "extras";
+    private final String ORDER=" ORDER BY "+fechaInicio+" DESC ";
 
     public IncidenciaRepository() {
         this.incidencias = new ArrayList<>();
@@ -103,7 +104,7 @@ public final class IncidenciaRepository {
     }
 
     public void rellenarTablaDefault(JTable tabla) {
-        ejecutarConsulta(consultaIncidencia);
+        ejecutarConsulta(consultaIncidencia+ORDER);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -114,7 +115,7 @@ public final class IncidenciaRepository {
     }
 
     public void rellenarTablaByTrabajador(JTable tabla, String codigo) {
-        ejecutarConsulta(consultaIncidencia + "WHERE " + codTrabajador + "=" + codigo);
+        ejecutarConsulta(consultaIncidencia + "WHERE " + codTrabajador + " = '" + codigo+"'"+ORDER);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -195,8 +196,8 @@ public final class IncidenciaRepository {
             conexion = conn.conectar_empresa_concreta(empresa);
             update = "UPDATE " + TABLA + " SET "
                     + cod + "=?, "
-                    + codTrabajador + "=?, "
-                    + fechaInicio + "=?, "
+                    + codTrabajador + "=?,"
+                    + fechaInicio + "=?,"
                     + fechaFin + "=?,"
                     + extras + "=?,"
                     + descripcion + "=? WHERE " + id + "=?";
@@ -238,7 +239,7 @@ public final class IncidenciaRepository {
     }
 
     public void buscarFecha(JTable tabla, String buscar, String codigo) {
-        ejecutarConsulta(consultaIncidencia + " WHERE (" + fechaInicio + " LIKE '%" + buscar + "%' OR " + fechaFin + "LIKE '%" + buscar + "%' ) AND codigo_trabajador=" + codigo);
+        ejecutarConsulta(consultaIncidencia + " WHERE (" + fechaInicio + " LIKE '%" + buscar + "%' OR " + fechaFin + "LIKE '%" + buscar + "%' ) AND codigo_trabajador=" + codigo+ORDER);
         rellenarTabla(tabla);
     }
 }

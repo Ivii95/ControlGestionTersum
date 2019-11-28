@@ -29,7 +29,8 @@ public class UtilidadesPantalla {
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         if (ancho < 1367 || alto < 769) {
-            aThis.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            aThis.setExtendedState(JFrame.MAXIMIZED_HORIZ);
+            aThis.setExtendedState(JFrame.MAXIMIZED_VERT);
         } else {
 
         }

@@ -5,7 +5,7 @@
  */
 package Modelo.Repository;
 
-import Modelo.Falta;
+import Modelo.Entidades.Falta;
 import java.util.ArrayList;
 import static Modelo.Repository.UtilidadesRepository.*;
 import Utilidades.Conexion;
@@ -33,10 +33,9 @@ public final class FaltaRepository {
     private final String fechaInicio = "fecha_inicio";
     private final String fechaFin = "fecha_fin";
     private final String motivo = "motivo";
-
+    private final String ORDER=" ORDER BY "+fechaInicio+" DESC ";
     public FaltaRepository() {
         this.faltas = new ArrayList<>();
-        ejecutarConsulta(consultaFaltas);
     }
 
     /**
@@ -100,7 +99,7 @@ public final class FaltaRepository {
     }
 
     public void rellenarTablaDefault(JTable tabla) {
-        ejecutarConsulta(consultaFaltas);
+        ejecutarConsulta(consultaFaltas+ORDER);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -109,8 +108,9 @@ public final class FaltaRepository {
         }
         tabla.setModel(dtm);
     }
+
     public void rellenarTablaByTrabajador(JTable tabla, String codigo) {
-        ejecutarConsulta(consultaFaltas + "WHERE "+codTrabajador+"=" + codigo);
+        ejecutarConsulta(consultaFaltas + "WHERE " + codTrabajador + " = '" + codigo + "'"+ORDER);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -119,6 +119,7 @@ public final class FaltaRepository {
         }
         tabla.setModel(dtm);
     }
+
     private Object[] addRow(Falta o) {
         columnas = new Object[3];
         columnas[0] = o.getId();

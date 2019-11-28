@@ -6,9 +6,9 @@
 package Vistas.Archivos.Trabajadores;
 
 import Vistas.Formularios.FormularioTrabajador;
-import Modelo.Centro;
+import Modelo.Entidades.Centro;
 import Modelo.Repository.TrabajadorRepository;
-import Modelo.Trabajador;
+import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Principal.Principal_vista;
@@ -436,7 +436,6 @@ public class VistaTrabajadores extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo insertar el trabajador por que ya existe en la base de datos", "Error al insertar", JOptionPane.WARNING_MESSAGE);
             }
-
             restablecerTabla();
         }
 

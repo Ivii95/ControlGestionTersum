@@ -5,13 +5,13 @@
  */
 package Utilidades;
 
-import Modelo.Contrato;
-import Modelo.Falta;
-import Modelo.Historial;
-import Modelo.Incidencia;
-import Modelo.Nominas;
-import Modelo.Permiso;
-import Modelo.Usuario;
+import Modelo.Entidades.Contrato;
+import Modelo.Entidades.Falta;
+import Modelo.Entidades.Historial;
+import Modelo.Entidades.Incidencia;
+import Modelo.Entidades.Nominas;
+import Modelo.Entidades.Permiso;
+import Modelo.Entidades.Usuario;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;

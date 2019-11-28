@@ -5,10 +5,10 @@
  */
 package Vistas.Archivos.Trabajadores;
 
-import Modelo.Falta;
-import Modelo.Incidencia;
+import Modelo.Entidades.Falta;
+import Modelo.Entidades.Incidencia;
 import Modelo.Repository.IncidenciaRepository;
-import Modelo.Trabajador;
+import Modelo.Entidades.Trabajador;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Principal.Principal_vista;
 import java.awt.Color;

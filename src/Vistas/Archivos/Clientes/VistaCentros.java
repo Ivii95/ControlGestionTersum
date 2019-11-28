@@ -5,8 +5,8 @@
  */
 package Vistas.Archivos.Clientes;
 
-import Modelo.Centro;
-import Modelo.Cliente;
+import Modelo.Entidades.Centro;
+import Modelo.Entidades.Cliente;
 import Modelo.Repository.CentroRepository;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Archivos.Trabajadores.VistaTrabajadores;
@@ -251,6 +251,7 @@ public class VistaCentros extends javax.swing.JFrame {
 
         panelRect1.setColorPrimario(new java.awt.Color(102, 102, 102));
         panelRect1.setColorSecundario(new java.awt.Color(204, 204, 204));
+        panelRect1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
         panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
@@ -263,21 +264,7 @@ public class VistaCentros extends javax.swing.JFrame {
         txtTitulo.setText("Nombre de centro:");
         panelCurves1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 1170, 40));
 
-        javax.swing.GroupLayout panelRect1Layout = new javax.swing.GroupLayout(panelRect1);
-        panelRect1.setLayout(panelRect1Layout);
-        panelRect1Layout.setHorizontalGroup(
-            panelRect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRect1Layout.createSequentialGroup()
-                .addComponent(panelCurves1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelRect1Layout.setVerticalGroup(
-            panelRect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRect1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelCurves1, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
-        );
+        panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1374, 747));
 
         getContentPane().add(panelRect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, -10, 1380, 780));
 
@@ -335,7 +322,7 @@ public class VistaCentros extends javax.swing.JFrame {
         if (get != null) {
             cr.insert(get);
             //utilidades.addBbdd("clientes", get);
-            //restablecerTabla();
+            cr.rellenarTabla(tabla_centros);
         }
     }//GEN-LAST:event_btn_añadirActionPerformed
 

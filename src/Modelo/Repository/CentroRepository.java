@@ -5,7 +5,7 @@
  */
 package Modelo.Repository;
 
-import Modelo.Centro;
+import Modelo.Entidades.Centro;
 import java.util.ArrayList;
 import static Modelo.Repository.UtilidadesRepository.*;
 import Utilidades.Conexion;
@@ -26,7 +26,7 @@ public final class CentroRepository {
 
     private final ArrayList<Centro> centros;
     private final String TABLA = "centros";
-    private final String consultaCentros = consultaPrincipal + TABLA + " ORDER BY nombre";
+    private final String consultaCentros = consultaPrincipal + TABLA;
     private final String id = "id";
     private final String cod = "codigo";
     private final String codCliente = "codigo_cliente";
@@ -38,10 +38,11 @@ public final class CentroRepository {
     private final String email = "email";
     private final String horasNecesariosSemana = "horas_semana";
     private final String facturacionMes = "facturacion_mes";
+    private final String ORDER = " ORDER BY " + nombre + " ASC ";
 
     public CentroRepository() {
         this.centros = new ArrayList<>();
-        ejecutarConsulta(consultaCentros);
+        //ejecutarConsulta(consultaCentros);
     }
 
     /**
@@ -128,11 +129,7 @@ public final class CentroRepository {
         return o;
     }
 
-    /**
-     *
-     * @param tabla
-     */
-    public void rellenarTablaDefault(JTable tabla) {
+    public void rellenarTabla(JTable tabla) {
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -142,10 +139,36 @@ public final class CentroRepository {
         tabla.setModel(dtm);
     }
 
-    public JComboBox rellenarCombo(JComboBox combo) {
-        combo.addItem("Selecciona uno");
+    /**
+     *
+     * @param tabla
+     */
+    public void rellenarTablaDefault(JTable tabla) {
+        ejecutarConsulta(consultaCentros + " ORDER BY " + nombre);
+        dtm = (DefaultTableModel) tabla.getModel();
+        columnas = new Object[dtm.getColumnCount()];
+        dtm.setRowCount(0);
+        for (int i = 0; i < centros.size(); i++) {
+            dtm.addRow(addRow(centros.get(i)));
+        }
+        tabla.setModel(dtm);
+    }
+
+    public void rellenarCombo(JComboBox combo) {
+        ejecutarConsulta(consultaCentros + " ORDER BY " + nombre);
+        combo.addItem("Sin centro");
         for (int i = 0; i < centros.size(); i++) {
             combo.addItem(centros.get(i).getNombre());
+        }
+    }
+
+    public JComboBox rellenarComboByCodigoCliente(JComboBox combo, String cod_cliente) {
+        ejecutarConsulta(consultaCentros + " WHERE " + codCliente + "=" + cod_cliente + " ORDER BY " + nombre);
+        combo.addItem("Selecciona uno");
+        for (int i = 0; i < centros.size(); i++) {
+            if (centros.get(i).getCodigo_cliente().equals(cod_cliente)) {
+                combo.addItem(centros.get(i).getNombre());
+            }
         }
         return combo;
     }

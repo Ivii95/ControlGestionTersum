@@ -6,7 +6,7 @@
 package Modelo.Repository;
 
 import static Modelo.Repository.UtilidadesRepository.*;
-import Modelo.Cliente;
+import Modelo.Entidades.Cliente;
 import Utilidades.Conexion;
 import Utilidades.Utilidades;
 import static Utilidades.Utilidades.conn;
@@ -39,12 +39,11 @@ public class ClienteRepository {
     private final String email = "email";
     private final String fechaAlta = "fecha_alta";
     private final String fechaBaja = "fecha_baja";
-
+    private final String ORDER=" ORDER BY "+nombreComercial+" ASC ";
     public ClienteRepository() {
         this.clientes = new ArrayList<>();
         ejecutarConsulta(consultaClientes);
     }
-
     private void ejecutarConsulta(String consulta) {
         clientes.clear();
         Utilidades.conn = new Conexion();

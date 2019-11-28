@@ -6,7 +6,7 @@
 package Vistas.Archivos.Clientes;
 
 import Vistas.Formularios.FormularioCliente;
-import Modelo.Cliente;
+import Modelo.Entidades.Cliente;
 import Modelo.Repository.ClienteRepository;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaCliente;

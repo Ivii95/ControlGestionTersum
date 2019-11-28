@@ -5,7 +5,7 @@
  */
 package Vistas.Fichas;
 
-import Modelo.Cliente;
+import Modelo.Entidades.Cliente;
 import Modelo.Repository.CentroRepository;
 
 /**

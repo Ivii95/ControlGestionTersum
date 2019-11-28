@@ -5,15 +5,12 @@
  */
 package Vistas.Archivos.Trabajadores;
 
-import Modelo.Centro;
-import Modelo.Cliente;
-import Modelo.Historial;
-import Modelo.Trabajador;
+import Modelo.Entidades.Centro;
+import Modelo.Entidades.Trabajador;
 import Utilidades.DTable;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Principal.Principal_vista;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.help.HelpBroker;
@@ -39,6 +36,8 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
     }
 
     public PlanificadorHorario2_vista() {
+        initComponents();
+        iniciarOtrosComponentes();
     }
 
     private void iniciarOtrosComponentes() {
@@ -46,7 +45,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         iniciarTabla();
 
         try {
-            utilidades.rellenarLista("horastrabajadas", "");
+            //utilidades.rellenarLista("horastrabajadas", "");
             //utilidades.rellenarTablaHorarios(TablaPlanificador, trabajadorHorario.getId());
         } catch (Exception e) {
 
@@ -68,7 +67,6 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
 
     private void iniciarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) TablaPlanificador.getModel();
-        modelo.addRow(new Object[]{"", "", "", "", "", "", "", ""});
         for (int i = 0; i < 25; i++) {
             if (i <= 9) {
                 modelo.addRow(new Object[]{"0" + i + ":00", "", "", "", "", "", "", ""});
@@ -79,9 +77,9 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         }
         for (int i = 0; i < 25; i++) {
             if (i <= 6) {
-                TablaPlanificador.setRowHeight(i, 15);
+                TablaPlanificador.setRowHeight(i, 18);
             } else {
-                TablaPlanificador.setRowHeight(i, 30);
+                TablaPlanificador.setRowHeight(i, 28);
             }
         }
         TablaPlanificador.setModel(modelo);

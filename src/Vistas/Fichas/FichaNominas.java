@@ -5,7 +5,7 @@
  */
 package Vistas.Fichas;
 
-import Modelo.Nominas;
+import Modelo.Entidades.Nominas;
 import javax.swing.JFrame;
 
 /**

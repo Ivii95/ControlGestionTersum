@@ -5,8 +5,8 @@
  */
 package Vistas.Listado;
 
-import Modelo.Centro;
-import Modelo.Cliente;
+import Modelo.Entidades.Centro;
+import Modelo.Entidades.Cliente;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaCliente;

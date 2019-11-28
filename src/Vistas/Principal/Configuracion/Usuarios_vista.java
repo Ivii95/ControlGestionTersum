@@ -5,7 +5,7 @@
  */
 package Vistas.Principal.Configuracion;
 
-import Modelo.Usuario;
+import Modelo.Entidades.Usuario;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Principal.Principal_vista;

@@ -5,7 +5,7 @@
  */
 package Vistas.Listado;
 
-import Modelo.Contrato;
+import Modelo.Entidades.Contrato;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaContratos;

@@ -5,9 +5,9 @@
  */
 package Vistas.Listado;
 
-import Modelo.Centro;
+import Modelo.Entidades.Centro;
 import Modelo.Repository.TrabajadorRepository;
-import Modelo.Trabajador;
+import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaTrabajador;

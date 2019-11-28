@@ -5,8 +5,8 @@
  */
 package Vistas.Listado;
 
-import Modelo.Cliente;
-import Modelo.Nominas;
+import Modelo.Entidades.Cliente;
+import Modelo.Entidades.Nominas;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaNominas;

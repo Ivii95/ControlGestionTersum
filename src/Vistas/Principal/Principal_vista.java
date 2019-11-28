@@ -5,7 +5,7 @@
  */
 package Vistas.Principal;
 
-import Modelo.Permiso;
+import Modelo.Entidades.Permiso;
 import Utilidades.Colores;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;

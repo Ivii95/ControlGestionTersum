@@ -5,7 +5,7 @@
  */
 package Vistas.Fichas;
 
-import Modelo.Contrato;
+import Modelo.Entidades.Contrato;
 import Vistas.Listado.ListadoContratos;
 import javax.swing.JFrame;
 

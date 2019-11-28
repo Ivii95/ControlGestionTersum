@@ -5,7 +5,7 @@
  */
 package Vistas.Fichas;
 
-import Modelo.Trabajador;
+import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
 import javax.swing.JFrame;
 

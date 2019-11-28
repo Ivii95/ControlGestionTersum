@@ -6,7 +6,7 @@
 package Modelo.Repository;
 
 import static Modelo.Repository.UtilidadesRepository.*;
-import Modelo.Trabajador;
+import Modelo.Entidades.Trabajador;
 import Utilidades.Conexion;
 import Utilidades.Utilidades;
 import static Utilidades.Utilidades.conn;
@@ -27,6 +27,8 @@ public class TrabajadorRepository {
     private static ArrayList<Trabajador> trabajadores;
     private final String TABLA = "trabajadores";
     private final String consultaTrabajadores = consultaPrincipal + TABLA + " ORDER BY apellido1 ";
+
+    private final String ORDER = " ORDER BY apellido1 ASC ";
 
     public TrabajadorRepository() {
         TrabajadorRepository.trabajadores = new ArrayList<>();

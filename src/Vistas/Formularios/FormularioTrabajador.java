@@ -5,10 +5,9 @@
  */
 package Vistas.Formularios;
 
-import Modelo.Centro;
 import Modelo.Repository.CentroRepository;
 import Modelo.Repository.TrabajadorRepository;
-import Modelo.Trabajador;
+import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Archivos.Trabajadores.VistaTrabajadores;
@@ -54,12 +53,11 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     public FormularioTrabajador(VistaTrabajadores parent, boolean modal, Trabajador trabajador, TrabajadorRepository repo) {
         super(parent, modal);
         this.repoTrabajador = repo;
-        this.repoCentro = new CentroRepository();
         initComponents();
-        iniciarComboBox();
         this.trabajadorModificar = trabajador;
         rellenarDatos();
         pulsarX();
+        iniciarComboBox();
     }
 
     private void pulsarX() {
@@ -73,6 +71,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     }
 
     private void iniciarComboBox() {
+        this.repoCentro = new CentroRepository();
         this.setLocationRelativeTo(null);
         for (int i = 40; i > 0; i--) {
             comboHorasSemanaAlta.addItem(i + "");
@@ -171,6 +170,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
 
         panelRect1.setColorPrimario(new java.awt.Color(102, 102, 102));
         panelRect1.setColorSecundario(new java.awt.Color(204, 204, 204));
+        panelRect1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
         panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
@@ -627,23 +627,9 @@ public class FormularioTrabajador extends javax.swing.JDialog {
 
         panelCurves1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 1050, 560));
 
-        javax.swing.GroupLayout panelRect1Layout = new javax.swing.GroupLayout(panelRect1);
-        panelRect1.setLayout(panelRect1Layout);
-        panelRect1Layout.setHorizontalGroup(
-            panelRect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRect1Layout.createSequentialGroup()
-                .addComponent(panelCurves1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelRect1Layout.setVerticalGroup(
-            panelRect1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRect1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelCurves1, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
+        panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1140, 691));
 
-        getContentPane().add(panelRect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, -10, 1130, 730));
+        getContentPane().add(panelRect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, -10, 1190, 790));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

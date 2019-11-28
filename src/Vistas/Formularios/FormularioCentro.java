@@ -5,7 +5,7 @@
  */
 package Vistas.Formularios;
 
-import Modelo.Centro;
+import Modelo.Entidades.Centro;
 import Modelo.Repository.CentroRepository;
 import Modelo.Repository.ClienteRepository;
 import Modelo.Repository.UtilidadesRepository;
