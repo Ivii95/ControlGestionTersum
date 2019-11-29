@@ -6,7 +6,10 @@
 package Vistas.Archivos.Trabajadores;
 
 import Modelo.Entidades.Centro;
+import Modelo.Entidades.Cliente;
 import Modelo.Entidades.Trabajador;
+import Modelo.Repository.CentroRepository;
+import Modelo.Repository.ClienteRepository;
 import Utilidades.DTable;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
@@ -25,12 +28,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PlanificadorHorario2_vista extends javax.swing.JFrame {
 
+    ClienteRepository repoCliente;
+    CentroRepository repoCentro;
     Utilidades utilidades = new Utilidades();
     Trabajador trabajadorHorario;
     Centro centroHorario;
 
     public PlanificadorHorario2_vista(Trabajador trabajador) {
         trabajadorHorario = trabajador;
+        repoCentro = new CentroRepository();
+        repoCliente = new ClienteRepository();
         initComponents();
         iniciarOtrosComponentes();
         lbl_titulo.setText(lbl_titulo.getText() + " " + trabajadorHorario.getNombre() + " " + trabajadorHorario.getApellido1() + " " + trabajadorHorario.getApellido2());
@@ -52,13 +59,6 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
     private void iniciarOtrosComponentes() {
         UtilidadesPantalla.resolucionPantalla(this);
         iniciarTabla();
-
-        try {
-            //utilidades.rellenarLista("horastrabajadas", "");
-            //utilidades.rellenarTablaHorarios(TablaPlanificador, trabajadorHorario.getId());
-        } catch (Exception e) {
-
-        }
         rellenarCombobox();
         ponAyuda();
         TablaPlanificador.setDefaultRenderer(Object.class, new DTable());
@@ -73,9 +73,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
             Logger.getLogger(Principal_vista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void iniciarCombo(){
-        
-    }
+
     private void iniciarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) TablaPlanificador.getModel();
         for (int i = 0; i < 25; i++) {
@@ -101,8 +99,8 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
      */
     //  public static ArrayList<Centro> lista_de_centros = new ArrayList<Centro>();
     private void anadirTabla() {
-        int IndiceHoraInicio = comboHoraInicio.getSelectedIndex();
-        int IndiceHoraFinal = comboHoraFin.getSelectedIndex();
+        int IndiceHoraInicio = comboMinutoInicio.getSelectedIndex();
+        int IndiceHoraFinal = comboMinutoFin.getSelectedIndex();
         int diaIndex = comboDia.getSelectedIndex() + 1;
         for (int i = IndiceHoraInicio; i <= IndiceHoraFinal; i++) {
             TablaPlanificador.setValueAt(comboCentro.getSelectedItem(), i, diaIndex);
@@ -144,6 +142,28 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         comboDia.addItem("Viernes");
         comboDia.addItem("Sabado");
         comboDia.addItem("Domingo");
+        for (int i = 0; i < 24; i++) {
+            if (i <= 9) {
+                comboHoraInicio.addItem("0" + i);
+                comboHoraFin.addItem("0" + i);
+            } else {
+                comboHoraInicio.addItem(i + "");
+                comboHoraFin.addItem(i + "");
+            }
+
+        }
+        for (int i = 0; i < 60; i++) {
+            if (i <= 9) {
+                comboMinutoInicio.addItem("0" + i);
+                comboMinutoFin.addItem("0" + i);
+            } else {
+                comboMinutoInicio.addItem(i + "");
+                comboMinutoFin.addItem(i + "");
+            }
+        }
+        repoCliente.rellenarCombo(comboCliente);
+        repoCentro.rellenarCombo(comboCentro);
+        //repoCentro
         //Acceso a las listas.
 //        utilidades.lista_de_centros.clear();
 //        utilidades.lista_de_clientes.clear();
@@ -179,19 +199,19 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         comboDia = new javax.swing.JComboBox<>();
         lbl_Cliente = new javax.swing.JLabel();
         comboCliente = new javax.swing.JComboBox<>();
-        comboHoraInicio = new javax.swing.JComboBox<>();
+        comboMinutoInicio = new javax.swing.JComboBox<>();
         lbl_fechafin_vacaciones2 = new javax.swing.JLabel();
         lbl_Centro = new javax.swing.JLabel();
         comboCentro = new javax.swing.JComboBox<>();
-        comboHoraFin = new javax.swing.JComboBox<>();
+        comboMinutoFin = new javax.swing.JComboBox<>();
         lbl_fechafin_vacaciones1 = new javax.swing.JLabel();
         txt_direccion = new javax.swing.JLabel();
         btn_borrarr = new javax.swing.JButton();
         BTN_AÑADIR = new javax.swing.JToggleButton();
         lbl_fechafin_vacaciones3 = new javax.swing.JLabel();
         lbl_fechafin_vacaciones4 = new javax.swing.JLabel();
-        comboHoraInicio1 = new javax.swing.JComboBox<>();
-        comboHoraFin1 = new javax.swing.JComboBox<>();
+        comboHoraInicio = new javax.swing.JComboBox<>();
+        comboHoraFin = new javax.swing.JComboBox<>();
         lbl_fechafin_vacaciones5 = new javax.swing.JLabel();
         lbl_fechafin_vacaciones6 = new javax.swing.JLabel();
 
@@ -272,7 +292,9 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         lbl_Dia.setText("Dia");
         label_fechainicio.add(lbl_Dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 200, 35));
 
+        comboDia.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         comboDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
+        comboDia.setToolTipText("");
         label_fechainicio.add(comboDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 200, 35));
 
         lbl_Cliente.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -280,11 +302,18 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         lbl_Cliente.setText("Cliente");
         label_fechainicio.add(lbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 200, 34));
 
+        comboCliente.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        comboCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboClienteItemStateChanged(evt);
+            }
+        });
         label_fechainicio.add(comboCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 35));
 
-        comboHoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-        label_fechainicio.add(comboHoraInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 100, 35));
+        comboMinutoInicio.setMaximumRowCount(11);
+        comboMinutoInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboMinutoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 100, 35));
 
         lbl_fechafin_vacaciones2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_fechafin_vacaciones2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -296,6 +325,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         lbl_Centro.setText("Centro");
         label_fechainicio.add(lbl_Centro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 200, 35));
 
+        comboCentro.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         comboCentro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         comboCentro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -304,8 +334,9 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         });
         label_fechainicio.add(comboCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 35));
 
-        comboHoraFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-        label_fechainicio.add(comboHoraFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 110, 100, 35));
+        comboMinutoFin.setMaximumRowCount(11);
+        comboMinutoFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboMinutoFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 110, 100, 35));
 
         lbl_fechafin_vacaciones1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_fechafin_vacaciones1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -346,11 +377,13 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         lbl_fechafin_vacaciones4.setText("Hora");
         label_fechainicio.add(lbl_fechafin_vacaciones4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 80, 100, 35));
 
-        comboHoraInicio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-        label_fechainicio.add(comboHoraInicio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 100, 35));
+        comboHoraInicio.setMaximumRowCount(9);
+        comboHoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboHoraInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 100, 35));
 
-        comboHoraFin1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-        label_fechainicio.add(comboHoraFin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 100, 35));
+        comboHoraFin.setMaximumRowCount(9);
+        comboHoraFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboHoraFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 100, 35));
 
         lbl_fechafin_vacaciones5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_fechafin_vacaciones5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -373,7 +406,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
 
     private void BTN_AÑADIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_AÑADIRActionPerformed
         // JOptionPane.showMessageDialog(null, "Operación realizada correctamente");
-        if (comboHoraInicio.getSelectedIndex() >= comboHoraFin.getSelectedIndex()) {
+        if (comboMinutoInicio.getSelectedIndex() >= comboMinutoFin.getSelectedIndex()) {
             JOptionPane.showMessageDialog(null, "La hora de inicio debe ser inferior a la fecha fin.");
         } else {
             //if (TablaPlanificador.getValueAt(comboHoraInicio.getSelectedIndex(), comboDia.getSelectedIndex()) != (null)) {
@@ -383,7 +416,6 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
             anadirTabla();
             //}
         }
-
     }//GEN-LAST:event_BTN_AÑADIRActionPerformed
 
     private void btn_borrarrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarrActionPerformed
@@ -392,12 +424,16 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
 
     private void comboCentroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCentroItemStateChanged
         // TODO add your handling code here:
-        String Centro = (String) comboCentro.getSelectedItem();
-        Centro ObjCentro = new Centro();
-        String ct = (String) Centro.subSequence(0, Centro.indexOf(" "));
-        //ObjCentro = utilidades.getCentroByNombre(Centro);
-        txt_direccion.setText("Dirección:" + ObjCentro.getDireccion());
+        String nombre = (String) comboCentro.getSelectedItem();
+        Centro centro = repoCentro.getByNombre(nombre);
+        txt_direccion.setText("Dirección:" + centro.getDireccion());
     }//GEN-LAST:event_comboCentroItemStateChanged
+
+    private void comboClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboClienteItemStateChanged
+        String nombre = (String) comboCliente.getSelectedItem();
+        Cliente cliente = repoCliente.getByNombre(nombre);
+        repoCentro.rellenarComboByCodigoCliente(comboCentro, cliente.getCodigo());
+    }//GEN-LAST:event_comboClienteItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -427,10 +463,8 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PlanificadorHorario2_vista().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new PlanificadorHorario2_vista().setVisible(true);
         });
     }
 
@@ -443,9 +477,9 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JComboBox<String> comboDia;
     private javax.swing.JComboBox<String> comboHoraFin;
-    private javax.swing.JComboBox<String> comboHoraFin1;
     private javax.swing.JComboBox<String> comboHoraInicio;
-    private javax.swing.JComboBox<String> comboHoraInicio1;
+    private javax.swing.JComboBox<String> comboMinutoFin;
+    private javax.swing.JComboBox<String> comboMinutoInicio;
     private javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.panel.PanelRect label_fechainicio;
     private javax.swing.JLabel lbl_Centro;

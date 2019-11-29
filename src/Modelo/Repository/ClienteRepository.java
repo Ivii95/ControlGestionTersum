@@ -39,11 +39,13 @@ public class ClienteRepository {
     private final String email = "email";
     private final String fechaAlta = "fecha_alta";
     private final String fechaBaja = "fecha_baja";
-    private final String ORDER=" ORDER BY "+nombreComercial+" ASC ";
+    private final String ORDER = " ORDER BY " + nombreComercial + " ASC ";
+
     public ClienteRepository() {
         this.clientes = new ArrayList<>();
         ejecutarConsulta(consultaClientes);
     }
+
     private void ejecutarConsulta(String consulta) {
         clientes.clear();
         Utilidades.conn = new Conexion();
@@ -82,6 +84,16 @@ public class ClienteRepository {
         Cliente o = null;
         for (int i = 0; i < clientes.size(); i++) {
             if (clientes.get(i).getId() == id) {
+                o = clientes.get(i);
+            }
+        }
+        return o;
+    }
+
+    public Cliente getByNombre(String nombre) {
+        Cliente o = null;
+        for (int i = 0; i < clientes.size(); i++) {
+            if (clientes.get(i).getNombre_comercial().equals(nombre)) {
                 o = clientes.get(i);
             }
         }

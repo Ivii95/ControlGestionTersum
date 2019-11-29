@@ -129,6 +129,16 @@ public final class CentroRepository {
         return o;
     }
 
+    public Centro getByNombre(String nombre) {
+        Centro o = null;
+        for (int i = 0; i < centros.size(); i++) {
+            if (centros.get(i).getNombre().equals(nombre)) {
+                o = centros.get(i);
+            }
+        }
+        return o;
+    }
+
     public void rellenarTabla(JTable tabla) {
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
@@ -153,8 +163,9 @@ public final class CentroRepository {
         }
         tabla.setModel(dtm);
     }
-    public void rellenarTablaCentrosByTrabajador(JTable tabla ,String codigo_trabajador){
-        String consultaEspecial=consultaCentros+" WHERE codigo=( SELECT codigo_centro FROM centrostrabajadores WHERE codigo_trabajadores = '"+codigo_trabajador+"' ) "+ORDER;
+
+    public void rellenarTablaCentrosByTrabajador(JTable tabla, String codigo_trabajador) {
+        String consultaEspecial = consultaCentros + " WHERE codigo=( SELECT codigo_centro FROM centrostrabajadores WHERE codigo_trabajadores = '" + codigo_trabajador + "' ) " + ORDER;
         ejecutarConsulta(consultaEspecial);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
@@ -164,6 +175,7 @@ public final class CentroRepository {
         }
         tabla.setModel(dtm);
     }
+
     public void rellenarCombo(JComboBox combo) {
         ejecutarConsulta(consultaCentros + " ORDER BY " + nombre);
         combo.addItem("Sin centro");
