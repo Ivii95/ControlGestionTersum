@@ -129,6 +129,41 @@ public class TrabajadorRepository {
         tabla.setModel(dtm);
     }
 
+    public void rellenarTrabajadoresNoContratados(JTable tabla, String codigoCentro) {
+        String consultaEspecial = "SELECT t.* \n" //
+                + "FROM trabajadores t \n"
+                + "WHERE t.codigo NOT IN (\n"
+                + "	SELECT ct.codigo_trabajadores \n"
+                + "    FROM centrostrabajadores ct \n"
+                + "    WHERE ct.codigo_centro='" + codigoCentro + "\n"
+                + "');";
+        ejecutarConsulta(consultaEspecial); //METODO PARA RELLENAR LA LISTA DE TRABAJADORES EN ESTE CASO
+        dtm = (DefaultTableModel) tabla.getModel();
+        columnas = new Object[dtm.getColumnCount()];
+        dtm.setRowCount(0);
+        for (int i = 0; i < trabajadores.size(); i++) {
+            dtm.addRow(addRow(trabajadores.get(i)));
+        }
+        tabla.setModel(dtm);
+    }
+    
+    public void filtrarTrabajadoresSinCentro(JTable tabla){
+        String consultaEspecial = "SELECT t.* \n" //
+                + "FROM trabajadores t \n"
+                + "WHERE t.codigo NOT IN (\n"
+                + "	SELECT ct.codigo_trabajadores \n"
+                + "    FROM centrostrabajadores ct \n"
+                + ");";
+        ejecutarConsulta(consultaEspecial); //METODO PARA RELLENAR LA LISTA DE TRABAJADORES EN ESTE CASO
+        dtm = (DefaultTableModel) tabla.getModel();
+        columnas = new Object[dtm.getColumnCount()];
+        dtm.setRowCount(0);
+        for (int i = 0; i < trabajadores.size(); i++) {
+            dtm.addRow(addRow(trabajadores.get(i)));
+        }
+        tabla.setModel(dtm);
+    }
+
     private Object[] addRow(Trabajador t) {
         columnas = new Object[4];
         columnas[0] = t.getId();
@@ -322,39 +357,41 @@ public class TrabajadorRepository {
         String nombre;
         String apellido1;
         String apellido2;
-        if (Utilidades.isInteger(cadena)) {
-            for (int i = 0; i < trabajadores.size(); i++) {
-                if (trabajadores.get(i).getCodigo().equals(cadena)) {
-                    dtm.addRow(addRow(trabajadores.get(i)));
-                }
-            }
-        }
-        if (cadena.indexOf(" ") > 0) {//SI ENTRA AQUI SIGNIFICA QUE HAY APELLIDOS EN EL BUSCADOR PERO NO SABEMOS SI TRAE LOS DOS APELLIDOS O 1
-            String[] partes = cadena.split(" ");
-            nombre = partes[0]; // nombre
-            //AQUI HAY QUE COMPROBAR CUANTAS PARTES TRAE LA CADENA PORQUE NO SABEMOS SI SOLO TRAE EL NOMBRE O TAMBIEN EL APELLIDO1 O LOS DOS APELLIDOS
-            if (partes.length > 2) {
-                apellido1 = partes[1]; // apellido 1 
-                apellido2 = partes[2];//apellido 2
+        if (!cadena.equals("")) {
+            if (Utilidades.isInteger(cadena)) {
                 for (int i = 0; i < trabajadores.size(); i++) {
-                    if (trabajadores.get(i).getNombre().contains(nombre) && trabajadores.get(i).getApellido1().contains(apellido1) && trabajadores.get(i).getApellido2().contains(apellido2)) {
-                        dtm.addRow(addRow(trabajadores.get(i)));
-                    }
-                }
-            } else if (partes.length > 1) {
-                apellido1 = partes[1]; // apellido 1 
-                for (int i = 0; i < trabajadores.size(); i++) {
-                    if (trabajadores.get(i).getNombre().contains(nombre) && trabajadores.get(i).getApellido1().contains(apellido1)) {
-                        dtm.addRow(addRow(trabajadores.get(i)));
-                    } else if (trabajadores.get(i).getApellido1().contains(nombre) && trabajadores.get(i).getApellido2().contains(apellido1)) {
+                    if (trabajadores.get(i).getCodigo().equals(cadena)) {
                         dtm.addRow(addRow(trabajadores.get(i)));
                     }
                 }
             }
-        } else {//SI NO, ES QUE NO HAY APELLIDOS EN EL BUSCADOR
-            for (int i = 0; i < trabajadores.size(); i++) {
-                if (trabajadores.get(i).getNombre().contains(cadena) || trabajadores.get(i).getApellido1().contains(cadena) || trabajadores.get(i).getApellido2().contains(cadena)) {
-                    dtm.addRow(addRow(trabajadores.get(i)));
+            if (cadena.indexOf(" ") > 0) {//SI ENTRA AQUI SIGNIFICA QUE HAY APELLIDOS EN EL BUSCADOR PERO NO SABEMOS SI TRAE LOS DOS APELLIDOS O 1
+                String[] partes = cadena.split(" ");
+                nombre = partes[0]; // nombre
+                //AQUI HAY QUE COMPROBAR CUANTAS PARTES TRAE LA CADENA PORQUE NO SABEMOS SI SOLO TRAE EL NOMBRE O TAMBIEN EL APELLIDO1 O LOS DOS APELLIDOS
+                if (partes.length > 2) {
+                    apellido1 = partes[1]; // apellido 1 
+                    apellido2 = partes[2];//apellido 2
+                    for (int i = 0; i < trabajadores.size(); i++) {
+                        if (trabajadores.get(i).getNombre().contains(nombre) && trabajadores.get(i).getApellido1().contains(apellido1) && trabajadores.get(i).getApellido2().contains(apellido2)) {
+                            dtm.addRow(addRow(trabajadores.get(i)));
+                        }
+                    }
+                } else if (partes.length > 1) {
+                    apellido1 = partes[1]; // apellido 1 
+                    for (int i = 0; i < trabajadores.size(); i++) {
+                        if (trabajadores.get(i).getNombre().contains(nombre) && trabajadores.get(i).getApellido1().contains(apellido1)) {
+                            dtm.addRow(addRow(trabajadores.get(i)));
+                        } else if (trabajadores.get(i).getApellido1().contains(nombre) && trabajadores.get(i).getApellido2().contains(apellido1)) {
+                            dtm.addRow(addRow(trabajadores.get(i)));
+                        }
+                    }
+                }
+            } else {//SI NO, ES QUE NO HAY APELLIDOS EN EL BUSCADOR
+                for (int i = 0; i < trabajadores.size(); i++) {
+                    if (trabajadores.get(i).getNombre().contains(cadena) || trabajadores.get(i).getApellido1().contains(cadena) || trabajadores.get(i).getApellido2().contains(cadena)) {
+                        dtm.addRow(addRow(trabajadores.get(i)));
+                    }
                 }
             }
         }

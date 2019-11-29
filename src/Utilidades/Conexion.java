@@ -19,7 +19,7 @@ public class Conexion {
     Connection conn;
     String urlbase;
     String url;
-    String ipPrueba = "localhost";
+    String ipPrueba = "192.168.0.216";
     String ip = "192.168.0.10:3306";
     String user = "root";
     String password = "Gesinformatica2019*";
