@@ -219,7 +219,6 @@ public class TrabajadorRepository {
             }
         }
         return datos;
-
     }
 
     /**

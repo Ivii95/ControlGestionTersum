@@ -30,7 +30,7 @@ public final class IncidenciaRepository {
     private final String consultaIncidencia = consultaPrincipal + TABLA;
     private final String id = "id";
     private final String cod = "codigo";
-    private final String codTrabajador = "codigo_trabajador_faltas";
+    private final String codTrabajador = "codigo_trabajador_incidencia";
     private final String fechaInicio = "fecha_inicio";
     private final String fechaFin = "fecha_fin";
     private final String descripcion = "descripcion";
@@ -39,7 +39,7 @@ public final class IncidenciaRepository {
 
     public IncidenciaRepository() {
         this.incidencias = new ArrayList<>();
-        ejecutarConsulta(consultaIncidencia);
+        //ejecutarConsulta(consultaIncidencia);
     }
 
     /**
@@ -115,7 +115,7 @@ public final class IncidenciaRepository {
     }
 
     public void rellenarTablaByTrabajador(JTable tabla, String codigo) {
-        ejecutarConsulta(consultaIncidencia + "WHERE " + codTrabajador + " = '" + codigo+"'"+ORDER);
+        ejecutarConsulta(consultaIncidencia + " WHERE " + codTrabajador + " = '" + codigo+"'"+ORDER);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -126,11 +126,11 @@ public final class IncidenciaRepository {
     }
 
     private Object[] addRow(Incidencia o) {
-        columnas = new Object[3];
+        columnas = new Object[4];
         columnas[0] = o.getId();
         columnas[1] = o.getCodigo();
         columnas[2] = o.getFecha_inicio();
-        columnas[3] = o.getFecha_fin();
+        columnas[3] = o.getExtras();
         return columnas;
     }
 

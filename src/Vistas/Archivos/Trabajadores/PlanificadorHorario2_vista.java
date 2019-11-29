@@ -27,8 +27,17 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
 
     Utilidades utilidades = new Utilidades();
     Trabajador trabajadorHorario;
+    Centro centroHorario;
 
     public PlanificadorHorario2_vista(Trabajador trabajador) {
+        trabajadorHorario = trabajador;
+        initComponents();
+        iniciarOtrosComponentes();
+        lbl_titulo.setText(lbl_titulo.getText() + " " + trabajadorHorario.getNombre() + " " + trabajadorHorario.getApellido1() + " " + trabajadorHorario.getApellido2());
+    }
+
+    public PlanificadorHorario2_vista(Trabajador trabajador, Centro centro) {
+        centroHorario = centro;
         trabajadorHorario = trabajador;
         initComponents();
         iniciarOtrosComponentes();
@@ -64,7 +73,9 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
             Logger.getLogger(Principal_vista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    private void iniciarCombo(){
+        
+    }
     private void iniciarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) TablaPlanificador.getModel();
         for (int i = 0; i < 25; i++) {
@@ -83,7 +94,6 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
             }
         }
         TablaPlanificador.setModel(modelo);
-
     }
 
     /**
@@ -161,26 +171,36 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaPlanificador = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        comboHoraInicio = new javax.swing.JComboBox<>();
-        lbl_fechafin_vacaciones1 = new javax.swing.JLabel();
-        lbl_fechafin_vacaciones2 = new javax.swing.JLabel();
-        comboHoraFin = new javax.swing.JComboBox<>();
+        panelRect1 = new org.edisoncor.gui.panel.PanelRect();
+        panelCurves1 = new org.edisoncor.gui.panel.PanelCurves();
+        lbl_titulo = new javax.swing.JLabel();
+        label_fechainicio = new org.edisoncor.gui.panel.PanelRect();
         lbl_Dia = new javax.swing.JLabel();
         comboDia = new javax.swing.JComboBox<>();
-        comboCliente = new javax.swing.JComboBox<>();
         lbl_Cliente = new javax.swing.JLabel();
-        comboCentro = new javax.swing.JComboBox<>();
+        comboCliente = new javax.swing.JComboBox<>();
+        comboHoraInicio = new javax.swing.JComboBox<>();
+        lbl_fechafin_vacaciones2 = new javax.swing.JLabel();
         lbl_Centro = new javax.swing.JLabel();
-        BTN_AÑADIR = new javax.swing.JToggleButton();
-        btn_borrarr = new javax.swing.JButton();
+        comboCentro = new javax.swing.JComboBox<>();
+        comboHoraFin = new javax.swing.JComboBox<>();
+        lbl_fechafin_vacaciones1 = new javax.swing.JLabel();
         txt_direccion = new javax.swing.JLabel();
-        lbl_titulo = new javax.swing.JLabel();
+        btn_borrarr = new javax.swing.JButton();
+        BTN_AÑADIR = new javax.swing.JToggleButton();
+        lbl_fechafin_vacaciones3 = new javax.swing.JLabel();
+        lbl_fechafin_vacaciones4 = new javax.swing.JLabel();
+        comboHoraInicio1 = new javax.swing.JComboBox<>();
+        comboHoraFin1 = new javax.swing.JComboBox<>();
+        lbl_fechafin_vacaciones5 = new javax.swing.JLabel();
+        lbl_fechafin_vacaciones6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Horarios"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1360, 762));
         setResizable(false);
         setSize(new java.awt.Dimension(1360, 762));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TablaPlanificador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -222,29 +242,59 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
             TablaPlanificador.getColumnModel().getColumn(7).setResizable(false);
         }
 
-        comboHoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 1330, 470));
 
-        lbl_fechafin_vacaciones1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_fechafin_vacaciones1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_fechafin_vacaciones1.setText("Hora de fin");
+        panelRect1.setColorPrimario(new java.awt.Color(102, 102, 102));
+        panelRect1.setColorSecundario(new java.awt.Color(204, 204, 204));
+        panelRect1.setMaximumSize(new java.awt.Dimension(1370, 768));
+        panelRect1.setMinimumSize(new java.awt.Dimension(1370, 768));
+        panelRect1.setPreferredSize(new java.awt.Dimension(1370, 768));
+        panelRect1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_fechafin_vacaciones2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_fechafin_vacaciones2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_fechafin_vacaciones2.setText("Hora de inicio");
+        panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
+        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
+        panelCurves1.setOpaque(true);
+        panelCurves1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        comboHoraFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        lbl_titulo.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_titulo.setText("TRABAJADOR :");
+        panelCurves1.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1320, 24));
+
+        label_fechainicio.setColorDeSegundoBorde(new java.awt.Color(102, 102, 102));
+        label_fechainicio.setColorPrimario(new java.awt.Color(153, 153, 153));
+        label_fechainicio.setColorSecundario(new java.awt.Color(102, 102, 102));
+        label_fechainicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_Dia.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_Dia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_Dia.setText("Dia");
+        label_fechainicio.add(lbl_Dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 200, 35));
 
         comboDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
-
-        comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 200, 35));
 
         lbl_Cliente.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_Cliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_Cliente.setText("Cliente");
+        label_fechainicio.add(lbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 200, 34));
+
+        comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 35));
+
+        comboHoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboHoraInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 100, 35));
+
+        lbl_fechafin_vacaciones2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_fechafin_vacaciones2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_fechafin_vacaciones2.setText("Minutos");
+        label_fechainicio.add(lbl_fechafin_vacaciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 80, 100, 35));
+
+        lbl_Centro.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_Centro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_Centro.setText("Centro");
+        label_fechainicio.add(lbl_Centro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 200, 35));
 
         comboCentro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         comboCentro.addItemListener(new java.awt.event.ItemListener() {
@@ -252,19 +302,19 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
                 comboCentroItemStateChanged(evt);
             }
         });
+        label_fechainicio.add(comboCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 35));
 
-        lbl_Centro.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_Centro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_Centro.setText("Centro");
+        comboHoraFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboHoraFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 110, 100, 35));
 
-        BTN_AÑADIR.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        BTN_AÑADIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/añadir.png"))); // NOI18N
-        BTN_AÑADIR.setText("Añadir");
-        BTN_AÑADIR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BTN_AÑADIRActionPerformed(evt);
-            }
-        });
+        lbl_fechafin_vacaciones1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_fechafin_vacaciones1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_fechafin_vacaciones1.setText("Hora de fin");
+        label_fechainicio.add(lbl_fechafin_vacaciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 40, 200, 35));
+
+        txt_direccion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        txt_direccion.setText("Direccion");
+        label_fechainicio.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 400, 35));
 
         btn_borrarr.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         btn_borrarr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/borrar.png"))); // NOI18N
@@ -274,104 +324,49 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
                 btn_borrarrActionPerformed(evt);
             }
         });
+        label_fechainicio.add(btn_borrarr, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 110, 200, 35));
 
-        txt_direccion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt_direccion.setText("Direccion");
+        BTN_AÑADIR.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        BTN_AÑADIR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/añadir.png"))); // NOI18N
+        BTN_AÑADIR.setText("Añadir");
+        BTN_AÑADIR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_AÑADIRActionPerformed(evt);
+            }
+        });
+        label_fechainicio.add(BTN_AÑADIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 50, 200, 35));
 
-        lbl_titulo.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        lbl_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_titulo.setText("TRABAJADOR :");
+        lbl_fechafin_vacaciones3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_fechafin_vacaciones3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_fechafin_vacaciones3.setText("Hora de inicio");
+        label_fechainicio.add(lbl_fechafin_vacaciones3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, 200, 35));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(100, 100, 100)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(6, 6, 6)
-                                                .addComponent(lbl_Dia, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(comboDia, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbl_fechafin_vacaciones2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(comboCliente, 0, 200, Short.MAX_VALUE)
-                                            .addComponent(lbl_Cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(comboCentro, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbl_Centro, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_fechafin_vacaciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(comboHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(118, 118, 118)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(BTN_AÑADIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btn_borrarr, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(txt_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 94, Short.MAX_VALUE))
-                    .addComponent(lbl_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addComponent(jScrollPane1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lbl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbl_fechafin_vacaciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)
-                                .addComponent(BTN_AÑADIR, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_borrarr, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbl_Dia, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_fechafin_vacaciones2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(comboDia, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(comboCentro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txt_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(lbl_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbl_Centro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(1, 1, 1)))))
-                        .addGap(49, 49, 49))))
-        );
+        lbl_fechafin_vacaciones4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_fechafin_vacaciones4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_fechafin_vacaciones4.setText("Hora");
+        label_fechainicio.add(lbl_fechafin_vacaciones4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 80, 100, 35));
+
+        comboHoraInicio1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboHoraInicio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 100, 35));
+
+        comboHoraFin1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        label_fechainicio.add(comboHoraFin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 100, 35));
+
+        lbl_fechafin_vacaciones5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_fechafin_vacaciones5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_fechafin_vacaciones5.setText("Minutos");
+        label_fechainicio.add(lbl_fechafin_vacaciones5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, 100, 35));
+
+        lbl_fechafin_vacaciones6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_fechafin_vacaciones6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_fechafin_vacaciones6.setText("Hora");
+        label_fechainicio.add(lbl_fechafin_vacaciones6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 100, 35));
+
+        panelCurves1.add(label_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 1310, 200));
+
+        panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1370, 760));
+
+        getContentPane().add(panelRect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, -10, 1380, 780));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -448,15 +443,23 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JComboBox<String> comboDia;
     private javax.swing.JComboBox<String> comboHoraFin;
+    private javax.swing.JComboBox<String> comboHoraFin1;
     private javax.swing.JComboBox<String> comboHoraInicio;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> comboHoraInicio1;
     private javax.swing.JScrollPane jScrollPane1;
+    private org.edisoncor.gui.panel.PanelRect label_fechainicio;
     private javax.swing.JLabel lbl_Centro;
     private javax.swing.JLabel lbl_Cliente;
     private javax.swing.JLabel lbl_Dia;
     private javax.swing.JLabel lbl_fechafin_vacaciones1;
     private javax.swing.JLabel lbl_fechafin_vacaciones2;
+    private javax.swing.JLabel lbl_fechafin_vacaciones3;
+    private javax.swing.JLabel lbl_fechafin_vacaciones4;
+    private javax.swing.JLabel lbl_fechafin_vacaciones5;
+    private javax.swing.JLabel lbl_fechafin_vacaciones6;
     private javax.swing.JLabel lbl_titulo;
+    private org.edisoncor.gui.panel.PanelCurves panelCurves1;
+    private org.edisoncor.gui.panel.PanelRect panelRect1;
     private javax.swing.JLabel txt_direccion;
     // End of variables declaration//GEN-END:variables
 

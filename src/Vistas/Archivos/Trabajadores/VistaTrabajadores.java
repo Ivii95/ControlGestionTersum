@@ -334,7 +334,6 @@ public class VistaTrabajadores extends javax.swing.JFrame {
             isAlreadyOneClick = true;
             Timer t = new Timer("doubleclickTimer", false);
             t.schedule(new TimerTask() {
-
                 @Override
                 public void run() {
                     isAlreadyOneClick = false;

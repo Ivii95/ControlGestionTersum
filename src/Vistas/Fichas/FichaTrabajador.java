@@ -7,7 +7,9 @@ package Vistas.Fichas;
 
 import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
+import Vistas.Listado.ListadoCentrosDialogo;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,11 +19,15 @@ public class FichaTrabajador extends javax.swing.JDialog {
 
     private Utilidades utilidades = new Utilidades();
     private Trabajador trabajador;
-    private java.awt.Frame princi;
+    public java.awt.Frame princi;
 
     /**
      * Creates new form FichaTrabajador
+     * @param parent
+     * @param modal
+     * @param trabajador
      */
+
     public FichaTrabajador(java.awt.Frame parent, boolean modal, Trabajador trabajador) {
         super(parent, modal);
         this.princi = parent;
@@ -593,6 +599,11 @@ public class FichaTrabajador extends javax.swing.JDialog {
     private void buttonIcon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIcon1ActionPerformed
         //FichaCentros centro = new FichaCentros(princi, true, trabajador.getCentro());
         //centro.setVisible(true);
+        ListadoCentrosDialogo lc=new ListadoCentrosDialogo(princi,true,trabajador);
+        this.setVisible(false);
+        lc.setVisible(true);
+        //String centros = null;
+        //JOptionPane.showMessageDialog(parent,centros);
     }//GEN-LAST:event_buttonIcon1ActionPerformed
 
     /**
@@ -623,17 +634,15 @@ public class FichaTrabajador extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FichaTrabajador dialog = new FichaTrabajador(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            FichaTrabajador dialog = new FichaTrabajador(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
