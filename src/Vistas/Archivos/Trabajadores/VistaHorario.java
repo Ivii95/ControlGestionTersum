@@ -7,13 +7,17 @@ package Vistas.Archivos.Trabajadores;
 
 import Modelo.Entidades.Centro;
 import Modelo.Entidades.Cliente;
+import Modelo.Entidades.Horario;
 import Modelo.Entidades.Trabajador;
 import Modelo.Repository.CentroRepository;
 import Modelo.Repository.ClienteRepository;
+import Modelo.Repository.HorarioRepository;
 import Utilidades.DTable;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Principal.Principal_vista;
+import java.awt.HeadlessException;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.help.HelpBroker;
@@ -26,15 +30,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author dwigh
  */
-public class PlanificadorHorario2_vista extends javax.swing.JFrame {
+public class VistaHorario extends javax.swing.JFrame {
 
+    HorarioRepository repoHorario;
     ClienteRepository repoCliente;
     CentroRepository repoCentro;
     Utilidades utilidades = new Utilidades();
     Trabajador trabajadorHorario;
     Centro centroHorario;
 
-    public PlanificadorHorario2_vista(Trabajador trabajador) {
+    public VistaHorario(Trabajador trabajador) {
         trabajadorHorario = trabajador;
         repoCentro = new CentroRepository();
         repoCliente = new ClienteRepository();
@@ -43,7 +48,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         lbl_titulo.setText(lbl_titulo.getText() + " " + trabajadorHorario.getNombre() + " " + trabajadorHorario.getApellido1() + " " + trabajadorHorario.getApellido2());
     }
 
-    public PlanificadorHorario2_vista(Trabajador trabajador, Centro centro) {
+    public VistaHorario(Trabajador trabajador, Centro centro) {
         centroHorario = centro;
         trabajadorHorario = trabajador;
         initComponents();
@@ -51,12 +56,13 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         lbl_titulo.setText(lbl_titulo.getText() + " " + trabajadorHorario.getNombre() + " " + trabajadorHorario.getApellido1() + " " + trabajadorHorario.getApellido2());
     }
 
-    public PlanificadorHorario2_vista() {
+    public VistaHorario() {
         initComponents();
         iniciarOtrosComponentes();
     }
 
     private void iniciarOtrosComponentes() {
+        repoHorario = new HorarioRepository();
         UtilidadesPantalla.resolucionPantalla(this);
         iniciarTabla();
         rellenarCombobox();
@@ -76,7 +82,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
 
     private void iniciarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) TablaPlanificador.getModel();
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 24; i++) {
             if (i <= 9) {
                 modelo.addRow(new Object[]{"0" + i + ":00", "", "", "", "", "", "", ""});
             } else {
@@ -95,43 +101,16 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
     }
 
     /**
-     * Creates new form PlanificadorHorario2_vista
+     * Creates new form VistaHorario
      */
     //  public static ArrayList<Centro> lista_de_centros = new ArrayList<Centro>();
     private void anadirTabla() {
-        int IndiceHoraInicio = comboMinutoInicio.getSelectedIndex();
-        int IndiceHoraFinal = comboMinutoFin.getSelectedIndex();
+        int IndiceHoraInicio = comboHoraInicio.getSelectedIndex();
+        int IndiceHoraFinal = comboHoraFin.getSelectedIndex();
         int diaIndex = comboDia.getSelectedIndex() + 1;
         for (int i = IndiceHoraInicio; i <= IndiceHoraFinal; i++) {
             TablaPlanificador.setValueAt(comboCentro.getSelectedItem(), i, diaIndex);
         }
-    }
-
-    private void anadirTablaBBDD() {
-        /*String CadenaHoraInicio = (String) comboHoraInicio.getSelectedItem();
-        String CadenaHoraFin = (String) comboHoraFin.getSelectedItem();
-
-        int horaInicio = comboHoraInicio.getSelectedIndex(), horaFinal = comboHoraFin.getSelectedIndex(), diaindex = comboDia.getSelectedIndex();
-        String Cliente = (String) comboCliente.getSelectedItem();
-        String Centro = (String) comboCentro.getSelectedItem();
-        Cliente cliente = utilidades.getClienteByNombre(Cliente);
-        Centro centro = utilidades.getCentroByNombre(Cliente);
-        Historial horas = new Historial(
-                trabajadorHorario.getId(),
-                (String) comboDia.getSelectedItem(),
-                CadenaHoraInicio,
-                CadenaHoraFin,
-                cliente.getCif(),
-                centro.getCodigo(),
-                horaInicio + 1,
-                diaindex + 1,
-                horaFinal - horaInicio
-        );
-        try {
-            utilidades.addBbdd("horastrabajadas", horas);
-        } catch (SQLException ex) {
-            Logger.getLogger(PlanificadorHorario2_vista.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }
 
     public void rellenarCombobox() {
@@ -162,29 +141,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
             }
         }
         repoCliente.rellenarCombo(comboCliente);
-        repoCentro.rellenarCombo(comboCentro);
-        //repoCentro
-        //Acceso a las listas.
-//        utilidades.lista_de_centros.clear();
-//        utilidades.lista_de_clientes.clear();
-//        utilidades.rellenarLista("centros", "");
-//        utilidades.rellenarLista("clientes", "");
-//        for (Centro i : utilidades.lista_de_centros) {
-//            comboCentro.addItem(i.getNombre());
-//        }
-//        for (Cliente i : utilidades.lista_de_clientes) {
-//            comboCliente.addItem(i.getNombre_comercial());
-//        }
     }
-
-    /*private void restablecerTodo() {
-        comboCentro.setSelectedIndex(0);
-        comboCliente.setSelectedIndex(0);
-        comboColor.setSelectedIndex(0);
-        comboDia.setSelectedIndex(0);
-        comboHoraFin.setSelectedIndex(0);
-        comboHoraInicio.setSelectedIndex(0);
-    }*/
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -217,7 +174,6 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Horarios"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1360, 762));
         setResizable(false);
         setSize(new java.awt.Dimension(1360, 762));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -290,17 +246,17 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         lbl_Dia.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_Dia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_Dia.setText("Dia");
-        label_fechainicio.add(lbl_Dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 200, 35));
+        label_fechainicio.add(lbl_Dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 200, 35));
 
         comboDia.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         comboDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
         comboDia.setToolTipText("");
-        label_fechainicio.add(comboDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 200, 35));
+        label_fechainicio.add(comboDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 35));
 
         lbl_Cliente.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_Cliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_Cliente.setText("Cliente");
-        label_fechainicio.add(lbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 200, 34));
+        label_fechainicio.add(lbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 280, 34));
 
         comboCliente.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
@@ -309,7 +265,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
                 comboClienteItemStateChanged(evt);
             }
         });
-        label_fechainicio.add(comboCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 35));
+        label_fechainicio.add(comboCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 280, 35));
 
         comboMinutoInicio.setMaximumRowCount(11);
         comboMinutoInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
@@ -345,7 +301,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
 
         txt_direccion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_direccion.setText("Direccion");
-        label_fechainicio.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 400, 35));
+        label_fechainicio.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 400, 35));
 
         btn_borrarr.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         btn_borrarr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/borrar.png"))); // NOI18N
@@ -395,7 +351,7 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
         lbl_fechafin_vacaciones6.setText("Hora");
         label_fechainicio.add(lbl_fechafin_vacaciones6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 100, 35));
 
-        panelCurves1.add(label_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 1310, 200));
+        panelCurves1.add(label_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 1310, 210));
 
         panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1370, 760));
 
@@ -405,34 +361,66 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BTN_AÑADIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_AÑADIRActionPerformed
-        // JOptionPane.showMessageDialog(null, "Operación realizada correctamente");
-        if (comboMinutoInicio.getSelectedIndex() >= comboMinutoFin.getSelectedIndex()) {
-            JOptionPane.showMessageDialog(null, "La hora de inicio debe ser inferior a la fecha fin.");
-        } else {
-            //if (TablaPlanificador.getValueAt(comboHoraInicio.getSelectedIndex(), comboDia.getSelectedIndex()) != (null)) {
-            //    JOptionPane.showMessageDialog(this, "No puedes añadir una hora que ya esta añadida", "ERROR", HEIGHT);
-            //} else {
-            anadirTablaBBDD();
-            anadirTabla();
-            //}
+        try {
+            LocalTime inicio = LocalTime.of(Integer.parseInt((String) comboHoraInicio.getSelectedItem()), Integer.parseInt((String) comboMinutoInicio.getSelectedItem()));
+            LocalTime fin = LocalTime.of(Integer.parseInt((String) comboHoraFin.getSelectedItem()), Integer.parseInt((String) comboMinutoFin.getSelectedItem()));
+
+            int indiceCentro = comboCentro.getSelectedIndex();
+            if (indiceCentro != 0) {
+                if (inicio.isBefore(fin)) {
+                    Horario horario = new Horario();
+                    Centro centro = repoCentro.getByNombre((String) comboCentro.getSelectedItem());
+                    horario.setDiaSemana((String) comboDia.getSelectedItem());
+                    //horario.setId_CentroTrabajadores(centro.getCodigo());
+                    horario.setHora_inicio(inicio);
+                    horario.setHora_fin(fin);
+                    int horasT = fin.getHour() - inicio.getHour();
+                    int minT = (60 - fin.getMinute()) + inicio.getMinute();
+                    if (minT >= 60) {
+                        minT = minT - 60;
+                        horasT++;
+                    }
+                    if (inicio.getMinute() > fin.getMinute()) {
+                        horasT--;
+                    }
+                    horario.setHoras_totales(Float.parseFloat(horasT + "." + minT));
+                    repoHorario.insert(horario);
+                    anadirTabla();
+                } else {
+                    JOptionPane.showMessageDialog(this, "La hora de inicio debe ser inferior a la fecha fin.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Debes seleccionar un centro.");
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado\n" + e.getMessage());
         }
     }//GEN-LAST:event_BTN_AÑADIRActionPerformed
 
     private void btn_borrarrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarrActionPerformed
-        utilidades.borrarColumnaHorario(TablaPlanificador, trabajadorHorario.getId(), (String) comboDia.getSelectedItem());
+        try {
+            repoHorario.borrarColumnaHorario(TablaPlanificador, trabajadorHorario.getId(), (String) comboDia.getSelectedItem());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado\n" + e.getMessage());
+        }
     }//GEN-LAST:event_btn_borrarrActionPerformed
 
     private void comboCentroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCentroItemStateChanged
         // TODO add your handling code here:
         String nombre = (String) comboCentro.getSelectedItem();
         Centro centro = repoCentro.getByNombre(nombre);
-        txt_direccion.setText("Dirección:" + centro.getDireccion());
+        if (centro != null) {
+            txt_direccion.setText("Dirección: " + centro.getDireccion());
+        }
     }//GEN-LAST:event_comboCentroItemStateChanged
 
     private void comboClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboClienteItemStateChanged
         String nombre = (String) comboCliente.getSelectedItem();
         Cliente cliente = repoCliente.getByNombre(nombre);
-        repoCentro.rellenarComboByCodigoCliente(comboCentro, cliente.getCodigo());
+        if (cliente != null) {
+            comboCentro.removeAllItems();
+            repoCentro.rellenarComboByCodigoCliente(comboCentro, cliente.getCodigo());
+        }
     }//GEN-LAST:event_comboClienteItemStateChanged
 
     /**
@@ -452,22 +440,24 @@ public class PlanificadorHorario2_vista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PlanificadorHorario2_vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaHorario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PlanificadorHorario2_vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaHorario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PlanificadorHorario2_vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaHorario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PlanificadorHorario2_vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaHorario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new PlanificadorHorario2_vista().setVisible(true);
+            new VistaHorario().setVisible(true);
         });
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BTN_AÑADIR;

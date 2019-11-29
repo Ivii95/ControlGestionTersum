@@ -359,7 +359,7 @@ public class VistaTrabajadores extends javax.swing.JFrame {
         if (tabla_trabajadores.getSelectedRow() != -1) {
             trabajador = repoTrabajador.getById(UtilidadesPantalla.getIdSelected(tabla_trabajadores));//Cogemos el trabajador seleccionado.
             if (trabajador != null) {
-                PlanificadorHorario2_vista vista_planificadorHorario = new PlanificadorHorario2_vista(trabajador);
+                VistaHorario vista_planificadorHorario = new VistaHorario(trabajador);
                 vista_planificadorHorario.setVisible(true);
             }
         } else {

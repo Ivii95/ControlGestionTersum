@@ -7,7 +7,7 @@ package Utilidades;
 
 import Modelo.Entidades.Contrato;
 import Modelo.Entidades.Falta;
-import Modelo.Entidades.Historial;
+import Modelo.Entidades.Horario;
 import Modelo.Entidades.Incidencia;
 import Modelo.Entidades.Nominas;
 import Modelo.Entidades.Permiso;
@@ -57,7 +57,7 @@ public class Utilidades {
     public static ArrayList<Incidencia> lista_de_incidencias = new ArrayList<Incidencia>();
     public static ArrayList<Falta> lista_de_faltas = new ArrayList<Falta>();
     public static ArrayList<Nominas> lista_de_nominas = new ArrayList<Nominas>();
-    public static ArrayList<Historial> lista_de_horas_trabajadas = new ArrayList<Historial>();
+    public static ArrayList<Horario> lista_de_horas_trabajadas = new ArrayList<Horario>();
     public static Usuario usuario = null;
     public static String empresa;
 
@@ -416,7 +416,7 @@ public class Utilidades {
                     break;
 
                 case "horastrabajadas":
-                /*Historial horastrabajadas = (Historial) o;
+                /*Horario horastrabajadas = (Horario) o;
                     insert = "INSERT INTO horastrabajadas (id, codigo_trabajador, dia, hora_inicio, hora_fin, codigo_cliente, codigo_centro, fila, columna, horas_totales) "
                             + "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     ps = conexion.prepareStatement(insert);
@@ -885,7 +885,7 @@ public class Utilidades {
 
                     while (rs.next()) {
 
-                        Historial horastrabajadas = new Historial();
+                        Horario horastrabajadas = new Horario();
                         horastrabajadas.setId(rs.getInt("id"));
                         horastrabajadas.setCodigo_trabajador(rs.getInt("codigo_trabajador"));
                         horastrabajadas.setDia(rs.getString("dia"));
@@ -1430,28 +1430,7 @@ public class Utilidades {
             }
         }
     }*/
-    public void borrarColumnaHorario(JTable tabla, int codigo_trabajador, String dia) {
-        try {
-            String consulta = "DELETE FROM horastrabajadas WHERE codigo_trabajador=" + codigo_trabajador + " && dia=" + "'" + dia + "'";
-            DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
-            for (int i = 0; i < dtm.getColumnCount(); i++) {
-                if (tabla.getColumnName(i).equals(dia)) {
-                    for (int j = 0; j < dtm.getRowCount(); j++) {
-                        tabla.setValueAt(null, j, i);//Aqui borramos las horas correspondientes
-                    }
-                }
-            }
-            conn = new Conexion();
-            Connection conexion = conn.conectar_empresa_concreta(this.empresa);
-            Statement stmt = conexion.prepareStatement(consulta);
-            int x = stmt.executeUpdate(consulta);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Utilidades.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+    
 
     public static boolean isInteger(String numero) {
         try {

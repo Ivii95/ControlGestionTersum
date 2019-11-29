@@ -11,7 +11,7 @@ import java.time.LocalTime;
  *
  * @author DisenoWeb
  */
-public class Historial {
+public class Horario {
 
     int id;
     int id_CentroTrabajadores;
@@ -19,10 +19,10 @@ public class Historial {
     LocalTime hora_inicio, hora_fin;
     float horas_totales;
 
-    public Historial() {
+    public Horario() {
     }
 
-    public Historial(int id_CentroTrabajadores, String diaSemana, LocalTime hora_inicio, LocalTime hora_fin, float horas_totales) {
+    public Horario(int id_CentroTrabajadores, String diaSemana, LocalTime hora_inicio, LocalTime hora_fin, float horas_totales) {
         this.id_CentroTrabajadores = id_CentroTrabajadores;
         this.diaSemana = diaSemana;
         this.hora_inicio = hora_inicio;
@@ -30,7 +30,7 @@ public class Historial {
         this.horas_totales = horas_totales;
     }
 
-    public Historial(int id, int id_CentroTrabajadores, String diaSemana, LocalTime hora_inicio, LocalTime hora_fin, float horas_totales) {
+    public Horario(int id, int id_CentroTrabajadores, String diaSemana, LocalTime hora_inicio, LocalTime hora_fin, float horas_totales) {
         this.id = id;
         this.id_CentroTrabajadores = id_CentroTrabajadores;
         this.diaSemana = diaSemana;
