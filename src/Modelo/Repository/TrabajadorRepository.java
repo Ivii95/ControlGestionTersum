@@ -146,8 +146,8 @@ public class TrabajadorRepository {
         }
         tabla.setModel(dtm);
     }
-    
-    public void filtrarTrabajadoresSinCentro(JTable tabla){
+
+    public void filtrarTrabajadoresSinCentro(JTable tabla) {
         String consultaEspecial = "SELECT t.* \n" //
                 + "FROM trabajadores t \n"
                 + "WHERE t.codigo NOT IN (\n"

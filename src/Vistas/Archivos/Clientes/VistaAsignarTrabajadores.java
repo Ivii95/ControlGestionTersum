@@ -80,7 +80,10 @@ public final class VistaAsignarTrabajadores extends javax.swing.JFrame {
         btn_buscar = new org.edisoncor.gui.button.ButtonIcon();
         btnTrabajadores = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1360, 762));
+        setPreferredSize(new java.awt.Dimension(1360, 762));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelRect1.setColorPrimario(new java.awt.Color(102, 102, 102));

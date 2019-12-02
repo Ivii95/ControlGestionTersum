@@ -10,7 +10,6 @@ import static Modelo.Repository.UtilidadesRepository.*;
 import Utilidades.Conexion;
 import static Utilidades.Utilidades.conn;
 import static Utilidades.Utilidades.empresa;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class HorarioRepository {
     private final String diaSemana = "dia_semana";
     private final String horaInicio = "hora_inicio";
     private final String horaFin = "hora_fin";
-    private final String horasTotales = "poblacion";
+    private final String horasTotales = "horas_totales";
 
     public HorarioRepository() {
         horarios = new ArrayList<>();
@@ -78,7 +77,7 @@ public class HorarioRepository {
                     + horaInicio + ", "
                     + horaFin + ", "
                     + horasTotales + " "
-                    + ") VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + ") VALUES (NULL, ?, ?, ?, ?, ?)";
             ps = conexion.prepareStatement(insert);
             ps.setInt(1, horario.getId_CentroTrabajadores());
             ps.setString(2, horario.getDiaSemana());
