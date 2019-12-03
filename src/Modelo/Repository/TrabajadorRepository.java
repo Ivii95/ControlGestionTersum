@@ -5,6 +5,7 @@
  */
 package Modelo.Repository;
 
+import Modelo.Entidades.Centro;
 import static Modelo.Repository.UtilidadesRepository.*;
 import Modelo.Entidades.Trabajador;
 import Utilidades.Conexion;
@@ -24,21 +25,33 @@ import javax.swing.table.DefaultTableModel;
 public class TrabajadorRepository {
 
     private final String nombreClase = TrabajadorRepository.class.getName();
-    private static ArrayList<Trabajador> trabajadores;
+    private final ArrayList<Trabajador> trabajadores;
     private final String TABLA = "trabajadores";
-    private final String consultaTrabajadores = consultaPrincipal + TABLA + " ORDER BY apellido1 ";
+    private final String consultaTrabajadores = consultaPrincipal + TABLA;
 
-    private final String ORDER = " ORDER BY apellido1 ASC ";
+    private final String ORDER = " ORDER BY apellido1 ";
 
     public TrabajadorRepository() {
-        TrabajadorRepository.trabajadores = new ArrayList<>();
-        ejecutarConsulta(consultaTrabajadores);
+        trabajadores = new ArrayList<>();
+    }
+
+    public void insertFromLista(Trabajador trabajador) {
+        trabajadores.add(trabajador);
+    }
+
+    public void deleteFromLista(Trabajador trabajador) {
+        trabajadores.remove(trabajador);
     }
 
     public ArrayList<Trabajador> getTrabajadores() {
         return trabajadores;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Trabajador getById(int id) {
         Trabajador t = null;
         for (int i = 0; i < trabajadores.size(); i++) {
@@ -49,6 +62,26 @@ public class TrabajadorRepository {
         return t;
     }
 
+    /**
+     *
+     * @param codigo
+     * @return
+     */
+    public Trabajador getByCodigo(String codigo) {
+        Trabajador t = null;
+        for (int i = 0; i < trabajadores.size(); i++) {
+            if (trabajadores.get(i).getCodigo().equals(codigo)) {
+                t = trabajadores.get(i);
+            }
+        }
+        return t;
+    }
+
+    /**
+     *
+     * @param nombre
+     * @return
+     */
     public Trabajador getByNombre(String nombre) {
         Trabajador t = null;
         for (int i = 0; i < trabajadores.size(); i++) {
@@ -66,6 +99,10 @@ public class TrabajadorRepository {
             }
         }
         return false;
+    }
+
+    public void rellenarListaDefault() {
+        ejecutarConsulta(consultaTrabajadores + ORDER);
     }
 
     /**
@@ -109,15 +146,15 @@ public class TrabajadorRepository {
     /**
      *
      * @param tabla
-     * @param codigoCentro
+     * @param centro
      */
-    public void rellenarTablaPorCodigoCentro(JTable tabla, String codigoCentro) {
+    public void rellenarTablaPorCodigoCentro(JTable tabla, Centro centro) {
         String consultaEspecial = "SELECT t.* \n"
                 + "FROM trabajadores t \n"
                 + "WHERE t.codigo IN(\n"
                 + "	SELECT ct.codigo_trabajadores \n"
                 + "    FROM centrostrabajadores ct \n"
-                + "    WHERE ct.codigo_centro=" + codigoCentro + "\n"
+                + "    WHERE ct.codigo_centro=" + centro.getCodigo() + "\n"
                 + ");";
         ejecutarConsulta(consultaEspecial); //METODO PARA RELLENAR LA LISTA DE TRABAJADORES EN ESTE CASO
         dtm = (DefaultTableModel) tabla.getModel();
@@ -129,15 +166,15 @@ public class TrabajadorRepository {
         tabla.setModel(dtm);
     }
 
-    public void rellenarTrabajadoresNoContratados(JTable tabla, String codigoCentro) {
-        String consultaEspecial = "SELECT t.* \n" //
-                + "FROM trabajadores t \n"
-                + "WHERE t.codigo NOT IN (\n"
-                + "	SELECT ct.codigo_trabajadores \n"
-                + "    FROM centrostrabajadores ct \n"
-                + "    WHERE ct.codigo_centro='" + codigoCentro + "\n"
-                + "');";
-        ejecutarConsulta(consultaEspecial); //METODO PARA RELLENAR LA LISTA DE TRABAJADORES EN ESTE CASO
+    public void rellenarTablaTrabajadoresNoContratados(JTable tabla, Centro centro) {
+        
+        String consultaEspecial = "SELECT t.* "
+                + "FROM trabajadores t "
+                + "WHERE t.codigo NOT IN("
+                + "SELECT ct.codigo_trabajadores "
+                + "FROM centrostrabajadores ct "
+                + "WHERE ct.codigo_centro='" + centro.getCodigo() + "')";
+        ejecutarConsulta(consultaEspecial); //METODO PARA RELLENAR LA LISTA DE TRABAJADORES
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -147,7 +184,7 @@ public class TrabajadorRepository {
         tabla.setModel(dtm);
     }
 
-    public void filtrarTrabajadoresSinCentro(JTable tabla) {
+    public void rellenarTablaTrabajadoresSinCentro(JTable tabla) {
         String consultaEspecial = "SELECT t.* \n" //
                 + "FROM trabajadores t \n"
                 + "WHERE t.codigo NOT IN (\n"
@@ -260,6 +297,7 @@ public class TrabajadorRepository {
             ps.setInt(16, trabajador.getHoras_semana_alta());
             ps.setInt(17, trabajador.getHoras_semana_reales());
             ps.setFloat(18, trabajador.getCoste_mes());
+            ps.executeUpdate();
             conn.desconectar(conexion);
             trabajadores.add(0, trabajador);
             correcto = true;
@@ -357,45 +395,44 @@ public class TrabajadorRepository {
         String nombre;
         String apellido1;
         String apellido2;
-        if (!cadena.equals("")) {
-            if (Utilidades.isInteger(cadena)) {
-                for (int i = 0; i < trabajadores.size(); i++) {
-                    if (trabajadores.get(i).getCodigo().equals(cadena)) {
-                        dtm.addRow(addRow(trabajadores.get(i)));
-                    }
-                }
-            }
-            if (cadena.indexOf(" ") > 0) {//SI ENTRA AQUI SIGNIFICA QUE HAY APELLIDOS EN EL BUSCADOR PERO NO SABEMOS SI TRAE LOS DOS APELLIDOS O 1
-                String[] partes = cadena.split(" ");
-                nombre = partes[0]; // nombre
-                //AQUI HAY QUE COMPROBAR CUANTAS PARTES TRAE LA CADENA PORQUE NO SABEMOS SI SOLO TRAE EL NOMBRE O TAMBIEN EL APELLIDO1 O LOS DOS APELLIDOS
-                if (partes.length > 2) {
-                    apellido1 = partes[1]; // apellido 1 
-                    apellido2 = partes[2];//apellido 2
-                    for (int i = 0; i < trabajadores.size(); i++) {
-                        if (trabajadores.get(i).getNombre().contains(nombre) && trabajadores.get(i).getApellido1().contains(apellido1) && trabajadores.get(i).getApellido2().contains(apellido2)) {
-                            dtm.addRow(addRow(trabajadores.get(i)));
-                        }
-                    }
-                } else if (partes.length > 1) {
-                    apellido1 = partes[1]; // apellido 1 
-                    for (int i = 0; i < trabajadores.size(); i++) {
-                        if (trabajadores.get(i).getNombre().contains(nombre) && trabajadores.get(i).getApellido1().contains(apellido1)) {
-                            dtm.addRow(addRow(trabajadores.get(i)));
-                        } else if (trabajadores.get(i).getApellido1().contains(nombre) && trabajadores.get(i).getApellido2().contains(apellido1)) {
-                            dtm.addRow(addRow(trabajadores.get(i)));
-                        }
-                    }
-                }
-            } else {//SI NO, ES QUE NO HAY APELLIDOS EN EL BUSCADOR
-                for (int i = 0; i < trabajadores.size(); i++) {
-                    if (trabajadores.get(i).getNombre().contains(cadena) || trabajadores.get(i).getApellido1().contains(cadena) || trabajadores.get(i).getApellido2().contains(cadena)) {
-                        dtm.addRow(addRow(trabajadores.get(i)));
-                    }
+        //if (!cadena.equals("")) {
+        if (Utilidades.isInteger(cadena)) {
+            for (int i = 0; i < trabajadores.size(); i++) {
+                if (trabajadores.get(i).getCodigo().equals(cadena)) {
+                    dtm.addRow(addRow(trabajadores.get(i)));
                 }
             }
         }
+        if (cadena.indexOf(" ") > 0) {//SI ENTRA AQUI SIGNIFICA QUE HAY APELLIDOS EN EL BUSCADOR PERO NO SABEMOS SI TRAE LOS DOS APELLIDOS O 1
+            String[] partes = cadena.split(" ");
+            nombre = partes[0]; // nombre
+            //AQUI HAY QUE COMPROBAR CUANTAS PARTES TRAE LA CADENA PORQUE NO SABEMOS SI SOLO TRAE EL NOMBRE O TAMBIEN EL APELLIDO1 O LOS DOS APELLIDOS
+            if (partes.length > 2) {
+                apellido1 = partes[1]; // apellido 1 
+                apellido2 = partes[2];//apellido 2
+                for (int i = 0; i < trabajadores.size(); i++) {
+                    if (trabajadores.get(i).getNombre().contains(nombre) && trabajadores.get(i).getApellido1().contains(apellido1) && trabajadores.get(i).getApellido2().contains(apellido2)) {
+                        dtm.addRow(addRow(trabajadores.get(i)));
+                    }
+                }
+            } else if (partes.length > 1) {
+                apellido1 = partes[1]; // apellido 1 
+                for (int i = 0; i < trabajadores.size(); i++) {
+                    if (trabajadores.get(i).getNombre().contains(nombre) && trabajadores.get(i).getApellido1().contains(apellido1)) {
+                        dtm.addRow(addRow(trabajadores.get(i)));
+                    } else if (trabajadores.get(i).getApellido1().contains(nombre) && trabajadores.get(i).getApellido2().contains(apellido1)) {
+                        dtm.addRow(addRow(trabajadores.get(i)));
+                    }
+                }
+            }
+        } else {//SI NO, ES QUE NO HAY APELLIDOS EN EL BUSCADOR
+            for (int i = 0; i < trabajadores.size(); i++) {
+                if (trabajadores.get(i).getNombre().contains(cadena) || trabajadores.get(i).getApellido1().contains(cadena) || trabajadores.get(i).getApellido2().contains(cadena)) {
+                    dtm.addRow(addRow(trabajadores.get(i)));
+                }
+            }
+        }
+        //}
         tabla.setModel(dtm);
     }
-
 }

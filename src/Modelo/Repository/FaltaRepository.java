@@ -153,6 +153,7 @@ public final class FaltaRepository {
             }
             ps.setDate(4, sqlDate);
             ps.setString(5, o.getMotivo());
+            ps.executeUpdate();
             conn.desconectar(conexion);
             faltas.add(o);
             correcto = true;

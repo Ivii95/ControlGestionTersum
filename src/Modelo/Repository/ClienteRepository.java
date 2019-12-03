@@ -192,6 +192,7 @@ public class ClienteRepository {
             ps.setDate(9, sqlDate);
             sqlDate = new java.sql.Date(o.getFecha_baja().getTime());
             ps.setDate(10, sqlDate);
+            ps.executeUpdate();
             conn.desconectar(conexion);
             clientes.add(0, o);
             correcto = true;

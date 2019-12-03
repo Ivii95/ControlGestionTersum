@@ -47,7 +47,7 @@ public class VistaTrabajadores extends javax.swing.JFrame {
         this.centroListadoTrabajadores = centro;
         initComponents();
         iniciarOtrosComponentes();
-        repoTrabajador.rellenarTablaPorCodigoCentro(tabla_trabajadores, centroListadoTrabajadores.getCodigo());
+        repoTrabajador.rellenarTablaPorCodigoCentro(tabla_trabajadores, centroListadoTrabajadores);
         //utilidades.rellenarTabla(tabla_trabajadores, "trabajadores", "WHERE codigo_centro='" + centroListadoTrabajadores.getCodigo() + "'");
     }
 
@@ -524,7 +524,7 @@ public class VistaTrabajadores extends javax.swing.JFrame {
     private void restablecerTabla() {
         if (centroListadoTrabajadores != null) {
             //utilidades.rellenarTabla(tabla_trabajadores, "trabajadores", "WHERE codigo_centro='" + centroListadoTrabajadores.getCodigo() + "'");
-            repoTrabajador.rellenarTablaPorCodigoCentro(tabla_trabajadores, centroListadoTrabajadores.getCodigo());
+            repoTrabajador.rellenarTablaPorCodigoCentro(tabla_trabajadores, centroListadoTrabajadores);
         } else if (centroListadoTrabajadores == null) {
             repoTrabajador.rellenarTablaDefault(tabla_trabajadores);
         }

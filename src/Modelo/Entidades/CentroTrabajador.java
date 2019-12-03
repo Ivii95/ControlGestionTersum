@@ -10,43 +10,44 @@ package Modelo.Entidades;
  * @author Programacion
  */
 public class CentroTrabajador {
+
+    //Añadimos un centro y un trabajador a la vez para asi no tener que andar buscando ya que esto se cargara en memoria principal y no en la base de datos.
     int id;
-    String codigo_centro;
-    String codigo_trabajador;
+    Centro centro;
+    Trabajador trabajador;
 
-public CentroTrabajador (int id, String codigo_centro, String cogido_trabajadores) {
-    this.id = id;
-    this.codigo_centro = codigo_centro;
-    this.codigo_trabajador = codigo_trabajador;
+    public CentroTrabajador(int id, Centro centro, Trabajador trabajadores) {
+        this.id = id;
+        this.centro = centro;
+        this.trabajador = trabajadores;
+    }
+
+    public CentroTrabajador() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Centro getCentro() {
+        return centro;
+    }
+
+    public void setCentro(Centro centro) {
+        this.centro = centro;
+    }
+
+    public Trabajador getTrabajador() {
+        return trabajador;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
+    }
+
 }
-
-public CentroTrabajador (){
- 
-}
-
-public int getId(){
-    return id;
-}
-
-public void setId(int id){
-    this.id = id;
-}
-
-public String getCodigo_centro(){
-    return codigo_centro;
-}
-
-public void setCodigo_centro (String codigo_centro){
-    this.codigo_centro = codigo_centro;
-}
-
-public String getCodigo_trabajador(){
-    return codigo_trabajador;
-}
-
-public void setCodigo_trabajador (String codigo_trabajador){
-    this.codigo_trabajador = codigo_trabajador;
-}
-
-}
-

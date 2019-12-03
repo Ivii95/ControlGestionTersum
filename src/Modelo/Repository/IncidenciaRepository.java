@@ -160,6 +160,7 @@ public final class IncidenciaRepository {
             ps.setDate(4, sqlDate);
             ps.setInt(5, o.getExtras());
             ps.setString(6, o.getDescripcion());
+            ps.executeUpdate();
             ps.close();
             conn.desconectar(conexion);
             incidencias.add(o);

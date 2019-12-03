@@ -6,6 +6,7 @@
 package Modelo.Repository;
 
 import Modelo.Entidades.Centro;
+import Modelo.Entidades.Cliente;
 import java.util.ArrayList;
 import static Modelo.Repository.UtilidadesRepository.*;
 import Utilidades.Conexion;
@@ -43,6 +44,10 @@ public final class CentroRepository {
     public CentroRepository() {
         this.centros = new ArrayList<>();
         //ejecutarConsulta(consultaCentros);
+    }
+
+    public void rellenarListaDefault() {
+        ejecutarConsulta(consultaCentros + ORDER);
     }
 
     /**
@@ -129,6 +134,16 @@ public final class CentroRepository {
         return o;
     }
 
+    public Centro getByCodigo(String codigo) {
+        Centro o = null;
+        for (int i = 0; i < centros.size(); i++) {
+            if (centros.get(i).getCodigo().equals(codigo)) {
+                o = centros.get(i);
+            }
+        }
+        return o;
+    }
+
     public Centro getByNombre(String nombre) {
         Centro o = null;
         for (int i = 0; i < centros.size(); i++) {
@@ -155,6 +170,17 @@ public final class CentroRepository {
      */
     public void rellenarTablaDefault(JTable tabla) {
         ejecutarConsulta(consultaCentros + " ORDER BY " + nombre);
+        dtm = (DefaultTableModel) tabla.getModel();
+        columnas = new Object[dtm.getColumnCount()];
+        dtm.setRowCount(0);
+        for (int i = 0; i < centros.size(); i++) {
+            dtm.addRow(addRow(centros.get(i)));
+        }
+        tabla.setModel(dtm);
+    }
+
+    public void rellenarTablaByCliente(JTable tabla, Cliente cliente) {
+        ejecutarConsulta(consultaCentros + " WHERE " + codCliente + "=" + cliente.getCodigo() + " ORDER BY " + nombre);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -241,6 +267,7 @@ public final class CentroRepository {
             ps.setString(8, centro.getEmail());
             ps.setInt(9, centro.getHoras_semana());
             ps.setFloat(10, centro.getFacturacion_mes());
+            ps.executeUpdate();
             conn.desconectar(conexion);
             centros.add(centro);
             correcto = true;
