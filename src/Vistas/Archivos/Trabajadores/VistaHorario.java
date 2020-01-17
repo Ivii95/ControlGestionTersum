@@ -244,7 +244,7 @@ public class VistaHorario extends javax.swing.JFrame {
         TablaPlanificador.setCellSelectionEnabled(true);
         TablaPlanificador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         TablaPlanificador.setEnabled(false);
-        TablaPlanificador.setFocusable(false);
+        TablaPlanificador.setFillsViewportHeight(true);
         TablaPlanificador.setName("tablaHorarios"); // NOI18N
         TablaPlanificador.setOpaque(false);
         jScrollPane1.setViewportView(TablaPlanificador);

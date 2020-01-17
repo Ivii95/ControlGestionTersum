@@ -111,7 +111,7 @@
               <Color id="Cursor Por defecto"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
-            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="fillsViewportHeight" type="boolean" value="true"/>
             <Property name="name" type="java.lang.String" value="tablaHorarios" noResource="true"/>
             <Property name="opaque" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">

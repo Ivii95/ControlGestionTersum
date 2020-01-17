@@ -70,7 +70,8 @@ public class HorarioRepository {
     }
 
     /**
-     * Rellena la tabla de horarios con las tuplas de horarios que hay en la base de datos.
+     * Rellena la tabla de horarios con las tuplas de horarios que hay en la
+     * base de datos.
      *
      * @param tabla
      * @param repoCentroTrabajador
@@ -159,9 +160,7 @@ public class HorarioRepository {
     public boolean borrarColumnaHorario(JTable tabla, int codigo_trabajador, String dia) {
         correcto = false;
         try {
-            delete = "DELETE FROM " + TABLA + " WHERE " + idCentrotrabajadores + "="
-                    + "(SELECT " + idCentrotrabajadores + " FROM centrostrabajadores WHERE codigo_trabajadores='" + codigo_trabajador + "')"
-                    + " && dia='" + dia + "'";
+            delete = "DELETE FROM horarios WHERE dia_semana = '" + dia + "' && id_centrotrabajadores = (SELECT id FROM centrostrabajadores WHERE codigo_trabajadores=" + codigo_trabajador + ")";
             conn = new Conexion();
             conexion = conn.conectar_empresa_concreta(empresa);
             ps = conexion.prepareStatement(delete);

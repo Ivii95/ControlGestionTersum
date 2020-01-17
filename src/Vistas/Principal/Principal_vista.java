@@ -86,7 +86,7 @@ public class Principal_vista extends javax.swing.JFrame {
         menuitemfaltas = new javax.swing.JMenuItem();
         menu_procesos = new javax.swing.JMenu();
         menu_listados = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        ListarTrabajadores = new javax.swing.JMenuItem();
         menu_configuracion = new javax.swing.JMenu();
         menuitemconfiguracionusuario = new javax.swing.JMenuItem();
         menuitemcerrarsesion = new javax.swing.JMenuItem();
@@ -186,14 +186,20 @@ public class Principal_vista extends javax.swing.JFrame {
         menubar.add(menu_archivos);
 
         menu_procesos.setText("Procesos");
+        menu_procesos.setEnabled(false);
         menu_procesos.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         menubar.add(menu_procesos);
 
         menu_listados.setText("Listados");
         menu_listados.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        jMenu2.setText("Listado de trabajadores");
-        menu_listados.add(jMenu2);
+        ListarTrabajadores.setText("Trabajadores");
+        ListarTrabajadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarTrabajadoresActionPerformed(evt);
+            }
+        });
+        menu_listados.add(ListarTrabajadores);
 
         menubar.add(menu_listados);
 
@@ -297,6 +303,10 @@ public class Principal_vista extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_menuitemcerrarsesionActionPerformed
 
+    private void ListarTrabajadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTrabajadoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ListarTrabajadoresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,8 +322,8 @@ public class Principal_vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ListarTrabajadores;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_imagen_principal;

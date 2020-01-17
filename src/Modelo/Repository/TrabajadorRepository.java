@@ -167,7 +167,7 @@ public class TrabajadorRepository {
     }
 
     public void rellenarTablaTrabajadoresNoContratados(JTable tabla, Centro centro) {
-        
+
         String consultaEspecial = "SELECT t.* "
                 + "FROM trabajadores t "
                 + "WHERE t.codigo NOT IN("
@@ -312,7 +312,7 @@ public class TrabajadorRepository {
         correcto = false;
         try {
             Utilidades.conn = new Conexion();
-            conexion = conn.conectar_empresa_concreta(Utilidades.empresa);
+            conexion = Utilidades.conn.conectar_empresa_concreta(Utilidades.empresa);
             delete = "DELETE FROM trabajadores WHERE id=?";
             ps = conexion.prepareStatement(delete);
             ps.setInt(1, id);

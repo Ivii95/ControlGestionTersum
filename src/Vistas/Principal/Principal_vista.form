@@ -106,6 +106,7 @@
         <Menu class="javax.swing.JMenu" name="menu_procesos">
           <Properties>
             <Property name="text" type="java.lang.String" value="Procesos"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="0"/>
             </Property>
@@ -119,11 +120,14 @@
             </Property>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="jMenu2">
+            <MenuItem class="javax.swing.JMenuItem" name="ListarTrabajadores">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Listado de trabajadores"/>
+                <Property name="text" type="java.lang.String" value="Trabajadores"/>
               </Properties>
-            </Menu>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ListarTrabajadoresActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menu_configuracion">

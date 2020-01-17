@@ -19,10 +19,11 @@ public class Conexion {
     Connection conn;
     String urlbase;
     String url;
-    String ipPrueba = "192.168.0.216";
-    String ip = "192.168.0.10:3306";
+    String ipPrueba = "localhost";
+    String ip = "192.168.0.100";
     String user = "root";
     String password = "Gesinformatica2019*";
+    String password2="";
 //    String user = "tiendage_teru";
 //    String password = "Ges1809*";
 
@@ -34,7 +35,7 @@ public class Conexion {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, password);
+            conn = DriverManager.getConnection(url, user, password2);
             if (conn != null) {
                 //System.out.println("CONECTADO");
                 //JOptionPane.showMessageDialog(null, "CONECTADO");//SI NECESITAMOS SABER SI SE HA CONECTADO
@@ -54,7 +55,7 @@ public class Conexion {
 //           urlbase = "jdbc:mysql://gesinformatica.es:3306/tiendage_programa"; //TEMPORAL
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(urlbase + url2, user, password);
+            conn = DriverManager.getConnection(urlbase + url2, user, password2);
 //    conn = DriverManager.getConnection(urlbase, user, password);//TEMPORAL
             if (conn != null) {
                 //System.out.println("CONECTADO");

@@ -10,6 +10,7 @@ import static Modelo.Repository.UtilidadesRepository.*;
 import Modelo.Entidades.CentroTrabajador;
 import Modelo.Entidades.Trabajador;
 import Utilidades.Conexion;
+import Utilidades.Utilidades;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -38,11 +39,12 @@ public class CentroTrabajadoresRepository {
         repoTrabajadores.rellenarListaDefault();
         repoCentro = new CentroRepository();
         repoCentro.rellenarListaDefault();
-        centroTrabajadores = new ArrayList<>();
+        centroTrabajadores = new ArrayList<CentroTrabajador>();
     }
 
     /**
-     * Devuelve un centroTrabajador donde coincidan el trabajador y el centro pasados por parametro.
+     * Devuelve un centroTrabajador donde coincidan el trabajador y el centro
+     * pasados por parametro.
      *
      * @param trabajador
      * @param centro
@@ -67,7 +69,8 @@ public class CentroTrabajadoresRepository {
     }
 
     /**
-     * Rellena la lista con las tuplas de la base de datos donde el trabajador sea el pasado por parametro
+     * Rellena la lista con las tuplas de la base de datos donde el trabajador
+     * sea el pasado por parametro
      *
      * @param trabajador
      */
@@ -76,7 +79,8 @@ public class CentroTrabajadoresRepository {
     }
 
     /**
-     * Rellenar la lista con las tuplas de la base de datos donde el centro sea el pasado por parametro
+     * Rellenar la lista con las tuplas de la base de datos donde el centro sea
+     * el pasado por parametro
      *
      * @param centro
      */
@@ -100,6 +104,21 @@ public class CentroTrabajadoresRepository {
     }
 
     /**
+     *
+     * @param codigo_trabajador
+     * @return
+     */
+    public CentroTrabajador getByCodigoTrabajador(String codigo_trabajador) {
+        CentroTrabajador o = null;
+        for (int i = 0; i < centroTrabajadores.size(); i++) {
+            if (centroTrabajadores.get(i).getTrabajador().getCodigo().equals(codigo_trabajador)) {
+                o = centroTrabajadores.get(i);
+            }
+        }
+        return o;
+    }
+
+    /**
      * Retorna la lista del repositorio
      *
      * @return
@@ -111,8 +130,8 @@ public class CentroTrabajadoresRepository {
     private void ejecutarConsulta(String consulta) {
         try {
             centroTrabajadores.clear();
-            Utilidades.Utilidades.conn = new Conexion();
-            conexion = Utilidades.Utilidades.conn.conectar_empresa_concreta(Utilidades.Utilidades.empresa);
+            Utilidades.conn = new Conexion();
+            conexion = Utilidades.conn.conectar_empresa_concreta(Utilidades.empresa);
             ps = conexion.prepareStatement(consulta);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -123,7 +142,7 @@ public class CentroTrabajadoresRepository {
                 centroTrabajador.setTrabajador(repoTrabajadores.getByCodigo(rs.getString(codigoTrabajadores)));
                 centroTrabajadores.add(centroTrabajador);
             }
-            Utilidades.Utilidades.conn.desconectar(conexion);
+            Utilidades.conn.desconectar(conexion);
         } catch (SQLException ex) {
             Logger.getLogger(nombreClase).log(Level.SEVERE, null, ex);
         }
@@ -142,14 +161,14 @@ public class CentroTrabajadoresRepository {
                 + "VALUES (NULL, ?, ?);";
         correcto = false;
         try {
-            Utilidades.Utilidades.conn = new Conexion();
-            conexion = Utilidades.Utilidades.conn.conectar_empresa_concreta(Utilidades.Utilidades.empresa);
+            Utilidades.conn = new Conexion();
+            conexion = Utilidades.conn.conectar_empresa_concreta(Utilidades.empresa);
             ps = conexion.prepareStatement(insert);
             ps.setString(1, centroTrabajador.getCentro().getCodigo());
             ps.setString(2, centroTrabajador.getTrabajador().getCodigo());
             ps.executeUpdate();
-            Utilidades.Utilidades.conn.desconectar(conexion);
-            centroTrabajadores.add(centroTrabajador);
+            Utilidades.conn.desconectar(conexion);
+            //centroTrabajadores.add(centroTrabajador);
             correcto = true;
         } catch (SQLException ex) {
             correcto = false;
@@ -166,13 +185,33 @@ public class CentroTrabajadoresRepository {
     public boolean delete(int id) {
         correcto = false;
         try {
-            Utilidades.Utilidades.conn = new Conexion();
-            conexion = Utilidades.Utilidades.conn.conectar_empresa_concreta(Utilidades.Utilidades.empresa);
+            Utilidades.conn = new Conexion();
+            conexion = Utilidades.conn.conectar_empresa_concreta(Utilidades.empresa);
             delete = "DELETE FROM " + TABLA + " WHERE id=?";
             ps = conexion.prepareStatement(delete);
             ps.setInt(1, id);
-            Utilidades.Utilidades.conn.desconectar(conexion);
-            centroTrabajadores.remove(getById(id));
+            ps.executeUpdate();
+            Utilidades.conn.desconectar(conexion);
+            //centroTrabajadores.remove(getById(id));
+            correcto = true;
+        } catch (SQLException ex) {
+            correcto = false;
+            Logger.getLogger(nombreClase).log(Level.SEVERE, null, ex);
+        }
+        return correcto;
+    }
+
+    public boolean deleteTrabajador(String codigo_trabajador) {
+        correcto = false;
+        try {
+            Utilidades.conn = new Conexion();
+            conexion = Utilidades.conn.conectar_empresa_concreta(Utilidades.empresa);
+            delete = "DELETE FROM " + TABLA + " WHERE " + codigoTrabajadores + " = ? ";
+            ps = conexion.prepareStatement(delete);
+            ps.setString(1, codigo_trabajador);
+            ps.executeUpdate();
+            Utilidades.conn.desconectar(conexion);
+            //centroTrabajadores.remove(getByCodigoTrabajador(codigo_trabajador));
             correcto = true;
         } catch (SQLException ex) {
             correcto = false;
