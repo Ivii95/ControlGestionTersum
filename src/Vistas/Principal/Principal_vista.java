@@ -19,6 +19,7 @@ import Vistas.Archivos.Vacaciones_vista;
 import Vistas.Archivos.Clientes.VistaClientes;
 import Vistas.Principal.Configuracion.Usuarios_vista;
 import Vistas.Archivos.Trabajadores.VistaTrabajadores;
+import Vistas.Listado.Listado;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.help.HelpBroker;
@@ -304,7 +305,8 @@ public class Principal_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_menuitemcerrarsesionActionPerformed
 
     private void ListarTrabajadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTrabajadoresActionPerformed
-        // TODO add your handling code here:
+        Listado prueba = new Listado();
+        prueba.Prueba();
     }//GEN-LAST:event_ListarTrabajadoresActionPerformed
 
     /**

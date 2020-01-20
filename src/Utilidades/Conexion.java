@@ -20,22 +20,22 @@ public class Conexion {
     String urlbase;
     String url;
     String ipPrueba = "localhost";
-    String ip = "192.168.0.100";
+    String ip = "192.168.0.20";
     String user = "root";
     String password = "Gesinformatica2019*";
-    String password2="";
+    String password2 = "";
 //    String user = "tiendage_teru";
 //    String password = "Ges1809*";
 
     public Connection conectar_db_empresas() {
         conn = null;
-        url = "jdbc:mysql://" + ipPrueba + "/empresas_db"; //PRUEBAS EN LOCAL
+        url = "jdbc:mysql://" + ip + "/empresas_db"; //PRUEBAS EN LOCAL
 
 //        url = "jdbc:mysql://gesinformatica.es:3306/tiendage_programa"; //SERVIDOR
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, password2);
+            conn = DriverManager.getConnection(url, user, password);
             if (conn != null) {
                 //System.out.println("CONECTADO");
                 //JOptionPane.showMessageDialog(null, "CONECTADO");//SI NECESITAMOS SABER SI SE HA CONECTADO
@@ -51,11 +51,11 @@ public class Conexion {
     public Connection conectar_empresa_concreta(String url2) {
         conn = null;
 
-        urlbase = "jdbc:mysql://" + ipPrueba + "/";
+        urlbase = "jdbc:mysql://" + ip + "/";
 //           urlbase = "jdbc:mysql://gesinformatica.es:3306/tiendage_programa"; //TEMPORAL
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(urlbase + url2, user, password2);
+            conn = DriverManager.getConnection(urlbase + url2, user, password);
 //    conn = DriverManager.getConnection(urlbase, user, password);//TEMPORAL
             if (conn != null) {
                 //System.out.println("CONECTADO");
