@@ -7,7 +7,7 @@ package Vistas.Listado;
 
 import Modelo.Entidades.Centro;
 import Modelo.Entidades.Cliente;
-import Utilidades.Utilidades;
+import Modelo.Repository.ClienteRepository;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaCliente;
 
@@ -16,7 +16,8 @@ import Vistas.Fichas.FichaCliente;
  * @author usuario
  */
 public class ListadoClientes extends javax.swing.JFrame {
- Utilidades utilidades = new Utilidades();
+
+    ClienteRepository repoCliente;
     Centro centroListadoTrabajadores;
     private Centro centroListadoClientes;
 
@@ -34,14 +35,16 @@ public class ListadoClientes extends javax.swing.JFrame {
 //    }
     public ListadoClientes() {
         initComponents();
+        repoCliente = new ClienteRepository();
         UtilidadesPantalla.centrarTablas(listado_clientes);
         UtilidadesPantalla.resolucionPantalla(this);
         listado_clientes.getColumnModel().getColumn(0).setMaxWidth(0);
         listado_clientes.getColumnModel().getColumn(0).setMinWidth(0);
         listado_clientes.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         listado_clientes.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-        utilidades.rellenarTabla(listado_clientes, "clientes", "");
+        repoCliente.rellenarTablaDefault(listado_clientes);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -49,7 +52,7 @@ public class ListadoClientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listado_clientes = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1360, 762));
         setSize(new java.awt.Dimension(1360, 762));
 
@@ -112,13 +115,16 @@ public class ListadoClientes extends javax.swing.JFrame {
         int id_cliente = 0;
         Cliente cliente = null;
         id_cliente = (Integer) (listado_clientes.getValueAt(listado_clientes.getSelectedRow(), 0));
+        cliente = repoCliente.getById(id_cliente);
+        Listado listar = new Listado();
+        listar.ListarCliente(cliente.getCodigo());
         /*for (int i = 0; i < utilidades.lista_de_clientes.size(); i++) {
             if (utilidades.lista_de_clientes.get(i).getId() == id_cliente) {
                 cliente = utilidades.lista_de_clientes.get(i);
             }
         }*/
-        FichaCliente ficha = new FichaCliente(this, rootPaneCheckingEnabled, cliente);
-        ficha.setVisible(true);
+        //FichaCliente ficha = new FichaCliente(this, rootPaneCheckingEnabled, cliente);
+        //ficha.setVisible(true);
     }//GEN-LAST:event_listado_clientesMouseClicked
 
     /**

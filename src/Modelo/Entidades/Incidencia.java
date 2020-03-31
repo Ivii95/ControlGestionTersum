@@ -5,13 +5,14 @@
  */
 package Modelo.Entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author diseño
  */
-public class Incidencia {
+public class Incidencia implements Serializable{
 
     int id;
     String codigo;

@@ -10,7 +10,6 @@ import Modelo.Repository.TrabajadorRepository;
 import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
-import Vistas.Fichas.FichaTrabajador;
 
 /**
  *
@@ -18,14 +17,13 @@ import Vistas.Fichas.FichaTrabajador;
  */
 public class ListadoTrabajadores extends javax.swing.JFrame {
 
+    TrabajadorRepository repoTrabajador;
     Utilidades utilidades = new Utilidades();
     Centro centroListadoTrabajadores;
-    TrabajadorRepository TR = new TrabajadorRepository();
 
     public ListadoTrabajadores(Centro centro) {
         this.centroListadoTrabajadores = centro;
         iniciarOtrosComponentes();
-
     }
 
     /**
@@ -33,16 +31,18 @@ public class ListadoTrabajadores extends javax.swing.JFrame {
      */
     public ListadoTrabajadores() {
         iniciarOtrosComponentes();
-        utilidades.rellenarTabla(listado_trabajadores, "trabajadores", "");
+        repoTrabajador.rellenarTablaDefault(listado_trabajadores);
+        //utilidades.rellenarTabla(listado_trabajadores, "trabajadores", "");
     }
 
     public ListadoTrabajadores(Trabajador t) {
         iniciarOtrosComponentes();
-        TR.buscarTrabajadoresPorCentrosDeUnCodigoTrabajador(t.getCodigo() + "");
-        TR.rellenarTablaDefault(listado_trabajadores);
+        //repoTrabajador.buscarTrabajadoresPorCentrosDeUnCodigoTrabajador(t.getCodigo() + "");
+        repoTrabajador.rellenarTablaDefault(listado_trabajadores);
     }
-
+    
     private void iniciarOtrosComponentes() {
+        repoTrabajador = new TrabajadorRepository();
         initComponents();
         UtilidadesPantalla.centrarTablas(listado_trabajadores);
         UtilidadesPantalla.resolucionPantalla(this);
@@ -130,15 +130,17 @@ public class ListadoTrabajadores extends javax.swing.JFrame {
 
     private void listado_trabajadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listado_trabajadoresMouseClicked
         int id_trabajador = 0;
-        Trabajador trabajador = null;
         id_trabajador = (Integer) (listado_trabajadores.getValueAt(listado_trabajadores.getSelectedRow(), 0));
         /*for (int i = 0; i < utilidades.lista_de_trabajadores.size(); i++) {
             if (utilidades.lista_de_trabajadores.get(i).getId() == id_trabajador) {
                 trabajador = utilidades.lista_de_trabajadores.get(i);
             }
         }*/
-        FichaTrabajador ficha = new FichaTrabajador(this, rootPaneCheckingEnabled, trabajador);
-        ficha.setVisible(true);
+        Trabajador trabajador = repoTrabajador.getById(id_trabajador);
+        Listado listar = new Listado();
+        listar.ListarTrabajador(trabajador.getCodigo());
+        //FichaTrabajador ficha = new FichaTrabajador(this, rootPaneCheckingEnabled, trabajador);
+        //ficha.setVisible(true);
     }//GEN-LAST:event_listado_trabajadoresMouseClicked
 
     /**

@@ -19,8 +19,9 @@ public class Conexion {
     Connection conn;
     String urlbase;
     String url;
+    String urlHora = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     String ipPrueba = "localhost";
-    String ip = "192.168.0.20";
+    String ip = "192.168.0.20:80";
     String user = "root";
     String password = "Gesinformatica2019*";
     String password2 = "";
@@ -29,11 +30,11 @@ public class Conexion {
 
     public Connection conectar_db_empresas() {
         conn = null;
-        url = "jdbc:mysql://" + ip + "/empresas_db"; //PRUEBAS EN LOCAL
+        url = "jdbc:mysql://" + ipPrueba + "/empresas_db" + urlHora; //PRUEBAS EN LOCAL
 
 //        url = "jdbc:mysql://gesinformatica.es:3306/tiendage_programa"; //SERVIDOR
         try {
-
+            //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, user, password);
             if (conn != null) {
@@ -51,11 +52,11 @@ public class Conexion {
     public Connection conectar_empresa_concreta(String url2) {
         conn = null;
 
-        urlbase = "jdbc:mysql://" + ip + "/";
+        urlbase = "jdbc:mysql://" + ipPrueba + "/";
 //           urlbase = "jdbc:mysql://gesinformatica.es:3306/tiendage_programa"; //TEMPORAL
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(urlbase + url2, user, password);
+            conn = DriverManager.getConnection(urlbase + url2 + urlHora, user, password);
 //    conn = DriverManager.getConnection(urlbase, user, password);//TEMPORAL
             if (conn != null) {
                 //System.out.println("CONECTADO");

@@ -7,12 +7,14 @@ package Vistas.Archivos.Trabajadores;
 
 import Vistas.Formularios.FormularioTrabajador;
 import Modelo.Entidades.Centro;
+import Modelo.Entidades.Sede;
 import Modelo.Repository.TrabajadorRepository;
 import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Principal.Principal_vista;
 import Vistas.Fichas.FichaTrabajador;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -30,6 +32,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaTrabajadores extends javax.swing.JFrame {
 
+    ArrayList<Sede> sedesByUsuario;
     TrabajadorRepository repoTrabajador;
     Utilidades utilidades = new Utilidades();
     int id_trabajador_seleccionado;
@@ -49,6 +52,14 @@ public class VistaTrabajadores extends javax.swing.JFrame {
         iniciarOtrosComponentes();
         repoTrabajador.rellenarTablaPorCodigoCentro(tabla_trabajadores, centroListadoTrabajadores);
         //utilidades.rellenarTabla(tabla_trabajadores, "trabajadores", "WHERE codigo_centro='" + centroListadoTrabajadores.getCodigo() + "'");
+    }
+
+    public VistaTrabajadores(ArrayList sedes) {
+        this.sedesByUsuario = sedes;
+        initComponents();
+        iniciarOtrosComponentes();
+        repoTrabajador.rellenarTablaPorSedes(tabla_trabajadores,sedesByUsuario);
+        //utilidades.rellenarTabla(tabla_trabajadores, "trabajadores", "");
     }
 
     public VistaTrabajadores() {

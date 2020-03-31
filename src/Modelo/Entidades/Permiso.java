@@ -5,11 +5,13 @@
  */
 package Modelo.Entidades;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DisenoWeb
  */
-public class Permiso {
+public class Permiso implements Serializable{
 
     public int id;
     public int id_permiso;

@@ -103,6 +103,8 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         comboHorasSemanaAlta.setSelectedItem(trabajadorModificar.getHoras_semana_alta());
         comboHorasSemanaReales.setSelectedItem(trabajadorModificar.getHoras_semana_reales());
         txt_costemes.setText(trabajadorModificar.getCoste_mes() + "");
+        txt_DNI.setText(trabajadorModificar.getDNI());
+        txt_codigo_sede.setText(trabajadorModificar.getCodigo_sede());
         txt_codigo_trabajador.setEditable(false);
     }
 
@@ -125,8 +127,8 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         lbl_categoria = new javax.swing.JLabel();
         txt_tlf = new javax.swing.JTextField();
         lbl_tlf = new javax.swing.JLabel();
-        lbl_codigo = new javax.swing.JLabel();
-        txt_codigo_trabajador = new javax.swing.JTextField();
+        lbl_DNI = new javax.swing.JLabel();
+        txt_DNI = new javax.swing.JTextField();
         lbl_principal = new javax.swing.JLabel();
         lbl_nombre_ = new javax.swing.JLabel();
         lbl_antiguedad = new javax.swing.JLabel();
@@ -161,6 +163,10 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         comboHorasSemanaAlta = new javax.swing.JComboBox<>();
         comboHorasSemanaReales = new javax.swing.JComboBox<>();
         txt_antiguedad = new org.jdesktop.swingx.JXDatePicker();
+        lbl_codigoSede = new javax.swing.JLabel();
+        lbl_codigo = new javax.swing.JLabel();
+        txt_codigo_sede = new javax.swing.JTextField();
+        txt_codigo_trabajador = new javax.swing.JTextField();
 
         setTitle("INSERTAR O MODIFICAR TRABAJADOR");
         setMinimumSize(new java.awt.Dimension(1100, 697));
@@ -271,31 +277,37 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         gridBagConstraints.ipadx = 100;
         jPanel2.add(lbl_tlf, gridBagConstraints);
 
-        lbl_codigo.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_codigo.setForeground(new java.awt.Color(204, 204, 204));
-        lbl_codigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_codigo.setText("Codigo");
+        lbl_DNI.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_DNI.setForeground(new java.awt.Color(204, 204, 204));
+        lbl_DNI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_DNI.setText("DNI/NIE");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 100;
-        jPanel2.add(lbl_codigo, gridBagConstraints);
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        jPanel2.add(lbl_DNI, gridBagConstraints);
 
-        txt_codigo_trabajador.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_codigo_trabajador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_codigo_trabajador.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_DNI.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_DNI.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_DNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_DNIActionPerformed(evt);
+            }
+        });
+        txt_DNI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_codigo_trabajadorKeyReleased(evt);
+                txt_DNIKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_codigo_trabajadorKeyTyped(evt);
+                txt_DNIKeyTyped(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 15;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel2.add(txt_codigo_trabajador, gridBagConstraints);
+        jPanel2.add(txt_DNI, gridBagConstraints);
 
         lbl_principal.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         lbl_principal.setForeground(new java.awt.Color(204, 204, 204));
@@ -396,7 +408,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         jSeparator1.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridy = 18;
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 25;
@@ -410,7 +422,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 17;
+        gridBagConstraints.gridy = 19;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel2.add(Aceptar, gridBagConstraints);
 
@@ -422,7 +434,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 17;
+        gridBagConstraints.gridy = 19;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel2.add(Cancelar, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -441,7 +453,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         jPanel2.add(jLabel1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 14;
+        gridBagConstraints.gridy = 16;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.ipady = 20;
         jPanel2.add(jLabel5, gridBagConstraints);
@@ -500,7 +512,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         lbl_denominacion_contrato.setText("TIPO DE CONTRATO");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 15;
+        gridBagConstraints.gridy = 17;
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel2.add(lbl_denominacion_contrato, gridBagConstraints);
@@ -625,7 +637,60 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel2.add(txt_antiguedad, gridBagConstraints);
 
-        panelCurves1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 1050, 560));
+        lbl_codigoSede.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_codigoSede.setForeground(new java.awt.Color(204, 204, 204));
+        lbl_codigoSede.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_codigoSede.setText("Codigo Sede");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        jPanel2.add(lbl_codigoSede, gridBagConstraints);
+
+        lbl_codigo.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_codigo.setForeground(new java.awt.Color(204, 204, 204));
+        lbl_codigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_codigo.setText("Codigo");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 100;
+        jPanel2.add(lbl_codigo, gridBagConstraints);
+
+        txt_codigo_sede.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_codigo_sede.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_codigo_sede.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_codigo_sedeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_codigo_sedeKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 15;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel2.add(txt_codigo_sede, gridBagConstraints);
+
+        txt_codigo_trabajador.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_codigo_trabajador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_codigo_trabajador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_codigo_trabajadorKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_codigo_trabajadorKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel2.add(txt_codigo_trabajador, gridBagConstraints);
+
+        panelCurves1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 1050, 640));
 
         panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1140, 691));
 
@@ -652,10 +717,10 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         comprobarNumero(evt);
     }//GEN-LAST:event_txt_tlfKeyTyped
 
-    private void txt_codigo_trabajadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_codigo_trabajadorKeyTyped
+    private void txt_DNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_DNIKeyTyped
         comprobarNumero(evt);
         //comprobarCodigo(evt);
-    }//GEN-LAST:event_txt_codigo_trabajadorKeyTyped
+    }//GEN-LAST:event_txt_DNIKeyTyped
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         // TODO add your handling code here:
@@ -675,9 +740,9 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         boolean correcto = false;
         try {
 
-            if (!txt_codigo_trabajador.getText().equals("") && txt_codigo_trabajador.getText() != null) {//Codigo
+            if (!txt_DNI.getText().equals("") && txt_DNI.getText() != null) {//Codigo
                 //if (!utilidades.comprobarCodigoRepetido(txt_codigo_trabajador.getText(), "trabajadores")) {//Codigo repetido
-                trabajadorModificar.setCodigo(txt_codigo_trabajador.getText());
+                trabajadorModificar.setCodigo(txt_DNI.getText());
                 if (!comboCodigoContrato.getSelectedItem().equals("Selecciona uno")) {//Codigo tipo contrato
                     trabajadorModificar.setCodigo_tipo_contrato((int) comboCodigoContrato.getSelectedItem());
                     if (!comboCentros.getSelectedItem().equals("Selecciona uno")) {//Centros
@@ -700,7 +765,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
                                                     trabajadorModificar.setCategoria(txt_categoria.getText());
                                                     if (txt_antiguedad.getDate() != null && !txt_antiguedad.getDate().equals("")) {//Antiguedad
                                                         trabajadorModificar.setAntiguedad(txt_antiguedad.getDate());
-                                                        if (UtilidadesPantalla.comprobarMovil(txt_tlf.getText())) {//Telefono
+                                                        if (txt_tlf.getText() != null && !txt_tlf.getText().equals("")) {//Telefono
                                                             trabajadorModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
                                                             if (UtilidadesPantalla.comprobarEmail(txt_email.getText())) {//Email
                                                                 trabajadorModificar.setEmail(txt_email.getText());
@@ -710,25 +775,38 @@ public class FormularioTrabajador extends javax.swing.JDialog {
                                                                 trabajadorModificar.setHoras_semana_reales(semana_reales);
                                                                 if (txt_costemes.getText() != null && !txt_costemes.getText().equals("")) {//Coste mes
                                                                     trabajadorModificar.setCoste_mes(Float.parseFloat(txt_costemes.getText()));
-                                                                    if (txt_fecha_alta.getDate() != null) {//Fecha alta vacia
-                                                                        if (fecha_nacimiento.getDate().before(txt_fecha_alta.getDate())) {//Fecha de nacimientos antes de la fecha de alta
-                                                                            trabajadorModificar.setFecha_alta(txt_fecha_alta.getDate());
-                                                                            if (txt_fecha_baja.getDate() != null) {//Fecha de baja vacia
-                                                                                if (txt_fecha_alta.getDate().before(txt_fecha_baja.getDate())) {//Fecha de alta antes de la fecha de baja
-                                                                                    trabajadorModificar.setFecha_baja(txt_fecha_baja.getDate());
-                                                                                    correcto = true;
+                                                                    if (txt_DNI.getText() != null && !txt_DNI.getText().equals("")) {
+                                                                        trabajadorModificar.setDNI(txt_DNI.getText());
+                                                                        if (txt_codigo_sede.getText() != null && !txt_codigo_sede.getText().equals("")) {
+                                                                            trabajadorModificar.setCodigo_sede(txt_codigo_sede.getText());
+                                                                            if (txt_fecha_alta.getDate() != null) {//Fecha alta vacia
+
+                                                                                if (fecha_nacimiento.getDate().before(txt_fecha_alta.getDate())) {//Fecha de nacimientos antes de la fecha de alta
+                                                                                    trabajadorModificar.setFecha_alta(txt_fecha_alta.getDate());
+
+                                                                                    if (txt_fecha_baja.getDate() != null) {//Fecha de baja vacia
+                                                                                        if (txt_fecha_alta.getDate().before(txt_fecha_baja.getDate())) {//Fecha de alta antes de la fecha de baja
+                                                                                            trabajadorModificar.setFecha_baja(txt_fecha_baja.getDate());
+                                                                                            correcto = true;
+                                                                                        } else {
+                                                                                            JOptionPane.showMessageDialog(this, "La fecha de baja no puede ser superior a la fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
+                                                                                        }
+                                                                                    } else {
+                                                                                        trabajadorModificar.setFecha_baja(null);
+                                                                                        correcto = true;
+                                                                                    }
+
                                                                                 } else {
-                                                                                    JOptionPane.showMessageDialog(this, "La fecha de baja no puede ser superior a la fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
+                                                                                    JOptionPane.showMessageDialog(this, "La fecha de nacimiento no puede ser superior a la fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
                                                                                 }
                                                                             } else {
-                                                                                trabajadorModificar.setFecha_baja(null);
-                                                                                correcto = true;
+                                                                                JOptionPane.showMessageDialog(this, "Necesita ingresar una fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
                                                                             }
                                                                         } else {
-                                                                            JOptionPane.showMessageDialog(this, "La fecha de nacimiento no puede ser superior a la fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
+                                                                            JOptionPane.showMessageDialog(this, "Necesita ingresar una sede", "Coste al mes", JOptionPane.WARNING_MESSAGE);
                                                                         }
                                                                     } else {
-                                                                        JOptionPane.showMessageDialog(this, "Necesita ingresar una fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
+                                                                        JOptionPane.showMessageDialog(this, "Necesita ingresar un DNI", "Coste al mes", JOptionPane.WARNING_MESSAGE);
                                                                     }
                                                                 } else {
                                                                     JOptionPane.showMessageDialog(this, "Necesita ingresar un coste al mes", "Coste al mes", JOptionPane.WARNING_MESSAGE);
@@ -805,10 +883,30 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         comboCentros.removeItem("Selecciona uno");
     }//GEN-LAST:event_comboCentrosFocusGained
 
-    private void txt_codigo_trabajadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_codigo_trabajadorKeyReleased
+    private void txt_DNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_DNIKeyReleased
         comprobarNumero(evt);
         comprobarCodigo(evt);
+    }//GEN-LAST:event_txt_DNIKeyReleased
+
+    private void txt_codigo_sedeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_codigo_sedeKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_codigo_sedeKeyReleased
+
+    private void txt_codigo_sedeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_codigo_sedeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_codigo_sedeKeyTyped
+
+    private void txt_codigo_trabajadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_codigo_trabajadorKeyReleased
+        // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigo_trabajadorKeyReleased
+
+    private void txt_codigo_trabajadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_codigo_trabajadorKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_codigo_trabajadorKeyTyped
+
+    private void txt_DNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_DNIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_DNIActionPerformed
 
     /**
      * @param args the command line arguments
@@ -875,12 +973,14 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lbl_DNI;
     private javax.swing.JLabel lbl_antiguedad;
     private javax.swing.JLabel lbl_apellido1;
     private javax.swing.JLabel lbl_apellido2;
     private javax.swing.JLabel lbl_categoria;
     private javax.swing.JLabel lbl_centro;
     private javax.swing.JLabel lbl_codigo;
+    private javax.swing.JLabel lbl_codigoSede;
     private javax.swing.JLabel lbl_costemes;
     private javax.swing.JLabel lbl_denominacion_contrato;
     private javax.swing.JLabel lbl_direccion;
@@ -896,10 +996,12 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_tlf;
     private org.edisoncor.gui.panel.PanelCurves panelCurves1;
     private org.edisoncor.gui.panel.PanelRect panelRect1;
+    private javax.swing.JTextField txt_DNI;
     private org.jdesktop.swingx.JXDatePicker txt_antiguedad;
     private javax.swing.JTextField txt_apellido1;
     private javax.swing.JTextField txt_apellido2;
     private javax.swing.JTextField txt_categoria;
+    private javax.swing.JTextField txt_codigo_sede;
     private javax.swing.JTextField txt_codigo_trabajador;
     private javax.swing.JTextField txt_costemes;
     private javax.swing.JTextField txt_direccion;
@@ -927,11 +1029,11 @@ public class FormularioTrabajador extends javax.swing.JDialog {
 
     private void comprobarCodigo(KeyEvent evt) {
         try {
-            if (repoTrabajador.ifCodigoExist(txt_codigo_trabajador.getText()) && lbl_codigo.getForeground().equals(new java.awt.Color(204, 204, 204))) {
+            if (repoTrabajador.ifCodigoExist(txt_DNI.getText()) && lbl_DNI.getForeground().equals(new java.awt.Color(204, 204, 204))) {
                 JOptionPane.showMessageDialog(this, "Codigo repetito", "Codigo", JOptionPane.WARNING_MESSAGE);
-                lbl_codigo.setForeground(Color.red);
-            } else if (!repoTrabajador.ifCodigoExist(txt_codigo_trabajador.getText()) && lbl_codigo.getForeground().equals(Color.red)) {
-                lbl_codigo.setForeground(new java.awt.Color(204, 204, 204));
+                lbl_DNI.setForeground(Color.red);
+            } else if (!repoTrabajador.ifCodigoExist(txt_DNI.getText()) && lbl_DNI.getForeground().equals(Color.red)) {
+                lbl_DNI.setForeground(new java.awt.Color(204, 204, 204));
             }
         } catch (NumberFormatException e) {
 

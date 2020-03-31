@@ -53,7 +53,8 @@ public class VistaCentros extends javax.swing.JFrame {
         tabla_centros.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         tabla_centros.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
         tabla_centros.getColumnModel().getColumn(1).setMaxWidth(60);
-
+        String titulo = txtTitulo.getText();
+        txtTitulo.setText(titulo + " " + cliente.getNombre_comercial());
         cr = new CentroRepository();
         cr.rellenarTablaByCliente(tabla_centros, clienteCentros);
     }

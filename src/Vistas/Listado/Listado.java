@@ -6,27 +6,15 @@
 package Vistas.Listado;
 
 import static Modelo.Repository.UtilidadesRepository.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
-import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -41,45 +29,42 @@ public class Listado {
         return conexion;
     }
 
-    public void Prueba() {
-        JasperPrint jasperPrintWindow = null;
+    public void ListarTrabajador(String codigo) {
         try {
-            jasperPrintWindow = JasperFillManager.fillReport(
-                    "C:\\Users\\Ivan9\\JaspersoftWorkspace\\Reportes\\Trabajadores.jasper", null,
+            //JasperReport reporte = (JasperReport) JRLoader.loadObject(reportFile("Tersum_FichaPersonal.jasper"));
+            HashMap<String, Object> parametros = new HashMap<>();
+            parametros.put("codigo_trabajador", codigo);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    ".\\lib\\plantillasjasper\\Tersum_FichaPersonal.jasper",
+                    //reporte,
+                    parametros,
                     iniciarConexion());
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
         } catch (JRException ex) {
             Logger.getLogger(Listado.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JasperViewer jasperViewer = new JasperViewer(jasperPrintWindow);
-        jasperViewer.setVisible(true);
     }
 
-    public void pruebaParametro() {
+    public void ListarCliente(String codigo) {
         try {
-            //Crear el mapa de parametros
-            Map<String, Object> parameters = new HashMap<String, Object>();
-            parameters.put("variable", new String("Este es un String para pasar por parametro"));
-            InputStream reportStream = new FileInputStream("reporte.jrxml");
-            //Iniciar reporte
-            JasperReport report = JasperCompileManager.compileReport(reportStream);
-            JasperPrint jasperPrint = new JasperPrint();
-            //Llenar el reporte donde se le pasa en el tercer argumento el mapa ya creado
-            JasperFillManager.fillReportToFile(report, "reporte.jrprint", (Map<String, Object>) parameters, new JREmptyDataSource());
-            reportStream.close();
-
-            //Generar PDF
-            List listJasper = new ArrayList();
-            listJasper.add(JRLoader.loadObjectFromFile("reporte.jrprint"));
-            JRPdfExporter exp = new JRPdfExporter();
-            exp.setParameter(JRExporterParameter.JASPER_PRINT_LIST, listJasper);
-            exp.setParameter(JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS, Boolean.TRUE);
-            exp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "reporte.pdf");
-            exp.exportReport();
-        } catch (IOException ex) {
-            Logger.getLogger(Listado.class.getName()).log(Level.SEVERE, null, ex);
+            //JasperReport reporte = (JasperReport) JRLoader.loadObject(reportFile("Tersum_FichaPersonal.jasper"));
+            HashMap<String, Object> parametros = new HashMap<>();
+            parametros.put("codigo", codigo);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    ".\\lib\\plantillasjasper\\Tersum_FichaCliente.jasper",
+                    //reporte,
+                    parametros,
+                    iniciarConexion());
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
         } catch (JRException ex) {
             Logger.getLogger(Listado.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
+
+    private InputStream reportFile(String file) {
+        return new ByteArrayInputStream((".\\lib\\plantillasjasper\\" + file).getBytes());
+    }
+
 }

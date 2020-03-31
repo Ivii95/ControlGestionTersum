@@ -5,13 +5,14 @@
  */
 package Modelo.Entidades;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 /**
  *
  * @author DisenoWeb
  */
-public class Horario {
+public class Horario implements Serializable{
 
     int id;
     int id_CentroTrabajadores;

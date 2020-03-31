@@ -7,6 +7,7 @@ package Modelo.Repository;
 
 import static Modelo.Repository.UtilidadesRepository.*;
 import Modelo.Entidades.Cliente;
+import Modelo.Entidades.Sede;
 import Utilidades.Conexion;
 import Utilidades.Utilidades;
 import static Utilidades.Utilidades.conn;
@@ -75,6 +76,10 @@ public class ClienteRepository {
         }
     }
 
+    public ArrayList<Cliente> getLista() {
+        return clientes;
+    }
+
     /**
      *
      * @param id
@@ -129,6 +134,19 @@ public class ClienteRepository {
         tabla.setModel(dtm);
     }
 
+    public void rellenarTablaPorSedes(JTable tabla, ArrayList<Sede> sedes) {
+        dtm = (DefaultTableModel) tabla.getModel();
+        dtm.setRowCount(0);
+        columnas = new Object[dtm.getColumnCount()];
+        for (int j = 0; j < sedes.size(); j++) {
+            ejecutarConsulta("SELECT * FROM clientes c WHERE c.id IN ( SELECT s.id_cliente FROM sedecliente s WHERE id_sede=" + sedes.get(j).getId() + ")");
+            for (int i = 0; i < clientes.size(); i++) {
+                dtm.addRow(addRow(clientes.get(i)));
+            }
+        }
+        tabla.setModel(dtm);
+    }
+
     public void rellenarTabla(JTable tabla) {
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
@@ -140,6 +158,7 @@ public class ClienteRepository {
     }
 
     public JComboBox rellenarCombo(JComboBox combo) {
+        combo.removeAllItems();
         for (int i = 0; i < clientes.size(); i++) {
             combo.addItem(clientes.get(i).getNombre_comercial());
         }

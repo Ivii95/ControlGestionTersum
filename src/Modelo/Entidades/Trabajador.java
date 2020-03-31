@@ -5,20 +5,23 @@
  */
 package Modelo.Entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author DisenoWeb
  */
-public class Trabajador {
+public class Trabajador implements Serializable{
 
     int id;
     String codigo;
     int codigo_tipo_contrato;
+    String codigo_sede;
     String apellido1;
     String apellido2;
     String nombre;
+    String DNI;
     String direccion;
     String poblacion;
     Date fechanacimiento;
@@ -32,15 +35,15 @@ public class Trabajador {
     int horas_semana_reales;
     float coste_mes;
 
-    public Trabajador(int id, String codigo, int codigo_tipo_contrato, String apellido1, String apellido2, String nombre,
-            String direccion, String poblacion, Date fechanacimiento, String categoria, Date antiguedad, int telefono, String email,
-            Date fecha_alta, Date fecha_baja, int horas_semana_alta, int horas_semana_reales, float coste_mes) {
+    public Trabajador(int id, String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, Date fechanacimiento, String categoria, Date antiguedad, int telefono, String email, Date fecha_alta, Date fecha_baja, int horas_semana_alta, int horas_semana_reales, float coste_mes) {
         this.id = id;
         this.codigo = codigo;
         this.codigo_tipo_contrato = codigo_tipo_contrato;
+        this.codigo_sede = codigo_sede;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.nombre = nombre;
+        this.DNI = DNI;
         this.direccion = direccion;
         this.poblacion = poblacion;
         this.fechanacimiento = fechanacimiento;
@@ -55,14 +58,14 @@ public class Trabajador {
         this.coste_mes = coste_mes;
     }
 
-    public Trabajador(String codigo, int codigo_tipo_contrato, String apellido1, String apellido2, String nombre, String direccion, String poblacion,
-            Date fechanacimiento, String categoria, Date antiguedad, int telefono, String email, Date fecha_alta, Date fecha_baja, int horas_semana_alta,
-            int horas_semana_reales, float coste_mes) {
+    public Trabajador(String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, Date fechanacimiento, String categoria, Date antiguedad, int telefono, String email, Date fecha_alta, Date fecha_baja, int horas_semana_alta, int horas_semana_reales, float coste_mes) {
         this.codigo = codigo;
         this.codigo_tipo_contrato = codigo_tipo_contrato;
+        this.codigo_sede = codigo_sede;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.nombre = nombre;
+        this.DNI = DNI;
         this.direccion = direccion;
         this.poblacion = poblacion;
         this.fechanacimiento = fechanacimiento;
@@ -78,6 +81,7 @@ public class Trabajador {
     }
 
     public Trabajador() {
+
     }
 
     public int getId() {
@@ -104,6 +108,14 @@ public class Trabajador {
         this.codigo_tipo_contrato = codigo_tipo_contrato;
     }
 
+    public String getCodigo_sede() {
+        return codigo_sede;
+    }
+
+    public void setCodigo_sede(String codigo_sede) {
+        this.codigo_sede = codigo_sede;
+    }
+
     public String getApellido1() {
         return apellido1;
     }
@@ -126,6 +138,14 @@ public class Trabajador {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
     }
 
     public String getDireccion() {

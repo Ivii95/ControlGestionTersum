@@ -5,19 +5,21 @@
  */
 package Modelo.Entidades;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DisenoWeb
  */
-public final class Usuario {
+public final class Usuario implements Serializable {
 
     private int id;
     private String nombre;
     private String password;
-    private int id_rol;
+    private String id_rol;
     private String ultima_sesion;
 
-    public Usuario(int id, String nombre, String password, int id_rol, String ultima_sesion) {
+    public Usuario(int id, String nombre, String password, String id_rol, String ultima_sesion) {
         this.id = id;
         this.nombre = nombre;
         this.password = password;
@@ -25,11 +27,10 @@ public final class Usuario {
         this.ultima_sesion = ultima_sesion;
     }
 
-    public Usuario(String nombre, String password, int id_rol) {
+    public Usuario(String nombre, String password, String id_rol) {
         this.nombre = nombre;
         this.password = password;
         this.id_rol = id_rol;
-
     }
 
     public Usuario() {
@@ -60,11 +61,11 @@ public final class Usuario {
         this.password = password;
     }
 
-    public int getId_rol() {
+    public String getId_rol() {
         return id_rol;
     }
 
-    public void setId_rol(int id_rol) {
+    public void setId_rol(String id_rol) {
         this.id_rol = id_rol;
     }
 
@@ -75,4 +76,5 @@ public final class Usuario {
     public void setUltima_sesion(String ultima_sesion) {
         this.ultima_sesion = ultima_sesion;
     }
+
 }

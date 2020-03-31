@@ -5,11 +5,13 @@
  */
 package Modelo.Entidades;
 
+import java.io.Serializable;
+
 /**
  *
  * @author diseño
  */
-public class Centro {
+public class Centro implements Serializable {
 
     int id;
     String codigo;
@@ -21,7 +23,8 @@ public class Centro {
     String contacto;
     String email;
     int horas_semana;
-    float facturacion_mes;            
+    float facturacion_mes;
+
     public Centro() {
 
     }
@@ -38,7 +41,7 @@ public class Centro {
         this.horas_semana = horas_semana;
         this.facturacion_mes = facturacion_mes;
     }
-    
+
     public Centro(int id, String codigo, String codigo_cliente, String nombre, String direccion, String poblacion, int telefono, String contacto, String email, int horas_semana, float facturacion_mes) {
         this.id = id;
         this.codigo = codigo;
@@ -140,5 +143,5 @@ public class Centro {
     public void setFacturacion_mes(float facturacion_mes) {
         this.facturacion_mes = facturacion_mes;
     }
-    
+
 }

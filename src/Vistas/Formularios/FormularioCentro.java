@@ -8,10 +8,8 @@ package Vistas.Formularios;
 import Modelo.Entidades.Centro;
 import Modelo.Repository.CentroRepository;
 import Modelo.Repository.ClienteRepository;
-import Modelo.Repository.UtilidadesRepository;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
-import Vistas.Archivos.Clientes.VistaCentros;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
@@ -23,10 +21,9 @@ import javax.swing.JOptionPane;
  */
 public class FormularioCentro extends javax.swing.JDialog {
 
-    Utilidades utilidades = new Utilidades();
     public Centro centroModificar;
-    ClienteRepository repoClientes = new ClienteRepository();
-    CentroRepository repoCentros = new CentroRepository();
+    ClienteRepository repoClientes;
+    CentroRepository repoCentros;
 
     /**
      * Creates new form FormularioCentro
@@ -37,6 +34,7 @@ public class FormularioCentro extends javax.swing.JDialog {
      */
     public FormularioCentro(java.awt.Frame parent, boolean modal, Centro centro) {
         super(parent, modal);
+        this.setLocationRelativeTo(parent);
         iniciarOtrosComponentes();
         this.centroModificar = centro;
         txt_codigo.setText(centro.getCodigo());
@@ -50,10 +48,15 @@ public class FormularioCentro extends javax.swing.JDialog {
      */
     public FormularioCentro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setLocationRelativeTo(parent);
         iniciarOtrosComponentes();
     }
 
     private void iniciarOtrosComponentes() {
+        initComponents();
+
+        repoCentros = new CentroRepository();
+        repoClientes = new ClienteRepository();
         repoClientes.rellenarCombo(comboCliente);
     }
 
@@ -96,7 +99,6 @@ public class FormularioCentro extends javax.swing.JDialog {
         txt_faturacion = new javax.swing.JTextField();
         comboCliente = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("INSERTAR O MODIFICAR CENTROS");
         setMaximumSize(new java.awt.Dimension(903, 682));
         setMinimumSize(new java.awt.Dimension(903, 682));
@@ -386,6 +388,11 @@ public class FormularioCentro extends javax.swing.JDialog {
         jPanel2.add(txt_faturacion, gridBagConstraints);
 
         comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno" }));
+        comboCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboClienteActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 13;
@@ -494,6 +501,10 @@ public class FormularioCentro extends javax.swing.JDialog {
     private void txt_faturacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_faturacionKeyTyped
         comprobarNumero(evt);
     }//GEN-LAST:event_txt_faturacionKeyTyped
+
+    private void comboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClienteActionPerformed
+
+    }//GEN-LAST:event_comboClienteActionPerformed
 
     /**
      * @param args the command line arguments

@@ -7,11 +7,13 @@ package Vistas.Archivos.Clientes;
 
 import Vistas.Formularios.FormularioCliente;
 import Modelo.Entidades.Cliente;
+import Modelo.Entidades.Sede;
 import Modelo.Repository.ClienteRepository;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaCliente;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
@@ -24,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaClientes extends javax.swing.JFrame {
 
+    ArrayList<Sede> sedesByUsuario;
     ClienteRepository repoCliente;
     boolean isAlreadyOneClick;
     Cliente cliente;
@@ -34,6 +37,14 @@ public class VistaClientes extends javax.swing.JFrame {
     public VistaClientes() {
         initComponents();
         iniciarOtrosComponentes();
+        repoCliente.rellenarTabla(tabla_clientes);
+    }
+
+    public VistaClientes(ArrayList<Sede> sedes) {
+        this.sedesByUsuario = sedes;
+        initComponents();
+        iniciarOtrosComponentes();
+        repoCliente.rellenarTablaPorSedes(tabla_clientes, sedesByUsuario);
     }
 
     private void iniciarOtrosComponentes() {
@@ -51,7 +62,6 @@ public class VistaClientes extends javax.swing.JFrame {
         tabla_clientes.getColumnModel().getColumn(2).setMaxWidth(50);
         tabla_clientes.getColumnModel().getColumn(2).setPreferredWidth(50);
         repoCliente = new ClienteRepository();
-        repoCliente.rellenarTabla(tabla_clientes);
     }
 
     /**

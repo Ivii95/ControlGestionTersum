@@ -5,11 +5,13 @@
  */
 package Modelo.Entidades;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Programacion
  */
-public class CentroTrabajador {
+public class CentroTrabajador implements Serializable{
 
     //Añadimos un centro y un trabajador a la vez para asi no tener que andar buscando ya que esto se cargara en memoria principal y no en la base de datos.
     int id;

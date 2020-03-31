@@ -6,6 +6,7 @@
 package Modelo.Repository;
 
 import Modelo.Entidades.Centro;
+import Modelo.Entidades.Sede;
 import static Modelo.Repository.UtilidadesRepository.*;
 import Modelo.Entidades.Trabajador;
 import Utilidades.Conexion;
@@ -27,7 +28,7 @@ public class TrabajadorRepository {
     private final String nombreClase = TrabajadorRepository.class.getName();
     private final ArrayList<Trabajador> trabajadores;
     private final String TABLA = "trabajadores";
-    private final String consultaTrabajadores = consultaPrincipal + TABLA;
+    private final String consulta = consultaPrincipal + TABLA;
 
     private final String ORDER = " ORDER BY apellido1 ";
 
@@ -102,7 +103,7 @@ public class TrabajadorRepository {
     }
 
     public void rellenarListaDefault() {
-        ejecutarConsulta(consultaTrabajadores + ORDER);
+        ejecutarConsulta(consulta + ORDER);
     }
 
     /**
@@ -135,6 +136,8 @@ public class TrabajadorRepository {
                 trabajador.setHoras_semana_alta(rs.getInt("horas_semana_alta"));
                 trabajador.setHoras_semana_reales(rs.getInt("horas_semana_reales"));
                 trabajador.setCoste_mes(rs.getFloat("coste_mes"));
+                trabajador.setCodigo_sede(rs.getString("codigo_sede"));
+                trabajador.setDNI(rs.getString("DNI"));
                 trabajadores.add(trabajador);
             }
             conn.desconectar(conexion);
@@ -201,6 +204,17 @@ public class TrabajadorRepository {
         tabla.setModel(dtm);
     }
 
+    public void rellenarTablaDefault(JTable tabla) {
+        ejecutarConsulta(consulta); //METODO PARA RELLENAR LA LISTA DE TRABAJADORES EN ESTE CASO
+        dtm = (DefaultTableModel) tabla.getModel();
+        columnas = new Object[dtm.getColumnCount()];
+        dtm.setRowCount(0);
+        for (int i = 0; i < trabajadores.size(); i++) {
+            dtm.addRow(addRow(trabajadores.get(i)));
+        }
+        tabla.setModel(dtm);
+    }
+
     private Object[] addRow(Trabajador t) {
         columnas = new Object[4];
         columnas[0] = t.getId();
@@ -221,13 +235,19 @@ public class TrabajadorRepository {
         tabla.setModel(dtm);
     }
 
-    public void rellenarTablaDefault(JTable tabla) {
-        ejecutarConsulta(consultaTrabajadores); //METODO PARA RELLENAR LA LISTA DE TRABAJADORES EN ESTE CASO
+    public void rellenarTablaPorSedes(JTable tabla, ArrayList<Sede> sedes) {
         dtm = (DefaultTableModel) tabla.getModel();
-        columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
-        for (int i = 0; i < trabajadores.size(); i++) {
-            dtm.addRow(addRow(trabajadores.get(i)));
+        columnas = new Object[dtm.getColumnCount()];
+        for (int j = 0; j < sedes.size(); j++) {
+            ejecutarConsulta("SELECT t.* FROM trabajadores t WHERE codigo IN"
+                    + "(SELECT ct.codigo_trabajadores FROM centrostrabajadores ct WHERE codigo_centro IN"
+                    + "(SELECT centros.codigo FROM centros WHERE codigo_cliente IN"
+                    + "(SELECT c.codigo FROM clientes c WHERE c.id IN "
+                    + "(SELECT s.id_cliente FROM sedecliente s WHERE id_sede=" + sedes.get(j).getId() + "))))");
+            for (int i = 0; i < trabajadores.size(); i++) {
+                dtm.addRow(addRow(trabajadores.get(i)));
+            }
         }
         tabla.setModel(dtm);
     }
@@ -362,7 +382,7 @@ public class TrabajadorRepository {
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
             ps.setInt(19, trabajador.getId());
             conn.desconectar(conexion);
-            ejecutarConsulta(consultaTrabajadores);
+            ejecutarConsulta(consulta);
         } catch (SQLException ex) {
             correcto = false;
             Logger.getLogger(nombreClase).log(Level.SEVERE, null, ex);

@@ -40,7 +40,6 @@ import Vistas.Principal.Login_vista;
 import Vistas.Principal.Principal_vista;
 import Vistas.Principal.Configuracion.Usuarios_vista;
 import Vistas.Archivos.Trabajadores.Incidencias_vista;
-import java.sql.Statement;
 
 /**
  * Esta clase contiene todos los métodos/funciones que se van a utilizar en el programa, se intenta que todos los métodos/funciones sean lo mas generales posibles para poder utilizarlos entre las diferentes clases y objetos creados de dichas clases.
@@ -60,6 +59,8 @@ public class Utilidades {
     public static ArrayList<Horario> lista_de_horas_trabajadas = new ArrayList<Horario>();
     public static Usuario usuario = null;
     public static String empresa;
+    public static final String UNO = "Administrador";
+    public static final String DOS = "Encargado";
 
     public void cerrar_ventana_actual(Frame ventana) {
         ventana.dispose();
@@ -93,6 +94,7 @@ public class Utilidades {
         conn = new Conexion();
         int id_usuario = -1;
         int id_empresa = -1;
+        String sede = null;
         String nombre = null;
         String password = null;
         int id_rol = -1;
@@ -130,7 +132,6 @@ public class Utilidades {
                                 id_usuario = rs.getInt("id");
                                 nombre = rs.getString("nombre");
                                 id_rol = rs.getInt("id_rol");
-
                                 tiene_permiso_de_acceso = consultarPermisos(id_usuario, id_empresa, ps, rs, conexion, tiene_permiso_de_acceso);
 
                                 if (tiene_permiso_de_acceso) {
@@ -139,7 +140,11 @@ public class Utilidades {
                                     usuario.setId(id_usuario);
                                     usuario.setNombre(nombre);
                                     usuario.setPassword(password);
-                                    usuario.setId_rol(id_rol);
+                                    if (id_rol == 1) {
+                                        usuario.setId_rol(UNO);
+                                    } else if (id_rol == 2) {
+                                        usuario.setId_rol(DOS);
+                                    }
                                     usuario.setUltima_sesion(fechaHora);
                                     conn.desconectar(conexion);
                                     Principal_vista principal = new Principal_vista(); //ventana Principal
@@ -438,7 +443,11 @@ public class Utilidades {
                     ps = conexion.prepareStatement(insert);
                     ps.setString(1, usuario.getNombre());
                     ps.setString(2, usuario.getPassword());
-                    ps.setInt(3, usuario.getId_rol());
+                    if (usuario.getId_rol().equals(UNO)) {
+                        ps.setInt(3, 1);
+                    } else if (usuario.getId_rol().equals(DOS)) {
+                        ps.setInt(3, 2);
+                    }
                     break;
 
                 case "otro":
@@ -537,7 +546,7 @@ public class Utilidades {
                     break;
 
                 case "usuarios":
-                    Usuario usuario = (Usuario) o;
+                    /*Usuario usuario = (Usuario) o;
                     if (usuario.getNombre() != null) { //SI EL USUARIO ES DIFERENTE DE NULL ES DECIR QUE NO ESTE VACIO SIGNIFICA QUE LO QUE VAMOS A UPDATEAR VA A SER EL NOMBRE DE USUARIO
                         update = "UPDATE usuarios SET nombre=? WHERE id=?";
                         ps = conexion.prepareStatement(update);
@@ -549,10 +558,15 @@ public class Utilidades {
                     } else {
                         update = "UPDATE usuarios SET id_rol=? WHERE id=?";
                         ps = conexion.prepareStatement(update);
+                        if (get.getId_rol().equals(UNO)) {
+                            ps.setInt(4, 1);
+                        } else if (get.getId_rol().equals(DOS)) {
+                            ps.setInt(4, 2);
+                        }
                         ps.setInt(1, usuario.getId_rol());
                     }
                     ps.setInt(2, id);
-                    break;
+                    break;*/
 
                 case "vacaciones":
                     /*Vacaciones vacaciones = (Vacaciones) o;
@@ -858,7 +872,7 @@ public class Utilidades {
                 }
                 break;
             case "usuarios":
-                try {
+                /*try {
                     ps = conexion.prepareStatement(consulta);
                     rs = ps.executeQuery();
 
@@ -877,7 +891,7 @@ public class Utilidades {
                     Logger.getLogger(Utilidades.class
                             .getName()).log(Level.SEVERE, null, ex);
                 }
-                break;
+                break;*/
             case "horastrabajadas":
                 /*try {
                     ps = conexion.prepareStatement(consulta);
@@ -1430,8 +1444,6 @@ public class Utilidades {
             }
         }
     }*/
-    
-
     public static boolean isInteger(String numero) {
         try {
             Integer.parseInt(numero);

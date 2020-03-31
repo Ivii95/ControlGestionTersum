@@ -6,8 +6,11 @@
 package Vistas.Principal;
 
 import Modelo.Entidades.Permiso;
+import Modelo.Entidades.Sede;
+import Modelo.Repository.SedesRepository;
 import Utilidades.Colores;
 import Utilidades.Utilidades;
+import static Utilidades.Utilidades.UNO;
 import Utilidades.UtilidadesPantalla;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -20,6 +23,10 @@ import Vistas.Archivos.Clientes.VistaClientes;
 import Vistas.Principal.Configuracion.Usuarios_vista;
 import Vistas.Archivos.Trabajadores.VistaTrabajadores;
 import Vistas.Listado.Listado;
+import Vistas.Listado.ListadoClientes;
+import Vistas.Listado.ListadoTrabajadores;
+import Vistas.Principal.Configuracion.VistaUsuarios;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.help.HelpBroker;
@@ -32,6 +39,8 @@ import javax.help.HelpSetException;
  */
 public class Principal_vista extends javax.swing.JFrame {
 
+    ArrayList<Sede> sedesByUsuario;
+    SedesRepository repoSedes;
     Utilidades utilidades = new Utilidades();
     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy");
     Colores color = new Colores();
@@ -44,15 +53,26 @@ public class Principal_vista extends javax.swing.JFrame {
     public Principal_vista() {
         initComponents();
         UtilidadesPantalla.resolucionPantalla(this);
-
+        repoSedes = new SedesRepository();
         this.setTitle(utilidades.empresa);
         this.setLocationRelativeTo(null);
         representarEmpresaImagen(utilidades.empresa);
         java.util.Date fecha = new Date();
-        menunombreusuario.setText("Usuario: " + utilidades.usuario.getNombre() + " / Fecha: " + formato.format(fecha));
+        sedesByUsuario = repoSedes.getSedesByUsuario(utilidades.usuario.getId());
+        String sedes = "";
+        if (!sedesByUsuario.isEmpty()) {
+            sedes = sedesByUsuario.get(0).getCiudad();
+            for (int i = 1; i < sedesByUsuario.size(); i++) {
+                sedes = sedes + " , " + sedesByUsuario.get(i).getCiudad();
+            }
+        } else {
+            sedes = "ninguna";
+        }
+        menunombreusuario.setText("Usuario: " + utilidades.usuario.getNombre() + " / Fecha: " + formato.format(fecha) + " / Sedes: " + sedes);
         rolPermisos();
         ponAyuda();
         //consola_permisos();
+
     }
 
     public void ponAyuda() {
@@ -75,6 +95,7 @@ public class Principal_vista extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         lbl_imagen_principal = new javax.swing.JLabel();
         menubar = new javax.swing.JMenuBar();
@@ -87,9 +108,12 @@ public class Principal_vista extends javax.swing.JFrame {
         menuitemfaltas = new javax.swing.JMenuItem();
         menu_procesos = new javax.swing.JMenu();
         menu_listados = new javax.swing.JMenu();
+        Listados = new javax.swing.JMenuItem();
         ListarTrabajadores = new javax.swing.JMenuItem();
+        ListarClientes = new javax.swing.JMenuItem();
         menu_configuracion = new javax.swing.JMenu();
         menuitemconfiguracionusuario = new javax.swing.JMenuItem();
+        menuitemsedes = new javax.swing.JMenuItem();
         menuitemcerrarsesion = new javax.swing.JMenuItem();
         menu_ayuda = new javax.swing.JMenu();
         menuitemAyuda = new javax.swing.JMenuItem();
@@ -98,6 +122,8 @@ public class Principal_vista extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         jMenu1.setText("jMenu1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getResource("/img/logo-tersum.png")).getImage());
@@ -194,6 +220,11 @@ public class Principal_vista extends javax.swing.JFrame {
         menu_listados.setText("Listados");
         menu_listados.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
+        Listados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/listados.png"))); // NOI18N
+        Listados.setText("Listados");
+        menu_listados.add(Listados);
+
+        ListarTrabajadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/trabajador.png"))); // NOI18N
         ListarTrabajadores.setText("Trabajadores");
         ListarTrabajadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,6 +232,15 @@ public class Principal_vista extends javax.swing.JFrame {
             }
         });
         menu_listados.add(ListarTrabajadores);
+
+        ListarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.png"))); // NOI18N
+        ListarClientes.setText("Clientes");
+        ListarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarClientesActionPerformed(evt);
+            }
+        });
+        menu_listados.add(ListarClientes);
 
         menubar.add(menu_listados);
 
@@ -215,6 +255,15 @@ public class Principal_vista extends javax.swing.JFrame {
             }
         });
         menu_configuracion.add(menuitemconfiguracionusuario);
+
+        menuitemsedes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sede.png"))); // NOI18N
+        menuitemsedes.setText("Sedes");
+        menuitemsedes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuitemsedesActionPerformed(evt);
+            }
+        });
+        menu_configuracion.add(menuitemsedes);
 
         menuitemcerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/salir.png"))); // NOI18N
         menuitemcerrarsesion.setText("Cerrar Sesión");
@@ -264,13 +313,24 @@ public class Principal_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_formMousePressed
 
     private void menuitemclientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemclientesActionPerformed
-        VistaClientes vista_clientes = new VistaClientes();
-        vista_clientes.setVisible(true);
+        if (utilidades.usuario.getId_rol().equals(UNO)) {
+            VistaClientes vista_clientes = new VistaClientes();
+            vista_clientes.setVisible(true);
+        } else {
+            VistaClientes vista_clientes = new VistaClientes(sedesByUsuario);
+            vista_clientes.setVisible(true);
+        }
+
     }//GEN-LAST:event_menuitemclientesActionPerformed
 
     private void menuitemtrabajadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemtrabajadoresActionPerformed
-        VistaTrabajadores vista_trabajadores = new VistaTrabajadores();
-        vista_trabajadores.setVisible(true);
+        if (utilidades.usuario.getId_rol().equals(UNO)) {
+            VistaTrabajadores vista_trabajadores = new VistaTrabajadores();
+            vista_trabajadores.setVisible(true);
+        } else {
+            VistaTrabajadores vista_trabajadores = new VistaTrabajadores(sedesByUsuario);
+            vista_trabajadores.setVisible(true);
+        }
     }//GEN-LAST:event_menuitemtrabajadoresActionPerformed
 
     private void menuitemcontratosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemcontratosActionPerformed
@@ -279,7 +339,7 @@ public class Principal_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_menuitemcontratosActionPerformed
 
     private void menuitemconfiguracionusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemconfiguracionusuarioActionPerformed
-        Usuarios_vista vista_usuarios = new Usuarios_vista();
+        VistaUsuarios vista_usuarios = new VistaUsuarios();
         vista_usuarios.setVisible(true);
     }//GEN-LAST:event_menuitemconfiguracionusuarioActionPerformed
 
@@ -305,9 +365,18 @@ public class Principal_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_menuitemcerrarsesionActionPerformed
 
     private void ListarTrabajadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTrabajadoresActionPerformed
-        Listado prueba = new Listado();
-        prueba.Prueba();
+        ListadoTrabajadores lt = new ListadoTrabajadores();
+        lt.setVisible(true);
     }//GEN-LAST:event_ListarTrabajadoresActionPerformed
+
+    private void ListarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarClientesActionPerformed
+        ListadoClientes lt = new ListadoClientes();
+        lt.setVisible(true);
+    }//GEN-LAST:event_ListarClientesActionPerformed
+
+    private void menuitemsedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemsedesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuitemsedesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,9 +393,12 @@ public class Principal_vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Listados;
+    private javax.swing.JMenuItem ListarClientes;
     private javax.swing.JMenuItem ListarTrabajadores;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_imagen_principal;
     private javax.swing.JMenu menu_archivos;
@@ -343,6 +415,7 @@ public class Principal_vista extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuitemcontratos;
     private javax.swing.JMenuItem menuitemfaltas;
     private javax.swing.JMenuItem menuitemincidencias;
+    private javax.swing.JMenuItem menuitemsedes;
     private javax.swing.JMenuItem menuitemtrabajadores;
     private javax.swing.JMenu menunombreusuario;
     // End of variables declaration//GEN-END:variables
@@ -390,7 +463,7 @@ public class Principal_vista extends javax.swing.JFrame {
 
     private void rolPermisos() {
         //  System.out.println(utilidades.usuario.getId_rol()); //PARA VER EL ID DE ROL
-        if (utilidades.usuario.getId_rol() != 1) { //SI EL USUARIO NO ES ADMINISTRADOR
+        if (!utilidades.usuario.getId_rol().equals(UNO)) { //SI EL USUARIO NO ES ADMINISTRADOR
             menu_configuracion.setEnabled(false);
         }
 

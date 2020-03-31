@@ -5,13 +5,14 @@
  */
 package Modelo.Entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author DisenoWeb
  */
-public class Contrato {
+public class Contrato implements Serializable{
     int id;
     int codigo_tipo_contrato;
     int codigo_trabajador;
