@@ -42,6 +42,7 @@ public class Login_vista extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        subvencion = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -72,6 +73,17 @@ public class Login_vista extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        subvencion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        subvencion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Cartel_TICCámaras19 220x300.png"))); // NOI18N
+        subvencion.setLabelFor(subvencion);
+        subvencion.setToolTipText("");
+        subvencion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        subvencion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        subvencion.setMaximumSize(new java.awt.Dimension(50, 400));
+        subvencion.setMinimumSize(new java.awt.Dimension(50, 400));
+        subvencion.setPreferredSize(new java.awt.Dimension(240, 300));
+        jPanel1.add(subvencion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 240, 300));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo gesinformatica.png"))); // NOI18N
@@ -267,6 +279,7 @@ public class Login_vista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel subvencion;
     private javax.swing.JTextField usuario_text;
     // End of variables declaration//GEN-END:variables
 
