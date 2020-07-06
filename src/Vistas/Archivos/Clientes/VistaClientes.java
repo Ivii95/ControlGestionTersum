@@ -212,7 +212,6 @@ public class VistaClientes extends javax.swing.JFrame {
 
         tabla_clientes.setBackground(new java.awt.Color(204, 204, 204));
         tabla_clientes.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        tabla_clientes.setForeground(new java.awt.Color(0, 0, 0));
         tabla_clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -257,7 +256,6 @@ public class VistaClientes extends javax.swing.JFrame {
         panelRect1.setColorSecundario(new java.awt.Color(204, 204, 204));
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
-        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
         panelCurves1.setOpaque(true);
 
         javax.swing.GroupLayout panelRect1Layout = new javax.swing.GroupLayout(panelRect1);

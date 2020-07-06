@@ -196,21 +196,26 @@ public class ClienteRepository {
                     + email + ", "
                     + fechaAlta + ", "
                     + fechaBaja + " "
-                    + ") VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + ") VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conexion.prepareStatement(insert);
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCif());
             ps.setString(3, o.getNombre_fiscal());
             ps.setString(4, o.getNombre_comercial());
-            ps.setString(7, o.getContacto());
+            ps.setString(5, o.getContacto());
             ps.setInt(6, o.getTelefono());
-            ps.setInt(5, o.getFax());
-            ps.setInt(5, o.getMovil());
-            ps.setString(8, o.getEmail());
-            sqlDate = new java.sql.Date(o.getFecha_alta().getTime());
-            ps.setDate(9, sqlDate);
-            sqlDate = new java.sql.Date(o.getFecha_baja().getTime());
+            ps.setInt(7, o.getFax());
+            ps.setInt(8, o.getMovil());
+            ps.setString(9, o.getEmail());
+            if (o.getFecha_alta() != null) {
+                sqlDate = new java.sql.Date(o.getFecha_alta().getTime());
+            }
             ps.setDate(10, sqlDate);
+            if (o.getFecha_baja() != null) {
+                sqlDate = new java.sql.Date(o.getFecha_baja().getTime());
+            }
+
+            ps.setDate(11, sqlDate);
             ps.executeUpdate();
             conn.desconectar(conexion);
             clientes.add(0, o);
@@ -234,7 +239,8 @@ public class ClienteRepository {
             conexion = conn.conectar_empresa_concreta(Utilidades.empresa);
             delete = "DELETE FROM " + TABLA + " WHERE id=?";
             ps = conexion.prepareStatement(delete);
-            ps.setInt(1, id);
+            ps.setInt(1, id);   
+            ps.executeUpdate();
             conn.desconectar(conexion);
             clientes.remove(getById(id));
             correcto = true;
