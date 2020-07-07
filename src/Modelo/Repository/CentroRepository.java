@@ -291,6 +291,7 @@ public final class CentroRepository {
             delete = "DELETE FROM " + TABLA + " WHERE id=?";
             ps = conexion.prepareStatement(delete);
             ps.setInt(1, id);
+            ps.executeUpdate();
             conn.desconectar(conexion);
             centros.remove(getById(id));
             correcto = true;
@@ -334,8 +335,9 @@ public final class CentroRepository {
             ps.setFloat(10, o.getFacturacion_mes());
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
             ps.setInt(11, o.getId());
+            ps.executeUpdate();
             conn.desconectar(conexion);
-            ejecutarConsulta(consultaPrincipal);
+            ejecutarConsulta(consultaCentros);
             correcto = true;
         } catch (SQLException ex) {
             correcto = false;

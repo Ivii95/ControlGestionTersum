@@ -239,7 +239,7 @@ public class ClienteRepository {
             conexion = conn.conectar_empresa_concreta(Utilidades.empresa);
             delete = "DELETE FROM " + TABLA + " WHERE id=?";
             ps = conexion.prepareStatement(delete);
-            ps.setInt(1, id);   
+            ps.setInt(1, id);
             ps.executeUpdate();
             conn.desconectar(conexion);
             clientes.remove(getById(id));
@@ -258,6 +258,7 @@ public class ClienteRepository {
      */
     public boolean update(Cliente o) {
         try {
+            correcto = true;
             Utilidades.conn = new Conexion();
             conexion = conn.conectar_empresa_concreta(Utilidades.empresa);
             update = "UPDATE " + TABLA + " SET "
@@ -283,7 +284,11 @@ public class ClienteRepository {
             ps.setInt(7, o.getFax());
             ps.setInt(8, o.getMovil());
             ps.setString(9, o.getEmail());
-            sqlDate = new java.sql.Date(o.getFecha_alta().getTime());
+            if (o.getFecha_alta() != null) {
+                sqlDate = new java.sql.Date(o.getFecha_alta().getTime());
+            } else {
+                sqlDate = null;
+            }
             ps.setDate(10, sqlDate);
             if (o.getFecha_baja() != null) {
                 sqlDate = new java.sql.Date(o.getFecha_baja().getTime());
@@ -292,12 +297,13 @@ public class ClienteRepository {
             }
             ps.setDate(11, sqlDate);
             ps.setInt(12, o.getId());
+            ps.executeUpdate();
             conn.desconectar(conexion);
         } catch (SQLException ex) {
             correcto = false;
             Logger.getLogger(TrabajadorRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ejecutarConsulta(consultaClientes);
+        //ejecutarConsulta(consultaClientes);
         return correcto;
     }
 

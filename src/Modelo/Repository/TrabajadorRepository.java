@@ -401,7 +401,9 @@ public class TrabajadorRepository {
             ps.setFloat(18, trabajador.getCoste_mes());
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
             ps.setInt(19, trabajador.getId());
+            ps.executeUpdate();
             conn.desconectar(conexion);
+
             ejecutarConsulta(consulta);
         } catch (SQLException ex) {
             correcto = false;

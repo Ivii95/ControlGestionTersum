@@ -38,8 +38,7 @@ public class FormularioCentro extends javax.swing.JDialog {
         this.setLocationRelativeTo(parent);
         iniciarOtrosComponentes();
         this.centroModificar = centro;
-        txt_codigo.setText(centro.getCodigo());
-
+        iniciarComponenteModificar();
     }
 
     /**
@@ -51,6 +50,7 @@ public class FormularioCentro extends javax.swing.JDialog {
         super(parent, modal);
         this.setLocationRelativeTo(parent);
         iniciarOtrosComponentes();
+        this.centroModificar = new Centro();
     }
 
     private void iniciarOtrosComponentes() {
@@ -60,6 +60,19 @@ public class FormularioCentro extends javax.swing.JDialog {
         repoCentros.rellenarListaDefault();
         repoClientes = new ClienteRepository();
         repoClientes.rellenarCombo(comboCliente);
+    }
+
+    private void iniciarComponenteModificar() {
+        txt_codigo.setText(centroModificar.getCodigo() + "");
+        comboCliente.setSelectedItem(repoCentros.getByCodigo(centroModificar.getCodigo_cliente()));
+        txt_nombre.setText(centroModificar.getNombre());
+        txt_direccion.setText(centroModificar.getDireccion());
+        txt_poblacion.setText(centroModificar.getPoblacion() + "");
+        txt_tlf.setText(centroModificar.getTelefono() + "");
+        txt_contacto.setText(centroModificar.getContacto());
+        txt_email.setText(centroModificar.getEmail() + "");
+        txt_horas.setText(centroModificar.getHoras_semana() + "");
+        txt_faturacion.setText(centroModificar.getFacturacion_mes() + "");
     }
 
     /**
@@ -434,50 +447,52 @@ public class FormularioCentro extends javax.swing.JDialog {
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         boolean correcto = true;
         try {
-            if (comboCliente.getSelectedItem().equals("Seleccione uno")) {//Cliente
-                centroModificar.setCodigo_cliente(repoClientes.getByNombre((String) comboCliente.getSelectedItem()).getCodigo());
+            if (!comboCliente.getSelectedItem().equals("Seleccione uno")) {//Cliente
+                String codigo = repoClientes.getByNombre((String) comboCliente.getSelectedItem()).getCodigo();
+                System.out.println("Codigo:" + codigo);
+                centroModificar.setCodigo_cliente(codigo);
                 if (!txt_codigo.getText().equals("") && txt_codigo.getText() != null) {//Codigo
-                    if (!repoCentros.ifCodigoExist(txt_codigo.getText())) {//Codigo repetido
-                        centroModificar.setCodigo(txt_codigo.getText());
-                        if (txt_poblacion.getText() != null && !txt_poblacion.getText().equals("")) {//Poblacion
-                            centroModificar.setPoblacion(txt_poblacion.getText());
-                            if (txt_nombre.getText() != null && !txt_nombre.getText().equals("")) {//Nombre
-                                centroModificar.setNombre(txt_nombre.getText());
-                                if (txt_direccion.getText() != null && !txt_direccion.getText().equals("")) {//Direccion
-                                    centroModificar.setDireccion(txt_direccion.getText());
-                                    if (txt_contacto.getText() != null && !txt_contacto.getText().equals("")) {//Contacto
-                                        centroModificar.setContacto(txt_contacto.getText());
-                                        if (UtilidadesPantalla.comprobarTelefono(txt_tlf.getText()) && txt_tlf.getText() != null && !txt_tlf.getText().equals("")) {//Telefono
-                                            centroModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
-                                            if (txt_horas.getText() != null && !txt_horas.getText().equals("")) {//Horas
-                                                centroModificar.setHoras_semana(Integer.parseInt(txt_horas.getText()));
-                                                if (UtilidadesPantalla.comprobarEmail(txt_email.getText())) {//Email
-                                                    centroModificar.setEmail(txt_email.getText());
+                    //if (!repoCentros.ifCodigoExist(txt_codigo.getText())) {//Codigo repetido
+                    centroModificar.setCodigo(txt_codigo.getText());
+                    if (txt_poblacion.getText() != null && !txt_poblacion.getText().equals("")) {//Poblacion
+                        centroModificar.setPoblacion(txt_poblacion.getText());
+                        if (txt_nombre.getText() != null && !txt_nombre.getText().equals("")) {//Nombre
+                            centroModificar.setNombre(txt_nombre.getText());
+                            if (txt_direccion.getText() != null && !txt_direccion.getText().equals("")) {//Direccion
+                                centroModificar.setDireccion(txt_direccion.getText());
+                                if (txt_contacto.getText() != null && !txt_contacto.getText().equals("")) {//Contacto
+                                    centroModificar.setContacto(txt_contacto.getText());
+                                    if (UtilidadesPantalla.comprobarTelefono(txt_tlf.getText()) && txt_tlf.getText() != null && !txt_tlf.getText().equals("")) {//Telefono
+                                        centroModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
+                                        if (txt_horas.getText() != null && !txt_horas.getText().equals("")) {//Horas
+                                            centroModificar.setHoras_semana(Integer.parseInt(txt_horas.getText()));
+                                            if (UtilidadesPantalla.comprobarEmail(txt_email.getText())) {//Email
+                                                centroModificar.setEmail(txt_email.getText());
 
-                                                } else {
-                                                    JOptionPane.showMessageDialog(this, "Necesita ingresar un e-mail valido", "E-mail", JOptionPane.INFORMATION_MESSAGE);
-                                                }
                                             } else {
-                                                JOptionPane.showMessageDialog(this, "Necesita ingresar un numero de horas", "Horas", JOptionPane.INFORMATION_MESSAGE);
+                                                JOptionPane.showMessageDialog(this, "Necesita ingresar un e-mail valido", "E-mail", JOptionPane.INFORMATION_MESSAGE);
                                             }
                                         } else {
-                                            JOptionPane.showMessageDialog(this, "Necesita ingresar un numero de telefono valido", "Telefono", JOptionPane.INFORMATION_MESSAGE);
+                                            JOptionPane.showMessageDialog(this, "Necesita ingresar un numero de horas", "Horas", JOptionPane.INFORMATION_MESSAGE);
                                         }
                                     } else {
-                                        JOptionPane.showMessageDialog(this, "Necesita ingresar un nombre de contacto", "Contacto", JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.showMessageDialog(this, "Necesita ingresar un numero de telefono valido", "Telefono", JOptionPane.INFORMATION_MESSAGE);
                                     }
                                 } else {
-                                    JOptionPane.showMessageDialog(this, "Necesita ingresar una dirección", "Dirección", JOptionPane.INFORMATION_MESSAGE);
+                                    JOptionPane.showMessageDialog(this, "Necesita ingresar un nombre de contacto", "Contacto", JOptionPane.INFORMATION_MESSAGE);
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(this, "Necesita ingresar un nombre", "Nombre", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(this, "Necesita ingresar una dirección", "Dirección", JOptionPane.INFORMATION_MESSAGE);
                             }
                         } else {
-                            JOptionPane.showMessageDialog(this, "Necesita ingresar una población", "Población", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "Necesita ingresar un nombre", "Nombre", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(this, "El codigo ya existe en la base de datos", "Codigo", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Necesita ingresar una población", "Población", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    //} else {
+                    //  JOptionPane.showMessageDialog(this, "El codigo ya existe en la base de datos", "Codigo", JOptionPane.WARNING_MESSAGE);
+                    //}
                 } else {
                     JOptionPane.showMessageDialog(this, "Necesita ingresar un codigo", "Codigo", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -526,7 +541,8 @@ public class FormularioCentro extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioCentro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioCentro.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
