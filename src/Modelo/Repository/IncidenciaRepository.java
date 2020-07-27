@@ -25,7 +25,7 @@ public final class IncidenciaRepository {
 
     private final String nombreClase = IncidenciaRepository.class.getName();
     private final ArrayList<Incidencia> incidencias;
-    
+
     private final String TABLA = "incidencias";
     private final String consultaIncidencia = consultaPrincipal + TABLA;
     private final String id = "id";
@@ -35,11 +35,11 @@ public final class IncidenciaRepository {
     private final String fechaFin = "fecha_fin";
     private final String descripcion = "descripcion";
     private final String extras = "extras";
-    private final String ORDER=" ORDER BY "+fechaInicio+" DESC ";
+    private final String ORDER = " ORDER BY " + fechaInicio + " DESC ";
 
     public IncidenciaRepository() {
         this.incidencias = new ArrayList<>();
-        //ejecutarConsulta(consultaIncidencia);
+        ejecutarConsulta(consultaIncidencia);
     }
 
     /**
@@ -104,7 +104,7 @@ public final class IncidenciaRepository {
     }
 
     public void rellenarTablaDefault(JTable tabla) {
-        ejecutarConsulta(consultaIncidencia+ORDER);
+        ejecutarConsulta(consultaIncidencia + ORDER);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -115,7 +115,7 @@ public final class IncidenciaRepository {
     }
 
     public void rellenarTablaByTrabajador(JTable tabla, String codigo) {
-        ejecutarConsulta(consultaIncidencia + " WHERE " + codTrabajador + " = '" + codigo+"'"+ORDER);
+        ejecutarConsulta(consultaIncidencia + " WHERE " + codTrabajador + " = '" + codigo + "'" + ORDER);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -150,10 +150,15 @@ public final class IncidenciaRepository {
             ps = conexion.prepareStatement(insert);
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCodigo_trabajador());
-            sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+            if (o.getFecha_inicio() != null) {
+                sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+            } else {
+                sqlDate = null;
+            }
+            System.out.println(sqlDate);
             ps.setDate(3, sqlDate);
             if (o.getFecha_fin() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
+                sqlDate = new java.sql.Date(o.getFecha_fin().getTime()+1);
             } else {
                 sqlDate = null;
             }
@@ -180,6 +185,7 @@ public final class IncidenciaRepository {
             delete = "DELETE FROM " + TABLA + " WHERE id=?";
             ps = conexion.prepareStatement(delete);
             ps.setInt(1, id);
+            ps.executeUpdate();
             ps.close();
             conn.desconectar(conexion);
             incidencias.remove(getById(id));
@@ -198,25 +204,30 @@ public final class IncidenciaRepository {
             update = "UPDATE " + TABLA + " SET "
                     + cod + "=?, "
                     + codTrabajador + "=?,"
+                    + descripcion + "=?,"
                     + fechaInicio + "=?,"
                     + fechaFin + "=?,"
-                    + extras + "=?,"
-                    + descripcion + "=? WHERE " + id + "=?";
+                    + extras + "=? WHERE " + id + "=?";
             ps = conexion.prepareStatement(update);
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCodigo_trabajador());
-            sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
-            ps.setDate(3, sqlDate);
+            ps.setString(3, o.getDescripcion());
+            if (o.getFecha_inicio() != null) {
+                sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+            } else {
+                sqlDate = null;
+            }
+            ps.setDate(4, sqlDate);
             if (o.getFecha_fin() != null) {
                 sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
             } else {
                 sqlDate = null;
             }
-            ps.setDate(4, sqlDate);
-            ps.setInt(5, o.getExtras());
-            ps.setString(5, o.getDescripcion());
+            ps.setDate(5, sqlDate);
+            ps.setInt(6, o.getExtras());
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
-            ps.setInt(6, o.getId());
+            ps.setInt(7, o.getId());
+            ps.executeUpdate();
             conn.desconectar(conexion);
             ejecutarConsulta(consultaPrincipal);
             correcto = true;
@@ -240,7 +251,7 @@ public final class IncidenciaRepository {
     }
 
     public void buscarFecha(JTable tabla, String buscar, String codigo) {
-        ejecutarConsulta(consultaIncidencia + " WHERE (" + fechaInicio + " LIKE '%" + buscar + "%' OR " + fechaFin + "LIKE '%" + buscar + "%' ) AND codigo_trabajador=" + codigo+ORDER);
+        ejecutarConsulta(consultaIncidencia + " WHERE (" + fechaInicio + " LIKE '%" + buscar + "%' OR " + fechaFin + "LIKE '%" + buscar + "%' ) AND codigo_trabajador=" + codigo + ORDER);
         rellenarTabla(tabla);
     }
 }

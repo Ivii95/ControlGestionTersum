@@ -36,7 +36,7 @@ public class Conexion {
         try {
             //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, password2);
+            conn = DriverManager.getConnection(url, user, password);
             if (conn != null) {
                 //System.out.println("CONECTADO");
                 //JOptionPane.showMessageDialog(null, "CONECTADO");//SI NECESITAMOS SABER SI SE HA CONECTADO
@@ -51,12 +51,11 @@ public class Conexion {
 
     public Connection conectar_empresa_concreta(String url2) {
         conn = null;
-
         urlbase = "jdbc:mysql://" + ipPrueba + "/";
 //           urlbase = "jdbc:mysql://gesinformatica.es:3306/tiendage_programa"; //TEMPORAL
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(urlbase + url2 + urlHora, user, password2);
+            conn = DriverManager.getConnection(urlbase + url2 + urlHora, user, password);
 //    conn = DriverManager.getConnection(urlbase, user, password);//TEMPORAL
             if (conn != null) {
                 //System.out.println("CONECTADO");

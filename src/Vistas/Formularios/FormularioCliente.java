@@ -457,81 +457,50 @@ public class FormularioCliente extends javax.swing.JDialog {
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         boolean correcto = true;
         try {
-
-            if (!txt_codigo_cliente.getText().equals("") && txt_codigo_cliente.getText() != null) {//Codigo
-                //if (!utilidades.comprobarCodigoRepetido(Integer.parseInt(txt_codigo_cliente.getText()), "trabajadores")) {//Codigo repetido
+            if (!txt_codigo_cliente.getText().isEmpty()) {
                 clienteModificar.setCodigo(txt_codigo_cliente.getText());
-                if (txt_cif.getText() != null && !txt_cif.getText().equals("")) {//CIF
-                    clienteModificar.setCif(txt_cif.getText());
-                    if (txt_nombre_fiscal.getText() != null && !txt_nombre_fiscal.getText().equals("")) {//Nombre fiscal
-                        clienteModificar.setNombre_fiscal(txt_nombre_fiscal.getText());
-                        if (txt_nombre_comercial.getText() != null && !txt_nombre_comercial.getText().equals("")) {//Nombre comercial
-                            clienteModificar.setNombre_comercial(txt_nombre_comercial.getText());
-                            if (txt_contacto.getText() != null && !txt_contacto.getText().equals("")) {//Contacto
-                                clienteModificar.setContacto(txt_contacto.getText());
-                                if (UtilidadesPantalla.comprobarTelefono(txt_tlf.getText()) && txt_tlf.getText() != null && !txt_tlf.getText().equals("")) {//Telefono
-                                    clienteModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
-                                    if (UtilidadesPantalla.comprobarTelefono(txt_fax.getText()) && txt_fax.getText() != null && !txt_fax.getText().equals("")) {//Fax
-                                        clienteModificar.setFax(Integer.parseInt(txt_fax.getText()));
-                                        if (UtilidadesPantalla.comprobarMovil(txt_movil.getText()) && txt_movil.getText() != null && !txt_movil.getText().equals("")) {//Movil
-                                            clienteModificar.setMovil(Integer.parseInt(txt_movil.getText()));
-                                            if (UtilidadesPantalla.comprobarEmail(txt_email.getText())) {//Email
-                                                clienteModificar.setEmail(txt_email.getText());
-                                                if (fecha_alta.getDate() != null) {//Fecha alta
-                                                    clienteModificar.setFecha_alta(fecha_alta.getDate());
-                                                    if (fecha_baja.getDate() != null) {//Fecha de baja vacia
-                                                        if (fecha_alta.getDate().before(fecha_baja.getDate())) {//Fecha de alta antes de la fecha de baja
-                                                            clienteModificar.setFecha_baja(fecha_baja.getDate());
-                                                            correcto = true;
-                                                        } else {
-                                                            JOptionPane.showMessageDialog(this, "La fecha de baja no puede ser superior a la fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
-                                                        }
-                                                    } else {
-                                                        clienteModificar.setFecha_baja(null);
-                                                        correcto = true;
-                                                    }
-                                                } else {
-                                                    JOptionPane.showMessageDialog(this, "La fecha de alta no puede estar vacia", "Fechas", JOptionPane.INFORMATION_MESSAGE);
-                                                }
-                                            } else {
-                                                JOptionPane.showMessageDialog(this, "Necesita ingresar un e-mail", "E-mail", JOptionPane.INFORMATION_MESSAGE);
-                                            }
-                                        } else {
-                                            JOptionPane.showMessageDialog(this, "Tienes el numero de movil mal", "Contacto", JOptionPane.INFORMATION_MESSAGE);
-                                        }
-                                    } else {
-                                        JOptionPane.showMessageDialog(this, "Tienes el numero de fax mal", "Contacto", JOptionPane.INFORMATION_MESSAGE);
-                                    }
-                                } else {
-                                    JOptionPane.showMessageDialog(this, "Tienes el numero de telefono mal", "Contacto", JOptionPane.INFORMATION_MESSAGE);
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Necesita ingresar un nombre de contacto", "Contacto", JOptionPane.INFORMATION_MESSAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Necesita ingresar un nombre comercial", "Nombre", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Necesita ingresar un nombre fiscal", "Nombre", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Necesita ingresar un CIF", "CIF", JOptionPane.INFORMATION_MESSAGE);
-                }
-                //} else {
-                //  JOptionPane.showMessageDialog(this, "El codigo ya existe en la base de datos", "Codigo", JOptionPane.WARNING_MESSAGE);
-                //}
             } else {
-                JOptionPane.showMessageDialog(this, "Necesita ingresar un codigo", "Codigo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Necesitas meter un codigo");
+                correcto = false;
+            }
+            clienteModificar.setCif(txt_cif.getText());
+            clienteModificar.setNombre_fiscal(txt_nombre_fiscal.getText());
+            clienteModificar.setNombre_comercial(txt_nombre_comercial.getText());
+            clienteModificar.setContacto(txt_contacto.getText());
+            if (!txt_tlf.getText().isBlank()) {
+                clienteModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
+            }
+            if (!txt_fax.getText().isBlank()) {
+                clienteModificar.setFax(Integer.parseInt(txt_fax.getText()));
+            }
+            if (!txt_movil.getText().isBlank()) {
+                clienteModificar.setMovil(Integer.parseInt(txt_movil.getText()));
+            }
+            clienteModificar.setEmail(txt_email.getText());
+            clienteModificar.setFecha_alta(fecha_alta.getDate());
+            if (fecha_baja.getDate() != null) {//Fecha de baja vacia
+                if (fecha_alta.getDate().before(fecha_baja.getDate())) {//Fecha de alta antes de la fecha de baja
+                    clienteModificar.setFecha_baja(fecha_baja.getDate());
+                    correcto = true;
+                } else {
+                    JOptionPane.showMessageDialog(this, "La fecha de baja no puede ser superior a la fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                clienteModificar.setFecha_baja(null);
+                correcto = true;
             }
 
+            //} else {
+            //  JOptionPane.showMessageDialog(this, "El codigo ya existe en la base de datos", "Codigo", JOptionPane.WARNING_MESSAGE);
+            //}
             if (correcto) {
                 this.setVisible(false);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "No se pueden meter números en algunos campos", "Errores con los números", JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "No se pueden meter números en algunos campos", "Errores con los números", JOptionPane.WARNING_MESSAGE);
             System.out.println(e.getMessage());
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "Excepcion al meter los datos del formulario", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Problemas al meter los datos del formulario", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_AceptarActionPerformed
@@ -636,7 +605,6 @@ private void comprobarNumero(KeyEvent evt) {
 
     private void comprobarCodigo(KeyEvent evt) {
         try {
-            System.out.println(repoCliente.ifCodigoExist((String) txt_codigo_cliente.getText()));
             if (repoCliente.ifCodigoExist((String) txt_codigo_cliente.getText()) && lbl_codigo.getForeground().equals(new java.awt.Color(204, 204, 204))) {
                 JOptionPane.showMessageDialog(this, "Codigo usado", "Codigo", JOptionPane.WARNING_MESSAGE);
                 lbl_codigo.setForeground(Color.red);

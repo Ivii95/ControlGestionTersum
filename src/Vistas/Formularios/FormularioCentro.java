@@ -64,7 +64,8 @@ public class FormularioCentro extends javax.swing.JDialog {
 
     private void iniciarComponenteModificar() {
         txt_codigo.setText(centroModificar.getCodigo() + "");
-        comboCliente.setSelectedItem(repoCentros.getByCodigo(centroModificar.getCodigo_cliente()));
+        String nombreCliente = repoClientes.getByCodigo(centroModificar.getCodigo_cliente()).getNombre_comercial();
+        comboCliente.setSelectedItem(nombreCliente);
         txt_nombre.setText(centroModificar.getNombre());
         txt_direccion.setText(centroModificar.getDireccion());
         txt_poblacion.setText(centroModificar.getPoblacion() + "");

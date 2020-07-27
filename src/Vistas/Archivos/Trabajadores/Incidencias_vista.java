@@ -29,6 +29,7 @@ import javax.swing.UIManager;
 public class Incidencias_vista extends javax.swing.JFrame {
 
     IncidenciaRepository repoIncidencia;
+    IncidenciaRepository repoIncidenciaTotal;
     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy");
     Trabajador trabajadorIncidencias;
 
@@ -60,7 +61,8 @@ public class Incidencias_vista extends javax.swing.JFrame {
         btn_borrar_incidencia.setVisible(false);
         btn_limpiar_incidencia.setVisible(false);
         //INICIAMOS REPO
-        repoIncidencia=new IncidenciaRepository();
+        repoIncidencia = new IncidenciaRepository();
+        repoIncidenciaTotal = new IncidenciaRepository();
         repoIncidencia.rellenarTablaByTrabajador(tabla_incidencias, trabajadorIncidencias.getCodigo());
         //TABLA INCIDENCIAS
         tabla_incidencias.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -136,14 +138,12 @@ public class Incidencias_vista extends javax.swing.JFrame {
         panelRect1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
-        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
         panelCurves1.setOpaque(true);
         panelCurves1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabla_incidencias.setAutoCreateRowSorter(true);
         tabla_incidencias.setBackground(new java.awt.Color(204, 204, 204));
         tabla_incidencias.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        tabla_incidencias.setForeground(new java.awt.Color(0, 0, 0));
         tabla_incidencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -220,7 +220,6 @@ public class Incidencias_vista extends javax.swing.JFrame {
         label_fechainicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         label_descripcion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        label_descripcion.setForeground(new java.awt.Color(0, 0, 0));
         label_descripcion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_descripcion.setText("Descripción de la incidencia");
         label_fechainicio.add(label_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, 320, 35));
@@ -229,7 +228,6 @@ public class Incidencias_vista extends javax.swing.JFrame {
         label_fechainicio.add(txt_fecha_fin, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, 200, 40));
 
         label_fecha.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        label_fecha.setForeground(new java.awt.Color(0, 0, 0));
         label_fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_fecha.setText("Fecha Fin");
         label_fechainicio.add(label_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 200, 30));
@@ -275,7 +273,6 @@ public class Incidencias_vista extends javax.swing.JFrame {
         label_fechainicio.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 50, 320, 80));
 
         label_provincia1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        label_provincia1.setForeground(new java.awt.Color(0, 0, 0));
         label_provincia1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_provincia1.setText("Horas de mas");
         label_fechainicio.add(label_provincia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 35, 200, 30));
@@ -295,7 +292,6 @@ public class Incidencias_vista extends javax.swing.JFrame {
         label_fechainicio.add(btn_añadir_incidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 200, 35));
 
         lbl_codigo.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_codigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_codigo.setText("Codigo de incidencia");
         label_fechainicio.add(lbl_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 35, 160, 30));
@@ -309,7 +305,6 @@ public class Incidencias_vista extends javax.swing.JFrame {
         label_fechainicio.add(txt_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 40));
 
         label_fecha1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        label_fecha1.setForeground(new java.awt.Color(0, 0, 0));
         label_fecha1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_fecha1.setText("Fecha Inicio");
         label_fechainicio.add(label_fecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 200, 30));
@@ -340,11 +335,12 @@ public class Incidencias_vista extends javax.swing.JFrame {
 
     private void btn_borrar_incidenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_borrar_incidenciaMouseClicked
         int filaSeleccionada = tabla_incidencias.getSelectedRow();
-        int opcionborrar = JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de borrar el registro?\nContrato: " + (String) tabla_incidencias.getValueAt(filaSeleccionada, 3));
+        int opcionborrar = JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de borrar el registro?\nContrato: " + (String) tabla_incidencias.getValueAt(filaSeleccionada, 1));
         switch (opcionborrar) {
             case 0://OPCION SI BORRAR TRABAJADOR
                 int id = UtilidadesPantalla.getIdSelected(tabla_incidencias);
                 repoIncidencia.delete(id);
+                restablecerTodo();
                 break;
 
             case 1://OPCION NO BORRAR CONTRATO, se tiene que poner para que los datos que ya estan escritos en los jtextfield no se borren al darle a "NO"
@@ -380,6 +376,7 @@ public class Incidencias_vista extends javax.swing.JFrame {
             String codigo = txt_codigo.getText();
             String descripcion = txt_descripcion.getText();
             Date fecha_inicio = (Date) txt_fecha_inicio.getDate();
+            System.out.println(new java.sql.Date(fecha_inicio.getTime()));
             Date fecha_fin = (Date) txt_fecha_fin.getDate();
             int extras = Integer.parseInt((String) comboExtras.getSelectedItem());
             Incidencia incidencia = new Incidencia(codigo, trabajadorIncidencias.getCodigo(), extras, descripcion, fecha_inicio, fecha_fin);
@@ -493,10 +490,10 @@ public class Incidencias_vista extends javax.swing.JFrame {
     }
 
     private void comprobarCodigo(KeyEvent evt) {
-        if (repoIncidencia.ifCodigoExist(txt_codigo.getText()) && lbl_codigo.getForeground().equals(new java.awt.Color(0, 0, 0))) {
+        if (repoIncidenciaTotal.ifCodigoExist(txt_codigo.getText()) && lbl_codigo.getForeground().equals(new java.awt.Color(0, 0, 0))) {
             JOptionPane.showMessageDialog(this, "Codigo repetito", "Codigo", JOptionPane.WARNING_MESSAGE);
             lbl_codigo.setForeground(Color.red);
-        } else if (!repoIncidencia.ifCodigoExist(txt_codigo.getText()) && lbl_codigo.getForeground().equals(Color.red)) {
+        } else if (!repoIncidenciaTotal.ifCodigoExist(txt_codigo.getText()) && lbl_codigo.getForeground().equals(Color.red)) {
             lbl_codigo.setForeground(new java.awt.Color(0, 0, 0));
         }
     }

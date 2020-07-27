@@ -33,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 public final class Faltas_vista extends javax.swing.JFrame {
 
     FaltaRepository repoFalta;
+    FaltaRepository repoFaltaTotal;
     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy");
     Trabajador trabajadorFaltas;
 
@@ -44,7 +45,8 @@ public final class Faltas_vista extends javax.swing.JFrame {
 
     public Faltas_vista(Trabajador trabajador) {
         this.trabajadorFaltas = trabajador;
-        repoFalta=new FaltaRepository();
+        repoFalta = new FaltaRepository();
+        repoFaltaTotal = new FaltaRepository();
         initComponents();
         ponAyuda();
         pulsarX();
@@ -129,7 +131,6 @@ public final class Faltas_vista extends javax.swing.JFrame {
         panelRect1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
-        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
         panelCurves1.setOpaque(true);
         panelCurves1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -167,7 +168,6 @@ public final class Faltas_vista extends javax.swing.JFrame {
         tabla_faltas.setAutoCreateRowSorter(true);
         tabla_faltas.setBackground(new java.awt.Color(204, 204, 204));
         tabla_faltas.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        tabla_faltas.setForeground(new java.awt.Color(0, 0, 0));
         tabla_faltas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -263,13 +263,11 @@ public final class Faltas_vista extends javax.swing.JFrame {
         panelRect2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 40, 350, 80));
 
         label_descripcion.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        label_descripcion.setForeground(new java.awt.Color(0, 0, 0));
         label_descripcion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_descripcion.setText("Descripcion de la falta");
         panelRect2.add(label_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 340, 35));
 
         lbl_fechainicio_faltas.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_fechainicio_faltas.setForeground(new java.awt.Color(0, 0, 0));
         lbl_fechainicio_faltas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_fechainicio_faltas.setText("Fecha de inicio");
         panelRect2.add(lbl_fechainicio_faltas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 200, 34));
@@ -278,7 +276,6 @@ public final class Faltas_vista extends javax.swing.JFrame {
         panelRect2.add(txt_fechainicio_faltas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 200, 35));
 
         lbl_fechafin_faltas.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_fechafin_faltas.setForeground(new java.awt.Color(0, 0, 0));
         lbl_fechafin_faltas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_fechafin_faltas.setText("Fecha de fin");
         panelRect2.add(lbl_fechafin_faltas, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 200, 34));
@@ -287,7 +284,6 @@ public final class Faltas_vista extends javax.swing.JFrame {
         panelRect2.add(txt_fechafin_faltas, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 200, 35));
 
         lbl_codigo_faltas.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_codigo_faltas.setForeground(new java.awt.Color(0, 0, 0));
         lbl_codigo_faltas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_codigo_faltas.setText("Codigo de Falta");
         panelRect2.add(lbl_codigo_faltas, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 42, 150, 30));
@@ -334,7 +330,11 @@ public final class Faltas_vista extends javax.swing.JFrame {
         Falta falta = new Falta();
         falta.setCodigo(txt_codigo_falta.getText());
         falta.setCodigo_trabajador(trabajadorFaltas.getCodigo());
-        falta.setFecha_inicio(txt_fechainicio_faltas.getDate());
+        if (txt_fechainicio_faltas.getDate() != null) {
+            falta.setFecha_inicio(txt_fechainicio_faltas.getDate());
+        } else {
+            falta.setFecha_inicio(null);
+        }
         if (txt_fechafin_faltas.getDate() != null) {
             falta.setFecha_fin(txt_fechafin_faltas.getDate());
         } else {
@@ -353,6 +353,7 @@ public final class Faltas_vista extends javax.swing.JFrame {
             case 0://OPCION SI BORRAR TRABAJADOR
                 int id = (int) tabla_faltas.getValueAt(filaSeleccionada, 0);
                 repoFalta.delete(id);
+                restablecerTodo();
                 break;
             case 1://OPCION NO BORRAR CONTRATO, se tiene que poner para que los datos que ya estan escritos en los jtextfield no se borren al darle a "NO"
                 break;
@@ -386,9 +387,11 @@ public final class Faltas_vista extends javax.swing.JFrame {
             Object[] trabajadores = tr.buscarTrabajadoresPorCentrosDeUnCodigoTrabajador(trabajadorFaltas.getCodigo());
             String opcion = (String) JOptionPane.showInputDialog(this, "Selecciona un trabajador", "Elegir", JOptionPane.QUESTION_MESSAGE,
                     null, trabajadores, "Selecciona uno");
-            Incidencias_vista inci = new Incidencias_vista(tr.getByNombre(opcion), falta);
-            inci.setVisible(true);
-            this.dispose();
+            if (opcion != null && !opcion.equals("")) {
+                Incidencias_vista inci = new Incidencias_vista(tr.getByNombre(opcion), falta);
+                inci.setVisible(true);
+                this.dispose();
+            }
         }
         restablecerTodo();
     }//GEN-LAST:event_btn_añadir_faltasActionPerformed
@@ -494,10 +497,10 @@ public final class Faltas_vista extends javax.swing.JFrame {
 
     private void comprobarCodigo(KeyEvent evt) {
         try {
-            if (repoFalta.ifCodigoExist(txt_codigo_falta.getText()) && lbl_codigo_faltas.getForeground().equals(new java.awt.Color(0, 0, 0))) {
+            if (repoFaltaTotal.ifCodigoExist(txt_codigo_falta.getText()) && lbl_codigo_faltas.getForeground().equals(new java.awt.Color(0, 0, 0))) {
                 JOptionPane.showMessageDialog(this, "Codigo repetito", "Codigo", JOptionPane.WARNING_MESSAGE);
                 lbl_codigo_faltas.setForeground(Color.red);
-            } else if (!repoFalta.ifCodigoExist(txt_codigo_falta.getText()) && lbl_codigo_faltas.getForeground().equals(Color.red)) {
+            } else if (!repoFaltaTotal.ifCodigoExist(txt_codigo_falta.getText()) && lbl_codigo_faltas.getForeground().equals(Color.red)) {
                 lbl_codigo_faltas.setForeground(new java.awt.Color(0, 0, 0));
             }
         } catch (NumberFormatException e) {

@@ -388,7 +388,6 @@ public class TrabajadorRepository {
             if (trabajador.getFecha_alta() != null) {
                 sqlDate = new java.sql.Date(trabajador.getFecha_alta().getTime());
             }
-
             ps.setDate(14, sqlDate);
             if (trabajador.getFecha_baja() == null) {
                 sqlDate = null;

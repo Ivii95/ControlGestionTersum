@@ -95,6 +95,16 @@ public class ClienteRepository {
         return o;
     }
 
+    public Cliente getByCodigo(String codigo) {
+        Cliente o = null;
+        for (int i = 0; i < clientes.size(); i++) {
+            if (clientes.get(i).getCodigo().equals(codigo)) {
+                o = clientes.get(i);
+            }
+        }
+        return o;
+    }
+
     public Cliente getByNombre(String nombre) {
         Cliente o = null;
         for (int i = 0; i < clientes.size(); i++) {

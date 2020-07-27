@@ -267,7 +267,6 @@ public class VistaCentros extends javax.swing.JFrame {
         panelRect1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
-        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
         panelCurves1.setOpaque(true);
         panelCurves1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -291,10 +290,11 @@ public class VistaCentros extends javax.swing.JFrame {
                     + "Centro: " + (String) tabla_centros.getValueAt(filaSeleccionada, 2));
             switch (opcionborrar) {
                 case 0://OPCION SI BORRAR TRABAJADOR
-                    String id = String.valueOf(tabla_centros.getValueAt(filaSeleccionada, 0));
+                    int id = Integer.parseInt(String.valueOf(tabla_centros.getValueAt(filaSeleccionada, 0)));
                      {
-
-                        //utilidades.deleteBbdd("clientes", id);
+                        cr.delete(id);
+                        cr.rellenarTablaByCliente(tabla_centros, clienteCentros);
+                       //utilidades.deleteBbdd("clientes", id);
                     }
                     break;
                 case 1://OPCION NO BORRAR TRABAJADOR, se tiene que poner para que los datos que ya estan escritos en los jtextfield no se borren al darle a "NO"
@@ -319,7 +319,7 @@ public class VistaCentros extends javax.swing.JFrame {
             Centro get = FC.centroModificar;
             if (get != null) {
                 cr.update(centro);
-                cr.rellenarTablaDefault(tabla_centros);
+                cr.rellenarTablaByCliente(tabla_centros, clienteCentros);
                 //utilidades.updatebbdd("clientes", get, get.getId());
                 //restablecerTabla();
             }
@@ -359,7 +359,7 @@ public class VistaCentros extends javax.swing.JFrame {
             cr.buscar(tabla_centros, txt_buscador.getText());
 
         } else {//SI POR EL CONTRARIO ESTA VACIO EL BUSCADOR, ENTONCES RELLENA LA TABLA CON TODO
-            cr.rellenarTablaDefault(tabla_centros);
+            cr.rellenarTablaByCliente(tabla_centros, clienteCentros);
         }
     }//GEN-LAST:event_txt_buscadorKeyReleased
 

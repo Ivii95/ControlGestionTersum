@@ -33,9 +33,11 @@ public final class FaltaRepository {
     private final String fechaInicio = "fecha_inicio";
     private final String fechaFin = "fecha_fin";
     private final String motivo = "motivo";
-    private final String ORDER=" ORDER BY "+fechaInicio+" DESC ";
+    private final String ORDER = " ORDER BY " + fechaInicio + " DESC ";
+
     public FaltaRepository() {
         this.faltas = new ArrayList<>();
+        ejecutarConsulta(consultaFaltas);
     }
 
     /**
@@ -59,6 +61,7 @@ public final class FaltaRepository {
                 falta.setMotivo(rs.getString(motivo));
                 faltas.add(falta);
             }
+            rs.close();
             conn.desconectar(conexion);
         } catch (SQLException ex) {
             Logger.getLogger(nombreClase).log(Level.SEVERE, null, ex);
@@ -99,7 +102,7 @@ public final class FaltaRepository {
     }
 
     public void rellenarTablaDefault(JTable tabla) {
-        ejecutarConsulta(consultaFaltas+ORDER);
+        ejecutarConsulta(consultaFaltas + ORDER);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -110,7 +113,7 @@ public final class FaltaRepository {
     }
 
     public void rellenarTablaByTrabajador(JTable tabla, String codigo) {
-        ejecutarConsulta(consultaFaltas + " WHERE " + codTrabajador + " = '" + codigo + "'"+ORDER);
+        ejecutarConsulta(consultaFaltas + " WHERE " + codTrabajador + " = '" + codigo + "'" + ORDER);
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];
         dtm.setRowCount(0);
@@ -172,6 +175,7 @@ public final class FaltaRepository {
             delete = "DELETE FROM " + TABLA + " WHERE id=?";
             ps = conexion.prepareStatement(delete);
             ps.setInt(1, id);
+            ps.executeUpdate();
             conn.desconectar(conexion);
             faltas.remove(getById(id));
             correcto = true;
@@ -196,6 +200,11 @@ public final class FaltaRepository {
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCodigo_trabajador());
             sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+            if (o.getFecha_inicio()!= null) {
+                sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+            } else {
+                sqlDate = null;
+            }
             ps.setDate(3, sqlDate);
             if (o.getFecha_fin() != null) {
                 sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
@@ -206,8 +215,9 @@ public final class FaltaRepository {
             ps.setString(5, o.getMotivo());
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
             ps.setInt(6, o.getId());
+            ps.executeUpdate();
             conn.desconectar(conexion);
-            ejecutarConsulta(consultaPrincipal);
+            //ejecutarConsulta(consultaPrincipal);
             correcto = true;
         } catch (SQLException ex) {
             correcto = false;
