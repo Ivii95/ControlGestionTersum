@@ -25,6 +25,7 @@ import Vistas.Archivos.Trabajadores.VistaTrabajadores;
 import Vistas.Listado.Listado;
 import Vistas.Listado.ListadoClientes;
 import Vistas.Listado.ListadoTrabajadores;
+import Vistas.Principal.Configuracion.VistaSedes;
 import Vistas.Principal.Configuracion.VistaUsuarios;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -378,7 +379,8 @@ public class Principal_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_ListarClientesActionPerformed
 
     private void menuitemsedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemsedesActionPerformed
-        // TODO add your handling code here:
+        VistaSedes vs=new VistaSedes();
+        vs.setVisible(true);
     }//GEN-LAST:event_menuitemsedesActionPerformed
 
     /**

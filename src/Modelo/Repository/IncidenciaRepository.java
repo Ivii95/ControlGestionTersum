@@ -10,6 +10,7 @@ import static Modelo.Repository.UtilidadesRepository.*;
 import Utilidades.Conexion;
 import static Utilidades.Utilidades.conn;
 import static Utilidades.Utilidades.empresa;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -151,6 +152,8 @@ public final class IncidenciaRepository {
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCodigo_trabajador());
             if (o.getFecha_inicio() != null) {
+                int dia=o.getFecha_inicio().getDay()+1;
+                o.getFecha_inicio().setDate(dia);
                 sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
             } else {
                 sqlDate = null;
@@ -158,7 +161,8 @@ public final class IncidenciaRepository {
             System.out.println(sqlDate);
             ps.setDate(3, sqlDate);
             if (o.getFecha_fin() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_fin().getTime()+1);
+                sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
+                Utilidades.UtilidadesPantalla.sumarRestarDiasFecha(sqlDate, 1);
             } else {
                 sqlDate = null;
             }
@@ -229,7 +233,7 @@ public final class IncidenciaRepository {
             ps.setInt(7, o.getId());
             ps.executeUpdate();
             conn.desconectar(conexion);
-            ejecutarConsulta(consultaPrincipal);
+            //ejecutarConsulta(consultaPrincipal);
             correcto = true;
         } catch (SQLException ex) {
             correcto = false;

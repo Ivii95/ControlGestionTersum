@@ -8,6 +8,9 @@ package Utilidades;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -23,6 +26,8 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author DisenoWeb
  */
 public class UtilidadesPantalla {
+
+    public static SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy");
 
     public static void resolucionPantalla(JFrame aThis) {
         aThis.setLocationRelativeTo(null);
@@ -112,5 +117,14 @@ public class UtilidadesPantalla {
 
     public static int getIdSelected(JTable tabla) {
         return (Integer) (tabla.getValueAt(tabla.getSelectedRow(), 0));
+    }
+
+    public static Date sumarRestarDiasFecha(Date fecha, int dias) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_YEAR, dias);  // numero de días a añadir, o restar en caso de días<0
+        java.util.Date fechaFinal = calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
+        return new java.sql.Date(fechaFinal.getTime());
     }
 }

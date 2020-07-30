@@ -237,7 +237,7 @@ public class Nominas_vista extends javax.swing.JFrame {
         lbl_fechainicio.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_fechainicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_fechainicio.setText("Fecha de inicio");
-        panelRect2.add(lbl_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 200, 34));
+        panelRect2.add(lbl_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 200, 34));
 
         txt_fechainicio.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_fechainicio.addActionListener(new java.awt.event.ActionListener() {
@@ -245,15 +245,15 @@ public class Nominas_vista extends javax.swing.JFrame {
                 txt_fechainicioActionPerformed(evt);
             }
         });
-        panelRect2.add(txt_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 200, 35));
+        panelRect2.add(txt_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 200, 35));
 
         lbl_fechafin.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_fechafin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_fechafin.setText("Fecha de fin");
-        panelRect2.add(lbl_fechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 200, 34));
+        panelRect2.add(lbl_fechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 200, 34));
 
         txt_fechafin.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        panelRect2.add(txt_fechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 200, 35));
+        panelRect2.add(txt_fechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 200, 35));
 
         txt_importe.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         txt_importe.addActionListener(new java.awt.event.ActionListener() {
@@ -261,12 +261,12 @@ public class Nominas_vista extends javax.swing.JFrame {
                 txt_importeActionPerformed(evt);
             }
         });
-        panelRect2.add(txt_importe, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 80, 200, 35));
+        panelRect2.add(txt_importe, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 200, 35));
 
         lbl_importe.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_importe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_importe.setText("Importe");
-        panelRect2.add(lbl_importe, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 40, 200, 35));
+        panelRect2.add(lbl_importe, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 200, 35));
 
         panelCurves1.add(panelRect2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 1320, 150));
 

@@ -47,7 +47,7 @@ public class Incidencias_vista extends javax.swing.JFrame {
         iniciarOtrosComponentes();
         txt_codigo.setText(falta.getCodigo());
         txt_fecha_inicio.setDate(falta.getFecha_inicio());
-        txt_fecha_fin.setDate(falta.getFecha_inicio());
+        txt_fecha_fin.setDate(falta.getFecha_fin());
         txt_descripcion.setText(falta.getMotivo());
     }
 
@@ -376,7 +376,6 @@ public class Incidencias_vista extends javax.swing.JFrame {
             String codigo = txt_codigo.getText();
             String descripcion = txt_descripcion.getText();
             Date fecha_inicio = (Date) txt_fecha_inicio.getDate();
-            System.out.println(new java.sql.Date(fecha_inicio.getTime()));
             Date fecha_fin = (Date) txt_fecha_fin.getDate();
             int extras = Integer.parseInt((String) comboExtras.getSelectedItem());
             Incidencia incidencia = new Incidencia(codigo, trabajadorIncidencias.getCodigo(), extras, descripcion, fecha_inicio, fecha_fin);

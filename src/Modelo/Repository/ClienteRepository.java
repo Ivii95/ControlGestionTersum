@@ -224,7 +224,6 @@ public class ClienteRepository {
             if (o.getFecha_baja() != null) {
                 sqlDate = new java.sql.Date(o.getFecha_baja().getTime());
             }
-
             ps.setDate(11, sqlDate);
             ps.executeUpdate();
             conn.desconectar(conexion);

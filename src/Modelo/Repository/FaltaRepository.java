@@ -147,6 +147,9 @@ public final class FaltaRepository {
             ps = conexion.prepareStatement(insert);
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCodigo_trabajador());
+            if(o.getFecha_inicio()!=null){
+                sqlDate= new java.sql.Date(o.getFecha_inicio().getTime());
+            }
             sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
             ps.setDate(3, sqlDate);
             if (o.getFecha_fin() != null) {

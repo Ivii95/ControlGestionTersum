@@ -267,7 +267,7 @@ public class TrabajadorRepository {
                 + "    WHERE ct.codigo_centro=(\n"
                 + "    	SELECT ct.codigo_centro \n"
                 + "        FROM centrostrabajadores ct \n"
-                + "        WHERE ct.codigo_trabajadores=" + codigoTrabajador + "))";
+                + "        WHERE ct.codigo_trabajadores=" + codigoTrabajador + "));";
         ejecutarConsulta(consultaEspecial);
         Object[] datos = new Object[trabajadores.size()];
         for (int i = 0; i < trabajadores.size(); i++) {
@@ -306,6 +306,8 @@ public class TrabajadorRepository {
             ps.setDate(9, sqlDate);
             ps.setString(10, trabajador.getCategoria());
             if (trabajador.getAntiguedad() != null) {
+                int dia=trabajador.getAntiguedad().getDay()+1;
+                trabajador.getAntiguedad().setDate(dia);
                 sqlDate = new java.sql.Date(trabajador.getAntiguedad().getTime());
             }
             ps.setDate(11, sqlDate);

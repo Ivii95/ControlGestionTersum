@@ -59,9 +59,7 @@ public class VistaUsuarios extends javax.swing.JFrame {
     private void initComponents() {
 
         Panel_botones = new org.edisoncor.gui.panel.Panel();
-        btn_nominas = new javax.swing.JButton();
-        btn_vacaciones = new javax.swing.JButton();
-        btn_incidencias = new javax.swing.JButton();
+        btn_Añadir_trabajador = new javax.swing.JButton();
         btn_borrar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         btn_añadir = new javax.swing.JButton();
@@ -85,22 +83,16 @@ public class VistaUsuarios extends javax.swing.JFrame {
         Panel_botones.setColorPrimario(new java.awt.Color(102, 102, 102));
         Panel_botones.setColorSecundario(new java.awt.Color(51, 51, 51));
 
-        btn_nominas.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        btn_nominas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
-        btn_nominas.setText("Cambiar contraseña");
-        btn_nominas.addActionListener(new java.awt.event.ActionListener() {
+        btn_Añadir_trabajador.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btn_Añadir_trabajador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/añadir.png"))); // NOI18N
+        btn_Añadir_trabajador.setText("Añadir Cliente");
+        btn_Añadir_trabajador.setToolTipText("");
+        btn_Añadir_trabajador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_Añadir_trabajador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_nominasActionPerformed(evt);
+                btn_Añadir_trabajadorActionPerformed(evt);
             }
         });
-
-        btn_vacaciones.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        btn_vacaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/falta.png"))); // NOI18N
-        btn_vacaciones.setText("Faltas");
-
-        btn_incidencias.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        btn_incidencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incidencias .png"))); // NOI18N
-        btn_incidencias.setText("Incidencias");
 
         btn_borrar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         btn_borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/borrar.png"))); // NOI18N
@@ -178,20 +170,20 @@ public class VistaUsuarios extends javax.swing.JFrame {
         Panel_botonesLayout.setHorizontalGroup(
             Panel_botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_botonesLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(Panel_botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Panel_botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(Panel_botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn_modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_incidencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_vacaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_nominas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Panel_botonesLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                        .addGap(26, 26, 26)
+                        .addGroup(Panel_botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(Panel_botonesLayout.createSequentialGroup()
+                                .addComponent(btn_Añadir_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(Panel_botonesLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addGroup(Panel_botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_añadir, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btn_añadir, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(24, 24, 24))
         );
         Panel_botonesLayout.setVerticalGroup(
@@ -202,15 +194,11 @@ public class VistaUsuarios extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btn_añadir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
-                .addComponent(btn_incidencias, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_vacaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
                 .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_nominas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 305, Short.MAX_VALUE)
+                .addComponent(btn_Añadir_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
@@ -219,7 +207,6 @@ public class VistaUsuarios extends javax.swing.JFrame {
         tabla_usuarios.setAutoCreateRowSorter(true);
         tabla_usuarios.setBackground(new java.awt.Color(204, 204, 204));
         tabla_usuarios.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        tabla_usuarios.setForeground(new java.awt.Color(0, 0, 0));
         tabla_usuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -257,7 +244,6 @@ public class VistaUsuarios extends javax.swing.JFrame {
         panelRect1.setColorSecundario(new java.awt.Color(204, 204, 204));
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
-        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
         panelCurves1.setOpaque(true);
 
         javax.swing.GroupLayout panelRect1Layout = new javax.swing.GroupLayout(panelRect1);
@@ -375,9 +361,9 @@ public class VistaUsuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabla_usuariosMouseClicked
 
-    private void btn_nominasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nominasActionPerformed
+    private void btn_Añadir_trabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Añadir_trabajadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_nominasActionPerformed
+    }//GEN-LAST:event_btn_Añadir_trabajadorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -417,13 +403,11 @@ public class VistaUsuarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Buscador;
     private org.edisoncor.gui.panel.Panel Panel_botones;
+    private javax.swing.JButton btn_Añadir_trabajador;
     private javax.swing.JButton btn_añadir;
     private javax.swing.JButton btn_borrar;
     private org.edisoncor.gui.button.ButtonIcon btn_buscar;
-    private javax.swing.JButton btn_incidencias;
     private javax.swing.JButton btn_modificar;
-    private javax.swing.JButton btn_nominas;
-    private javax.swing.JButton btn_vacaciones;
     private javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.panel.PanelCurves panelCurves1;
     private org.edisoncor.gui.panel.PanelRect panelRect1;

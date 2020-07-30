@@ -86,7 +86,7 @@ public class VistaHorario extends javax.swing.JFrame {
         initComponents();
         iniciarOtrosComponentes();
     }
-
+    
     private void iniciarOtrosComponentes() {
         lbl_titulo.setText(lbl_titulo.getText() + " " + trabajadorHorario.getNombre() + " " + trabajadorHorario.getApellido1() + " " + trabajadorHorario.getApellido2());
         //Al iniciar el repositorio le pasamos un trabajador para que saque todas las tuplas de un solo trabajador.
@@ -269,7 +269,6 @@ public class VistaHorario extends javax.swing.JFrame {
         panelRect1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
-        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
         panelCurves1.setOpaque(true);
         panelCurves1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
