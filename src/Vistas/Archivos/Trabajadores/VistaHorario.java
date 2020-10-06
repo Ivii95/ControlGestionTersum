@@ -7,15 +7,15 @@ package Vistas.Archivos.Trabajadores;
 
 import Modelo.Entidades.Centro;
 import Modelo.Entidades.CentroTrabajador;
-import Modelo.Entidades.Cliente;
+//import Modelo.Entidades.Cliente;
 import Modelo.Entidades.Horario;
 import Modelo.Entidades.Trabajador;
 import Modelo.Repository.CentroRepository;
 import Modelo.Repository.CentroTrabajadoresRepository;
-import Modelo.Repository.ClienteRepository;
+//import Modelo.Repository.ClienteRepository;
 import Modelo.Repository.HorarioRepository;
 import Utilidades.DTable;
-import Vistas.Principal.Principal_vista;
+//import Vistas.Principal.Principal_vista;
 import java.awt.HeadlessException;
 import java.time.LocalTime;
 import java.util.logging.Level;
@@ -35,12 +35,12 @@ public class VistaHorario extends javax.swing.JFrame {
     //Como podemos comprobar este es el metodo que mas tira de la memoria ram ya que tiene que cargar todos los repositorios.
     CentroTrabajadoresRepository repoCentroTrabajadores;
     HorarioRepository repoHorario;
-    ClienteRepository repoCliente;
     CentroRepository repoCentro;
 
     //Aqui cogeremos el trabajador y el centro si fuera necesario.
     Trabajador trabajadorHorario;
     Centro centroHorario;
+    CentroTrabajador centrotrabajador;
     //tenemos una variable statica y booleana para ver si todo fue correctamente
     public boolean aceptado = false;
 
@@ -55,8 +55,8 @@ public class VistaHorario extends javax.swing.JFrame {
         initComponents();
         //Iniciamos estos dos repositorios por que los tendremos que usar solo en el caso de que no tengamos el centro por parametro.
         repoCentro = new CentroRepository();
-        repoCliente = new ClienteRepository();
-        repoCliente.rellenarCombo(comboCliente);
+        repoCentro.rellenarComboByTrabajador(comboCentro, trabajador.getCodigo());
+        repoCentro.rellenarListaDefault();
         //iniciamos los componentes como nosotros queramos
         iniciarOtrosComponentes();
     }
@@ -73,8 +73,6 @@ public class VistaHorario extends javax.swing.JFrame {
         //si el constructor tiene un centro tenemos que deshabilitar todo a lo que elegir centro se refiere. 
         comboCentro.setSelectedItem(centroHorario.getNombre());
         comboCentro.setEnabled(false);
-        comboCliente.setSelectedItem(centroHorario.getCodigo_cliente());
-        comboCliente.setEnabled(false);
         txt_direccion.setText("Dirección: " + centroHorario.getDireccion());
         iniciarOtrosComponentes();
     }
@@ -86,7 +84,7 @@ public class VistaHorario extends javax.swing.JFrame {
         initComponents();
         iniciarOtrosComponentes();
     }
-    
+
     private void iniciarOtrosComponentes() {
         lbl_titulo.setText(lbl_titulo.getText() + " " + trabajadorHorario.getNombre() + " " + trabajadorHorario.getApellido1() + " " + trabajadorHorario.getApellido2());
         //Al iniciar el repositorio le pasamos un trabajador para que saque todas las tuplas de un solo trabajador.
@@ -114,7 +112,6 @@ public class VistaHorario extends javax.swing.JFrame {
             HelpBroker hb = helpset.createHelpBroker();
             hb.enableHelpKey(this.getContentPane(), "horarios", helpset);
         } catch (HelpSetException ex) {
-            Logger.getLogger(Principal_vista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -191,8 +188,6 @@ public class VistaHorario extends javax.swing.JFrame {
         label_fechainicio = new org.edisoncor.gui.panel.PanelRect();
         lbl_Dia = new javax.swing.JLabel();
         comboDia = new javax.swing.JComboBox<>();
-        lbl_Cliente = new javax.swing.JLabel();
-        comboCliente = new javax.swing.JComboBox<>();
         comboMinutoInicio = new javax.swing.JComboBox<>();
         lbl_fechafin_vacaciones2 = new javax.swing.JLabel();
         lbl_Centro = new javax.swing.JLabel();
@@ -213,7 +208,6 @@ public class VistaHorario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1360, 762));
         setName("Horarios"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1360, 762));
         setResizable(false);
         setSize(new java.awt.Dimension(1360, 762));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -286,26 +280,12 @@ public class VistaHorario extends javax.swing.JFrame {
         lbl_Dia.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_Dia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_Dia.setText("Dia");
-        label_fechainicio.add(lbl_Dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 200, 35));
+        label_fechainicio.add(lbl_Dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 200, 35));
 
         comboDia.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         comboDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
         comboDia.setToolTipText("");
-        label_fechainicio.add(comboDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 35));
-
-        lbl_Cliente.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_Cliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_Cliente.setText("Cliente");
-        label_fechainicio.add(lbl_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 280, 34));
-
-        comboCliente.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-        comboCliente.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboClienteItemStateChanged(evt);
-            }
-        });
-        label_fechainicio.add(comboCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 280, 35));
+        label_fechainicio.add(comboDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 35));
 
         comboMinutoInicio.setMaximumRowCount(11);
         comboMinutoInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
@@ -414,28 +394,31 @@ public class VistaHorario extends javax.swing.JFrame {
             LocalTime inicio = LocalTime.of(Integer.parseInt((String) comboHoraInicio.getSelectedItem()), Integer.parseInt((String) comboMinutoInicio.getSelectedItem()));
             LocalTime fin = LocalTime.of(Integer.parseInt((String) comboHoraFin.getSelectedItem()), Integer.parseInt((String) comboMinutoFin.getSelectedItem()));
 
-            int indiceCentro = comboCentro.getSelectedIndex();
-            if (indiceCentro != 0) {
+            if (comboCentro.getSelectedIndex() != -1 || comboCentro.getSelectedItem() != "") {
                 if (inicio.isBefore(fin)) {
                     Horario horario = new Horario();
                     Centro centro = repoCentro.getByNombre((String) comboCentro.getSelectedItem());
                     horario.setDiaSemana((String) comboDia.getSelectedItem());
                     CentroTrabajador ct = repoCentroTrabajadores.getByCodigos(trabajadorHorario, centro);
-                    horario.setId_CentroTrabajadores(ct.getId());
-                    horario.setHora_inicio(inicio);
-                    horario.setHora_fin(fin);
-                    int horasT = fin.getHour() - inicio.getHour();
-                    int minT = (60 - fin.getMinute()) + inicio.getMinute();
-                    if (minT >= 60) {
-                        minT = minT - 60;
-                        horasT++;
-                    }
-                    if (inicio.getMinute() > fin.getMinute()) {
-                        horasT--;
-                    }
-                    horario.setHoras_totales(Float.parseFloat(horasT + "." + minT));
-                    if (repoHorario.insert(horario)) {
-                        pintarTabla();
+                    if (ct != null) {
+                        horario.setId_CentroTrabajadores(ct.getId());
+                        horario.setHora_inicio(inicio);
+                        horario.setHora_fin(fin);
+                        int horasT = fin.getHour() - inicio.getHour();
+                        int minT = (60 - fin.getMinute()) + inicio.getMinute();
+                        if (minT >= 60) {
+                            minT = minT - 60;
+                            horasT++;
+                        }
+                        if (inicio.getMinute() > fin.getMinute()) {
+                            horasT--;
+                        }
+                        horario.setHoras_totales(Float.parseFloat(horasT + "." + minT));
+                        if (repoHorario.insert(horario)) {
+                            pintarTabla();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "El trabajador no esta en este centro");
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "La hora de inicio debe ser inferior a la fecha fin.");
@@ -463,19 +446,16 @@ public class VistaHorario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboCentroItemStateChanged
 
-    private void comboClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboClienteItemStateChanged
-        String nombre = (String) comboCliente.getSelectedItem();
-        Cliente cliente = repoCliente.getByNombre(nombre);
-        if (cliente != null) {
-            comboCentro.removeAllItems();
-            repoCentro.rellenarComboByCodigoCliente(comboCentro, cliente.getCodigo());
-        }
-    }//GEN-LAST:event_comboClienteItemStateChanged
-
     private void btn_borrarr1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarr1ActionPerformed
         try {
-            repoHorario.borrarColumnaHorario(TablaPlanificador, trabajadorHorario.getId(), (String) comboDia.getSelectedItem());
-        } catch (Exception e) {
+
+            if (repoHorario.borrarColumnaHorario(TablaPlanificador, repoCentroTrabajadores.getByCodigoTrabajador(trabajadorHorario.getCodigo()).getId(), (String) comboDia.getSelectedItem())) {
+                JOptionPane.showMessageDialog(rootPane, (String) comboDia.getSelectedItem() + " borrado");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, (String) comboDia.getSelectedItem() + "No se borro correctamente");
+            }
+
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error inesperado\n" + e.getMessage());
         }
     }//GEN-LAST:event_btn_borrarr1ActionPerformed
@@ -522,7 +502,6 @@ public class VistaHorario extends javax.swing.JFrame {
     private javax.swing.JButton btn_aceptar;
     private javax.swing.JButton btn_borrarr1;
     private javax.swing.JComboBox<String> comboCentro;
-    private javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JComboBox<String> comboDia;
     private javax.swing.JComboBox<String> comboHoraFin;
     private javax.swing.JComboBox<String> comboHoraInicio;
@@ -531,7 +510,6 @@ public class VistaHorario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.panel.PanelRect label_fechainicio;
     private javax.swing.JLabel lbl_Centro;
-    private javax.swing.JLabel lbl_Cliente;
     private javax.swing.JLabel lbl_Dia;
     private javax.swing.JLabel lbl_fechafin_vacaciones1;
     private javax.swing.JLabel lbl_fechafin_vacaciones2;

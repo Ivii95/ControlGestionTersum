@@ -8,6 +8,7 @@ package Modelo.Repository;
 import static Modelo.Repository.UtilidadesRepository.*;
 import Modelo.Entidades.Cliente;
 import Modelo.Entidades.Sede;
+import Modelo.Entidades.Trabajador;
 import Utilidades.Conexion;
 import Utilidades.Utilidades;
 import static Utilidades.Utilidades.conn;
@@ -66,8 +67,16 @@ public class ClienteRepository {
                 cliente.setFax(rs.getInt(fax));
                 cliente.setMovil(rs.getInt(movil));
                 cliente.setEmail(rs.getString(email));
-                cliente.setFecha_alta(rs.getDate(fechaAlta));
-                cliente.setFecha_baja(rs.getDate(fechaBaja));
+                if (rs.getDate(fechaAlta) != null) {
+                    cliente.setFecha_alta(rs.getDate(fechaAlta).toLocalDate());
+                } else {
+                    cliente.setFecha_alta(null);
+                }
+                if (rs.getDate(fechaBaja) != null) {
+                    cliente.setFecha_baja(rs.getDate(fechaBaja).toLocalDate());
+                } else {
+                    cliente.setFecha_baja(null);
+                }
                 clientes.add(cliente);
             }
             conn.desconectar(conexion);
@@ -175,6 +184,15 @@ public class ClienteRepository {
         return combo;
     }
 
+    public JComboBox rellenarComboTrabajador(JComboBox combo, Trabajador trabajador) {
+        ejecutarConsulta(consultaClientes + " WHERE ");
+        combo.removeAllItems();
+        for (int i = 0; i < clientes.size(); i++) {
+            combo.addItem(clientes.get(i).getNombre_comercial());
+        }
+        return combo;
+    }
+
     public boolean ifCodigoExist(String codigo) {
         for (int i = 0; i < clientes.size(); i++) {
             if (clientes.get(i).getCodigo().equals(codigo)) {
@@ -208,24 +226,30 @@ public class ClienteRepository {
                     + fechaBaja + " "
                     + ") VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conexion.prepareStatement(insert);
-            ps.setString(1, o.getCodigo());
-            ps.setString(2, o.getCif());
-            ps.setString(3, o.getNombre_fiscal());
-            ps.setString(4, o.getNombre_comercial());
-            ps.setString(5, o.getContacto());
-            ps.setInt(6, o.getTelefono());
-            ps.setInt(7, o.getFax());
-            ps.setInt(8, o.getMovil());
-            ps.setString(9, o.getEmail());
-            if (o.getFecha_alta() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_alta().getTime());
+            if (o.getCodigo() != null) {
+                ps.setString(1, o.getCodigo());
+                ps.setString(2, o.getCif());
+                ps.setString(3, o.getNombre_fiscal());
+                ps.setString(4, o.getNombre_comercial());
+                ps.setString(5, o.getContacto());
+                ps.setInt(6, o.getTelefono());
+                ps.setInt(7, o.getFax());
+                ps.setInt(8, o.getMovil());
+                ps.setString(9, o.getEmail());
+                if (o.getFecha_alta() != null) {
+                    sqlDate = java.sql.Date.valueOf(o.getFecha_alta());
+                } else {
+                    sqlDate = null;
+                }
+                ps.setDate(10, sqlDate);
+                if (o.getFecha_baja() != null) {
+                    sqlDate = java.sql.Date.valueOf(o.getFecha_baja());
+                } else {
+                    sqlDate = null;
+                }
+                ps.setDate(11, sqlDate);
+                ps.executeUpdate();
             }
-            ps.setDate(10, sqlDate);
-            if (o.getFecha_baja() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_baja().getTime());
-            }
-            ps.setDate(11, sqlDate);
-            ps.executeUpdate();
             conn.desconectar(conexion);
             clientes.add(0, o);
             correcto = true;
@@ -294,13 +318,13 @@ public class ClienteRepository {
             ps.setInt(8, o.getMovil());
             ps.setString(9, o.getEmail());
             if (o.getFecha_alta() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_alta().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_alta());
             } else {
                 sqlDate = null;
             }
             ps.setDate(10, sqlDate);
             if (o.getFecha_baja() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_baja().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_baja());
             } else {
                 sqlDate = null;
             }
@@ -317,7 +341,6 @@ public class ClienteRepository {
     }
 
     /**
-     *
      * @param tabla
      * @param cadena
      */

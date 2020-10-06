@@ -10,12 +10,12 @@ import Modelo.Repository.FaltaRepository;
 import Modelo.Repository.TrabajadorRepository;
 import Modelo.Entidades.Trabajador;
 import Utilidades.UtilidadesPantalla;
-import Vistas.Principal.Principal_vista;
+//import Vistas.Principal.Principal_vista;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.SQLException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -83,7 +83,7 @@ public final class Faltas_vista extends javax.swing.JFrame {
             HelpBroker hb = helpset.createHelpBroker();
             hb.enableHelpKey(this.getContentPane(), "faltas", helpset);
         } catch (HelpSetException ex) {
-            Logger.getLogger(Principal_vista.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 
@@ -331,12 +331,14 @@ public final class Faltas_vista extends javax.swing.JFrame {
         falta.setCodigo(txt_codigo_falta.getText());
         falta.setCodigo_trabajador(trabajadorFaltas.getCodigo());
         if (txt_fechainicio_faltas.getDate() != null) {
-            falta.setFecha_inicio(txt_fechainicio_faltas.getDate());
+            Date fecha = (java.sql.Date) txt_fechainicio_faltas.getDate();
+            falta.setFecha_inicio(fecha.toLocalDate());
         } else {
             falta.setFecha_inicio(null);
         }
         if (txt_fechafin_faltas.getDate() != null) {
-            falta.setFecha_fin(txt_fechafin_faltas.getDate());
+            Date fecha = (java.sql.Date) txt_fechainicio_faltas.getDate();
+            falta.setFecha_fin(fecha.toLocalDate());
         } else {
             falta.setFecha_fin(null);
         }
@@ -371,9 +373,9 @@ public final class Faltas_vista extends javax.swing.JFrame {
         Falta falta = new Falta();
         falta.setCodigo(txt_codigo_falta.getText());
         falta.setCodigo_trabajador(trabajadorFaltas.getCodigo());
-        falta.setFecha_inicio(txt_fechainicio_faltas.getDate());
+        falta.setFecha_inicio(UtilidadesPantalla.convertToLocalDateViaInstant(txt_fechainicio_faltas.getDate()));
         if (txt_fechafin_faltas.getDate() != null) {
-            falta.setFecha_fin(txt_fechafin_faltas.getDate());
+            falta.setFecha_fin(UtilidadesPantalla.convertToLocalDateViaInstant(txt_fechafin_faltas.getDate()));
         } else {
             falta.setFecha_fin(null);
         }
@@ -475,8 +477,8 @@ public final class Faltas_vista extends javax.swing.JFrame {
         int id = (int) tabla_faltas.getValueAt(filaSeleccionada, 0);
         Falta falta = repoFalta.getById(id);
         txt_codigo_falta.setText(falta.getCodigo() + "");
-        txt_fechainicio_faltas.setDate(falta.getFecha_inicio());
-        txt_fechafin_faltas.setDate(falta.getFecha_fin());
+        txt_fechainicio_faltas.setDate(java.sql.Date.valueOf(falta.getFecha_inicio()));
+        txt_fechafin_faltas.setDate(java.sql.Date.valueOf(falta.getFecha_fin()));
         txt_motivo.setText(falta.getMotivo());
 
     }

@@ -6,13 +6,13 @@
 package Modelo.Entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author DisenoWeb
  */
-public class Trabajador implements Serializable{
+public class Trabajador implements Serializable {
 
     int id;
     String codigo;
@@ -24,18 +24,19 @@ public class Trabajador implements Serializable{
     String DNI;
     String direccion;
     String poblacion;
-    Date fechanacimiento;
+    LocalDate fechanacimiento;
     String categoria;
-    Date antiguedad;
+    LocalDate antiguedad;
     int telefono;
     String email;
-    Date fecha_alta;
-    Date fecha_baja;
-    int horas_semana_alta;
-    int horas_semana_reales;
+    LocalDate fecha_alta;
+    LocalDate fecha_baja;
+    String horas_semana_alta;
+    String horas_semana_reales;
+    int seguridad_social;
     float coste_mes;
 
-    public Trabajador(int id, String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, Date fechanacimiento, String categoria, Date antiguedad, int telefono, String email, Date fecha_alta, Date fecha_baja, int horas_semana_alta, int horas_semana_reales, float coste_mes) {
+    public Trabajador(int id, String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, LocalDate fechanacimiento, String categoria, LocalDate antiguedad, int telefono, String email, LocalDate fecha_alta, LocalDate fecha_baja, String horas_semana_alta, String horas_semana_reales, int seguridad_social, float coste_mes) {
         this.id = id;
         this.codigo = codigo;
         this.codigo_tipo_contrato = codigo_tipo_contrato;
@@ -55,10 +56,11 @@ public class Trabajador implements Serializable{
         this.fecha_baja = fecha_baja;
         this.horas_semana_alta = horas_semana_alta;
         this.horas_semana_reales = horas_semana_reales;
+        this.seguridad_social = seguridad_social;
         this.coste_mes = coste_mes;
     }
 
-    public Trabajador(String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, Date fechanacimiento, String categoria, Date antiguedad, int telefono, String email, Date fecha_alta, Date fecha_baja, int horas_semana_alta, int horas_semana_reales, float coste_mes) {
+    public Trabajador(String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, LocalDate fechanacimiento, String categoria, LocalDate antiguedad, int telefono, String email, LocalDate fecha_alta, LocalDate fecha_baja, String horas_semana_alta, String horas_semana_reales, int seguridad_social, float coste_mes) {
         this.codigo = codigo;
         this.codigo_tipo_contrato = codigo_tipo_contrato;
         this.codigo_sede = codigo_sede;
@@ -77,6 +79,7 @@ public class Trabajador implements Serializable{
         this.fecha_baja = fecha_baja;
         this.horas_semana_alta = horas_semana_alta;
         this.horas_semana_reales = horas_semana_reales;
+        this.seguridad_social = seguridad_social;
         this.coste_mes = coste_mes;
     }
 
@@ -164,11 +167,11 @@ public class Trabajador implements Serializable{
         this.poblacion = poblacion;
     }
 
-    public Date getFechanacimiento() {
+    public LocalDate getFechanacimiento() {
         return fechanacimiento;
     }
 
-    public void setFechanacimiento(Date fechanacimiento) {
+    public void setFechanacimiento(LocalDate fechanacimiento) {
         this.fechanacimiento = fechanacimiento;
     }
 
@@ -180,11 +183,11 @@ public class Trabajador implements Serializable{
         this.categoria = categoria;
     }
 
-    public Date getAntiguedad() {
+    public LocalDate getAntiguedad() {
         return antiguedad;
     }
 
-    public void setAntiguedad(Date antiguedad) {
+    public void setAntiguedad(LocalDate antiguedad) {
         this.antiguedad = antiguedad;
     }
 
@@ -204,36 +207,44 @@ public class Trabajador implements Serializable{
         this.email = email;
     }
 
-    public Date getFecha_alta() {
+    public LocalDate getFecha_alta() {
         return fecha_alta;
     }
 
-    public void setFecha_alta(Date fecha_alta) {
+    public void setFecha_alta(LocalDate fecha_alta) {
         this.fecha_alta = fecha_alta;
     }
 
-    public Date getFecha_baja() {
+    public LocalDate getFecha_baja() {
         return fecha_baja;
     }
 
-    public void setFecha_baja(Date fecha_baja) {
+    public void setFecha_baja(LocalDate fecha_baja) {
         this.fecha_baja = fecha_baja;
     }
 
-    public int getHoras_semana_alta() {
+    public String getHoras_semana_alta() {
         return horas_semana_alta;
     }
 
-    public void setHoras_semana_alta(int horas_semana_alta) {
+    public void setHoras_semana_alta(String horas_semana_alta) {
         this.horas_semana_alta = horas_semana_alta;
     }
 
-    public int getHoras_semana_reales() {
+    public String getHoras_semana_reales() {
         return horas_semana_reales;
     }
 
-    public void setHoras_semana_reales(int horas_semana_reales) {
+    public void setHoras_semana_reales(String horas_semana_reales) {
         this.horas_semana_reales = horas_semana_reales;
+    }
+
+    public int getSeguridad_social() {
+        return seguridad_social;
+    }
+
+    public void setSeguridad_social(int seguridad_social) {
+        this.seguridad_social = seguridad_social;
     }
 
     public float getCoste_mes() {

@@ -127,14 +127,30 @@ public class TrabajadorRepository {
                 trabajador.setNombre(rs.getString("nombre"));
                 trabajador.setDireccion(rs.getString("direccion"));
                 trabajador.setPoblacion(rs.getString("poblacion"));
-                trabajador.setFechanacimiento(rs.getDate("fechanacimiento"));
-                trabajador.setAntiguedad(rs.getDate("antiguedad"));
+                if (rs.getDate("fechanacimiento") != null) {
+                    trabajador.setFechanacimiento(rs.getDate("fechanacimiento").toLocalDate());
+                } else {
+                    trabajador.setFechanacimiento(null);
+                }
+                if (rs.getDate("antiguedad") != null) {
+                    trabajador.setAntiguedad(rs.getDate("antiguedad").toLocalDate());
+                } else {
+                    trabajador.setAntiguedad(null);
+                }
                 trabajador.setTelefono(rs.getInt("telefono"));
                 trabajador.setEmail(rs.getString("email"));
-                trabajador.setFecha_alta(rs.getDate("fecha_alta"));
-                trabajador.setFecha_alta(rs.getDate("fecha_baja"));
-                trabajador.setHoras_semana_alta(rs.getInt("horas_semana_alta"));
-                trabajador.setHoras_semana_reales(rs.getInt("horas_semana_reales"));
+                if (rs.getDate("fecha_alta") != null) {
+                    trabajador.setFecha_alta(rs.getDate("fecha_alta").toLocalDate());
+                } else {
+                    trabajador.setFecha_alta(null);
+                }
+                if (rs.getDate("fecha_baja") != null) {
+                    trabajador.setFecha_baja(rs.getDate("fecha_baja").toLocalDate());
+                } else {
+                    trabajador.setFecha_baja(null);
+                }
+                trabajador.setHoras_semana_alta(rs.getString("horas_semana_alta"));
+                trabajador.setHoras_semana_reales(rs.getString("horas_semana_reales"));
                 trabajador.setCoste_mes(rs.getFloat("coste_mes"));
                 trabajador.setCodigo_sede(rs.getString("codigo_sede"));
                 trabajador.setDNI(rs.getString("DNI"));
@@ -251,7 +267,6 @@ public class TrabajadorRepository {
         }
         tabla.setModel(dtm);
     }
-
     /**
      *
      * @param codigoTrabajador
@@ -289,43 +304,43 @@ public class TrabajadorRepository {
             Utilidades.conn = new Conexion();
             conexion = conn.conectar_empresa_concreta(Utilidades.empresa);
             insert = "INSERT INTO trabajadores (id,codigo,codigo_tipo_contrato,codigo_sede,apellido1,apellido2,nombre,direccion,poblacion,"
-                    + "fechanacimiento,categoria,antiguedad,telefono,email,fecha_alta,fecha_baja,horas_semana_alta,horas_semana_reales,coste_mes) "
-                    + "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "fechanacimiento,categoria,antiguedad,telefono,email,fecha_alta,fecha_baja,horas_semana_alta,horas_semana_reales,coste_mes,seguridad_social) "
+                    + "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conexion.prepareStatement(insert);
             ps.setString(1, trabajador.getCodigo());
             ps.setInt(2, trabajador.getCodigo_tipo_contrato());
             ps.setString(3, trabajador.getCodigo_sede());
             ps.setString(4, trabajador.getApellido1());
             ps.setString(5, trabajador.getApellido2());
-            ps.setString(6, trabajador.getNombre());
-            ps.setString(7, trabajador.getDireccion());
-            ps.setString(8, trabajador.getPoblacion());
+            ps.setString(6, trabajador.getDNI());
+            ps.setString(7, trabajador.getNombre());
+            ps.setString(8, trabajador.getDireccion());
+            ps.setString(9, trabajador.getPoblacion());
             if (trabajador.getFechanacimiento() != null) {
-                sqlDate = new java.sql.Date(trabajador.getFechanacimiento().getTime());
+                sqlDate = java.sql.Date.valueOf(trabajador.getFechanacimiento());
             }
-            ps.setDate(9, sqlDate);
-            ps.setString(10, trabajador.getCategoria());
+            ps.setDate(10, sqlDate);
+            ps.setString(11, trabajador.getCategoria());
             if (trabajador.getAntiguedad() != null) {
-                int dia=trabajador.getAntiguedad().getDay()+1;
-                trabajador.getAntiguedad().setDate(dia);
-                sqlDate = new java.sql.Date(trabajador.getAntiguedad().getTime());
+                sqlDate = java.sql.Date.valueOf(trabajador.getAntiguedad());
             }
-            ps.setDate(11, sqlDate);
-            ps.setInt(12, trabajador.getTelefono());
-            ps.setString(13, trabajador.getEmail());
+            ps.setDate(12, sqlDate);
+            ps.setInt(13, trabajador.getTelefono());
+            ps.setString(14, trabajador.getEmail());
             if (trabajador.getFecha_alta() != null) {
-                sqlDate = new java.sql.Date(trabajador.getFecha_alta().getTime());
+                sqlDate = java.sql.Date.valueOf(trabajador.getFecha_alta());
             }
-            ps.setDate(14, sqlDate);
+            ps.setDate(15, sqlDate);
             if (trabajador.getFecha_baja() == null) {
                 sqlDate = null;
             } else {
-                sqlDate = new java.sql.Date(trabajador.getFecha_baja().getTime());
+                sqlDate = java.sql.Date.valueOf(trabajador.getFecha_baja());
             }
-            ps.setDate(15, sqlDate);
-            ps.setInt(16, trabajador.getHoras_semana_alta());
-            ps.setInt(17, trabajador.getHoras_semana_reales());
-            ps.setFloat(18, trabajador.getCoste_mes());
+            ps.setDate(16, sqlDate);
+            ps.setString(17, trabajador.getHoras_semana_alta());
+            ps.setString(18, trabajador.getHoras_semana_reales());
+            ps.setFloat(19, trabajador.getCoste_mes());
+            ps.setInt(20, trabajador.getSeguridad_social());
             ps.executeUpdate();
             conn.desconectar(conexion);
             trabajadores.add(0, trabajador);
@@ -364,9 +379,9 @@ public class TrabajadorRepository {
         try {
             Utilidades.conn = new Conexion();
             conexion = conn.conectar_empresa_concreta(Utilidades.empresa);
-            update = "UPDATE trabajadores SET codigo=?, codigo_tipo_contrato=?,codigo_sede=?, apellido1=?, apellido2=?,nombre=?,direccion=?,poblacion=?,"
+            update = "UPDATE trabajadores SET codigo=?, codigo_tipo_contrato=?,codigo_sede=?, apellido1=?, apellido2=?,nombre=?,DNI=?,direccion=?,poblacion=?,"
                     + "fechanacimiento=?, categoria=?, antiguedad=?, telefono=?, email=?, fecha_alta=?, fecha_baja=?,"
-                    + "horas_semana_alta=?, horas_semana_reales=?, coste_mes=? WHERE id=?";
+                    + "horas_semana_alta=?, horas_semana_reales=?, coste_mes=?, seguridad_social=? WHERE id=?";
             ps = conexion.prepareStatement(update);
             ps.setString(1, trabajador.getCodigo());
             ps.setInt(2, trabajador.getCodigo_tipo_contrato());
@@ -374,34 +389,36 @@ public class TrabajadorRepository {
             ps.setString(4, trabajador.getApellido1());
             ps.setString(5, trabajador.getApellido2());
             ps.setString(6, trabajador.getNombre());
-            ps.setString(7, trabajador.getDireccion());
-            ps.setString(8, trabajador.getPoblacion());
+            ps.setString(7, trabajador.getDNI());
+            ps.setString(8, trabajador.getDireccion());
+            ps.setString(9, trabajador.getPoblacion());
             if (trabajador.getFechanacimiento() != null) {
-                sqlDate = new java.sql.Date(trabajador.getFechanacimiento().getTime());
+                sqlDate = java.sql.Date.valueOf(trabajador.getFechanacimiento());
             }
-            ps.setDate(9, sqlDate);
-            ps.setString(10, trabajador.getCategoria());
+            ps.setDate(10, sqlDate);
+            ps.setString(11, trabajador.getCategoria());
             if (trabajador.getAntiguedad() != null) {
-                sqlDate = new java.sql.Date(trabajador.getAntiguedad().getTime());
+                sqlDate = java.sql.Date.valueOf(trabajador.getAntiguedad());
             }
-            ps.setDate(11, sqlDate);
-            ps.setInt(12, trabajador.getTelefono());
-            ps.setString(13, trabajador.getEmail());
+            ps.setDate(12, sqlDate);
+            ps.setInt(13, trabajador.getTelefono());
+            ps.setString(14, trabajador.getEmail());
             if (trabajador.getFecha_alta() != null) {
-                sqlDate = new java.sql.Date(trabajador.getFecha_alta().getTime());
+                sqlDate = java.sql.Date.valueOf(trabajador.getFecha_alta());
             }
-            ps.setDate(14, sqlDate);
+            ps.setDate(15, sqlDate);
             if (trabajador.getFecha_baja() == null) {
                 sqlDate = null;
             } else {
-                sqlDate = new java.sql.Date(trabajador.getFecha_baja().getTime());
+                sqlDate = java.sql.Date.valueOf(trabajador.getFecha_baja());
             }
-            ps.setDate(15, sqlDate);
-            ps.setInt(16, trabajador.getHoras_semana_alta());
-            ps.setInt(17, trabajador.getHoras_semana_reales());
-            ps.setFloat(18, trabajador.getCoste_mes());
+            ps.setDate(16, sqlDate);
+            ps.setString(17, trabajador.getHoras_semana_alta());
+            ps.setString(18, trabajador.getHoras_semana_reales());
+            ps.setFloat(19, trabajador.getCoste_mes());
+            ps.setInt(20, trabajador.getSeguridad_social());
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
-            ps.setInt(19, trabajador.getId());
+            ps.setInt(21, trabajador.getId());
             ps.executeUpdate();
             conn.desconectar(conexion);
 

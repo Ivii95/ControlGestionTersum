@@ -75,12 +75,18 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private void iniciarComboBox() {
         this.repoCentro = new CentroRepository();
         this.setLocationRelativeTo(null);
-        for (int i = 40; i > 0; i--) {
-            comboHorasSemanaAlta.addItem(i + "");
+        comboHorasSemanaAlta.addItem("40:00");
+        comboHorasSemanaReales.addItem("40:00");
+        for (int i = 39; i > 0; i--) {
+            for (int j = 45; j > 0; j = j - 15) {
+                comboHorasSemanaAlta.addItem(i + ":" + j);
+                comboHorasSemanaReales.addItem(i + ":" + j);
+            }
         }
-        for (int i = 80; i > 0; i = i - 2) {
+
+        /*for (int i = 40; i > 0; i = i--) {
             comboHorasSemanaReales.addItem(i + "");
-        }
+        }*/
         repoCentro.rellenarCombo(comboCentros);
         UtilidadesPantalla.rellenarComboTiposContrato(comboCodigoContrato);
     }
@@ -95,18 +101,27 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         txt_nombre.setText(trabajadorModificar.getNombre() + "");
         txt_direccion.setText(trabajadorModificar.getDireccion() + "");
         txt_poblacion.setText(trabajadorModificar.getPoblacion() + "");
-        fecha_nacimiento.setDate(trabajadorModificar.getFechanacimiento());
+        if (trabajadorModificar.getFechanacimiento() != null) {
+            fecha_nacimiento.setDate(java.sql.Date.valueOf(trabajadorModificar.getFechanacimiento()));
+        }
         txt_categoria.setText(trabajadorModificar.getCategoria() + "");
-        txt_antiguedad.setDate(trabajadorModificar.getAntiguedad());
+        if (trabajadorModificar.getAntiguedad() != null) {
+            txt_antiguedad.setDate(java.sql.Date.valueOf(trabajadorModificar.getAntiguedad()));
+        }
         txt_tlf.setText(trabajadorModificar.getTelefono() + "");
         txt_email.setText(trabajadorModificar.getEmail());
-        txt_fecha_alta.setDate(trabajadorModificar.getFecha_alta());
-        txt_fecha_baja.setDate(trabajadorModificar.getFecha_baja());
+        if (trabajadorModificar.getFecha_alta() != null) {
+            txt_fecha_alta.setDate(java.sql.Date.valueOf(trabajadorModificar.getFecha_alta()));
+        }
+        if (trabajadorModificar.getFecha_baja() != null) {
+            txt_fecha_baja.setDate(java.sql.Date.valueOf(trabajadorModificar.getFecha_baja()));
+        }
         comboHorasSemanaAlta.setSelectedItem(trabajadorModificar.getHoras_semana_alta());
         comboHorasSemanaReales.setSelectedItem(trabajadorModificar.getHoras_semana_reales());
         txt_costemes.setText(trabajadorModificar.getCoste_mes() + "");
         txt_DNI.setText(trabajadorModificar.getDNI());
         txt_codigo_sede.setText(trabajadorModificar.getCodigo_sede());
+        txt_seguridad_social.setText(trabajadorModificar.getSeguridad_social()+"");
         //txt_codigo_trabajador.setEditable(false);
     }
 
@@ -171,6 +186,8 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         lbl_codigo = new javax.swing.JLabel();
         txt_codigo_sede = new javax.swing.JTextField();
         txt_codigo_trabajador = new javax.swing.JTextField();
+        txt_seguridad_social = new javax.swing.JTextField();
+        lbl_seguridad_social = new javax.swing.JLabel();
 
         setTitle("INSERTAR O MODIFICAR TRABAJADOR");
         setMinimumSize(new java.awt.Dimension(1100, 697));
@@ -183,7 +200,6 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         panelRect1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
-        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
         panelCurves1.setOpaque(true);
         panelCurves1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -260,6 +276,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
 
         txt_tlf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_tlf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_tlf.setText("0");
         txt_tlf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_tlfKeyTyped(evt);
@@ -463,6 +480,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         jPanel2.add(jLabel5, gridBagConstraints);
 
         comboCodigoContrato.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        comboCodigoContrato.setToolTipText("");
         comboCodigoContrato.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboCodigoContratoItemStateChanged(evt);
@@ -589,6 +607,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
 
         txt_costemes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_costemes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_costemes.setText("0");
         txt_costemes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_costemesKeyTyped(evt);
@@ -694,11 +713,34 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel2.add(txt_codigo_trabajador, gridBagConstraints);
 
+        txt_seguridad_social.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_seguridad_social.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_seguridad_social.setText("0");
+        txt_seguridad_social.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_seguridad_socialKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 15;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel2.add(txt_seguridad_social, gridBagConstraints);
+
+        lbl_seguridad_social.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_seguridad_social.setForeground(new java.awt.Color(204, 204, 204));
+        lbl_seguridad_social.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_seguridad_social.setText("Nº Seguridad Social");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 14;
+        jPanel2.add(lbl_seguridad_social, gridBagConstraints);
+
         panelCurves1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 1050, 640));
 
-        panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1140, 691));
+        panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1110, 700));
 
-        getContentPane().add(panelRect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, -10, 1190, 790));
+        getContentPane().add(panelRect1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, -10, 1120, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -744,32 +786,75 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         boolean correcto = true;
         try {
             trabajadorModificar.setCodigo(txt_codigo_trabajador.getText());
+            if (!comboCodigoContrato.getSelectedItem().equals("Selecciona uno")) {
+                trabajadorModificar.setCodigo_tipo_contrato((int) comboCodigoContrato.getSelectedItem());
+            }
             trabajadorModificar.setCodigo_sede(txt_codigo_sede.getText());
+            trabajadorModificar.setNombre(txt_nombre.getText());
+            trabajadorModificar.setApellido1(txt_apellido1.getText());
+            trabajadorModificar.setApellido2(txt_apellido2.getText());
+            trabajadorModificar.setDireccion(txt_direccion.getText());
+            trabajadorModificar.setPoblacion(txt_poblacion.getText());
+            trabajadorModificar.setCategoria(txt_categoria.getText());
+            if (fecha_nacimiento.getDate() != null) {
+                trabajadorModificar.setFechanacimiento(UtilidadesPantalla.convertToLocalDateViaInstant(fecha_nacimiento.getDate()));
+            }
+            if (txt_antiguedad.getDate() != null) {
+                trabajadorModificar.setAntiguedad(UtilidadesPantalla.convertToLocalDateViaInstant(txt_antiguedad.getDate()));
+            }
+
+            if (txt_tlf.getText() != null) {
+                trabajadorModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
+            }
+            trabajadorModificar.setEmail(txt_email.getText());
+            if (comboHorasSemanaAlta.getSelectedItem() != null) {
+                String semana_alta = (String) comboHorasSemanaAlta.getSelectedItem();
+                trabajadorModificar.setHoras_semana_alta(semana_alta);
+            }
+            if (comboHorasSemanaReales.getSelectedItem() != null) {
+                String semana_reales = (String) comboHorasSemanaReales.getSelectedItem();
+                trabajadorModificar.setHoras_semana_reales(semana_reales);
+            }
+            trabajadorModificar.setCoste_mes(Float.parseFloat(txt_costemes.getText()));
+            trabajadorModificar.setDNI(txt_DNI.getText());
+            trabajadorModificar.setCodigo_sede(txt_codigo_sede.getText());
+            if (txt_fecha_alta.getDate() != null) {
+                trabajadorModificar.setFecha_alta(UtilidadesPantalla.convertToLocalDateViaInstant(txt_fecha_alta.getDate()));
+            }
+            if (txt_fecha_baja.getDate() != null) {
+                trabajadorModificar.setFecha_baja(UtilidadesPantalla.convertToLocalDateViaInstant(txt_fecha_baja.getDate()));
+            }
+            if(txt_seguridad_social.getText() != null){
+                trabajadorModificar.setSeguridad_social(Integer.parseInt(txt_seguridad_social.getText()));
+            }
+            
+
+            /*
             if (!txt_DNI.getText().equals("") && txt_DNI.getText() != null) {//Codigo
                 //if (!utilidades.comprobarCodigoRepetido(txt_codigo_trabajador.getText(), "trabajadores")) {//Codigo repetido
-                trabajadorModificar.setDNI(txt_DNI.getText());
+
                 if (!comboCodigoContrato.getSelectedItem().equals("Selecciona uno")) {//Codigo tipo contrato
-                    trabajadorModificar.setCodigo_tipo_contrato((int) comboCodigoContrato.getSelectedItem());
+
                     if (!comboCentros.getSelectedItem().equals("Selecciona uno")) {//Centros
                         String centroSeleccionado = (String) comboCentros.getSelectedItem();
                         //Centro centro = utilidades.getCentroByNombre(centroSeleccionado);
                         //trabajadorModificar.setCentro(centro);
                         if (!txt_nombre.getText().equals("") && txt_nombre.getText() != null) {//Nombre
-                            trabajadorModificar.setNombre(txt_nombre.getText());
+
                             if (!txt_apellido1.getText().equals("") && txt_apellido1.getText() != null) {//Apellido1
-                                trabajadorModificar.setApellido1(txt_apellido1.getText());
+
                                 if (!txt_apellido2.getText().equals("") && txt_apellido2.getText() != null) {//Apellido2
-                                    trabajadorModificar.setApellido2(txt_apellido2.getText());
+
                                     if (null != txt_direccion.getText() && !txt_direccion.equals("")) {//Direccion
-                                        trabajadorModificar.setDireccion(txt_direccion.getText());
+
                                         if (txt_poblacion.getText() != null && !txt_poblacion.equals("")) {//Poblacion
                                             trabajadorModificar.setPoblacion(txt_poblacion.getText());
                                             if (fecha_nacimiento.getDate() != null) {//Fecha de nacimiento no este vacia
-                                                trabajadorModificar.setFechanacimiento(fecha_nacimiento.getDate());
+                                                trabajadorModificar.setFechanacimiento(UtilidadesPantalla.convertToLocalDateViaInstant(fecha_nacimiento.getDate()));
                                                 if (txt_categoria.getText() != null && !txt_categoria.getText().equals("")) {//Categoria
                                                     trabajadorModificar.setCategoria(txt_categoria.getText());
                                                     if (txt_antiguedad.getDate() != null && !txt_antiguedad.getDate().equals("")) {//Antiguedad
-                                                        trabajadorModificar.setAntiguedad(txt_antiguedad.getDate());
+                                                        trabajadorModificar.setAntiguedad(UtilidadesPantalla.convertToLocalDateViaInstant(txt_antiguedad.getDate()));
                                                         if (txt_tlf.getText() != null && !txt_tlf.getText().equals("")) {//Telefono
                                                             trabajadorModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
                                                             if (UtilidadesPantalla.comprobarEmail(txt_email.getText())) {//Email
@@ -787,11 +872,11 @@ public class FormularioTrabajador extends javax.swing.JDialog {
                                                                             if (txt_fecha_alta.getDate() != null) {//Fecha alta vacia
 
                                                                                 if (fecha_nacimiento.getDate().before(txt_fecha_alta.getDate())) {//Fecha de nacimientos antes de la fecha de alta
-                                                                                    trabajadorModificar.setFecha_alta(txt_fecha_alta.getDate());
+                                                                                    trabajadorModificar.setFecha_alta(UtilidadesPantalla.convertToLocalDateViaInstant(txt_fecha_alta.getDate()));
 
                                                                                     if (txt_fecha_baja.getDate() != null) {//Fecha de baja vacia
                                                                                         if (txt_fecha_alta.getDate().before(txt_fecha_baja.getDate())) {//Fecha de alta antes de la fecha de baja
-                                                                                            trabajadorModificar.setFecha_baja(txt_fecha_baja.getDate());
+                                                                                            trabajadorModificar.setFecha_baja(UtilidadesPantalla.convertToLocalDateViaInstant(txt_fecha_baja.getDate()));
                                                                                             correcto = true;
                                                                                         } else {
                                                                                             JOptionPane.showMessageDialog(this, "La fecha de baja no puede ser superior a la fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
@@ -856,16 +941,17 @@ public class FormularioTrabajador extends javax.swing.JDialog {
                 //  JOptionPane.showMessageDialog(this, "El codigo ya existe en la base de datos", "Codigo", JOptionPane.WARNING_MESSAGE);
                 //}
             } else {
-                JOptionPane.showMessageDialog(this, "Necesita ingresar un codigo", "Codigo", JOptionPane.WARNING_MESSAGE);
-            }
-
-            if (correcto) {
-                this.setVisible(false);
-            }
+                JOptionPane.showMessageDialog(this, "Necesita ingresar un DNI", "DNI", JOptionPane.WARNING_MESSAGE);
+            }*/
+            //if (correcto) {
+            this.setVisible(false);
+            //}
         } catch (NumberFormatException e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "No se pueden meter números en algunos campos", "Errores con los números", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Excepcion al meter los datos del formulario", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al meter los datos del formulario", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_AceptarActionPerformed
 
@@ -912,6 +998,10 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private void txt_DNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_DNIActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_DNIActionPerformed
+
+    private void txt_seguridad_socialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_seguridad_socialKeyTyped
+        comprobarNumero(evt);
+    }//GEN-LAST:event_txt_seguridad_socialKeyTyped
 
     /**
      * @param args the command line arguments
@@ -998,6 +1088,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_nombre_;
     private javax.swing.JLabel lbl_poblacion;
     private javax.swing.JLabel lbl_principal;
+    private javax.swing.JLabel lbl_seguridad_social;
     private javax.swing.JLabel lbl_tlf;
     private org.edisoncor.gui.panel.PanelCurves panelCurves1;
     private org.edisoncor.gui.panel.PanelRect panelRect1;
@@ -1015,6 +1106,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private org.jdesktop.swingx.JXDatePicker txt_fecha_baja;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_poblacion;
+    private javax.swing.JTextField txt_seguridad_social;
     private javax.swing.JTextField txt_tlf;
     // End of variables declaration//GEN-END:variables
     private void comprobarNumero(KeyEvent evt) {

@@ -5,20 +5,20 @@
  */
 package Vistas.Archivos.Trabajadores;
 
-import Vistas.Formularios.FormularioTrabajador;
+//import Vistas.Formularios.FormularioTrabajador;
 import Modelo.Entidades.Centro;
 import Modelo.Entidades.Sede;
 import Modelo.Repository.TrabajadorRepository;
 import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
-import Vistas.Principal.Principal_vista;
 import Vistas.Fichas.FichaTrabajador;
+import Vistas.Formularios.FormularioTrabajador;
+//import Vistas.Principal.Principal_vista;
+//import Vistas.Fichas.FichaTrabajador;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.help.HelpSetException;
@@ -551,7 +551,6 @@ public class VistaTrabajadores extends javax.swing.JFrame {
             HelpBroker hb = helpset.createHelpBroker();
             hb.enableHelpKey(this.getContentPane(), "trabajadores", helpset);
         } catch (HelpSetException ex) {
-            Logger.getLogger(Principal_vista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

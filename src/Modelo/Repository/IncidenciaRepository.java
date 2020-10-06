@@ -10,7 +10,6 @@ import static Modelo.Repository.UtilidadesRepository.*;
 import Utilidades.Conexion;
 import static Utilidades.Utilidades.conn;
 import static Utilidades.Utilidades.empresa;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -59,8 +58,16 @@ public final class IncidenciaRepository {
                 o.setId(rs.getInt(id));
                 o.setCodigo(rs.getString(cod));
                 o.setCodigo_trabajador(rs.getString(codTrabajador));
-                o.setFecha_inicio(rs.getDate(fechaInicio));
-                o.setFecha_fin(rs.getDate(fechaFin));
+                if (rs.getDate(fechaInicio) != null) {
+                    o.setFecha_inicio(rs.getDate(fechaInicio).toLocalDate());
+                } else {
+                    o.setFecha_inicio(null);
+                }
+                if (rs.getDate(fechaFin) != null) {
+                    o.setFecha_fin(rs.getDate(fechaFin).toLocalDate());
+                } else {
+                    o.setFecha_fin(null);
+                }
                 o.setDescripcion(rs.getString(descripcion));
                 o.setExtras(rs.getInt(extras));
                 incidencias.add(o);
@@ -152,16 +159,14 @@ public final class IncidenciaRepository {
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCodigo_trabajador());
             if (o.getFecha_inicio() != null) {
-                int dia=o.getFecha_inicio().getDay()+1;
-                o.getFecha_inicio().setDate(dia);
-                sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_inicio());
             } else {
                 sqlDate = null;
             }
             System.out.println(sqlDate);
             ps.setDate(3, sqlDate);
             if (o.getFecha_fin() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_fin());
                 Utilidades.UtilidadesPantalla.sumarRestarDiasFecha(sqlDate, 1);
             } else {
                 sqlDate = null;
@@ -217,13 +222,13 @@ public final class IncidenciaRepository {
             ps.setString(2, o.getCodigo_trabajador());
             ps.setString(3, o.getDescripcion());
             if (o.getFecha_inicio() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_inicio());
             } else {
                 sqlDate = null;
             }
             ps.setDate(4, sqlDate);
             if (o.getFecha_fin() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_fin());
             } else {
                 sqlDate = null;
             }

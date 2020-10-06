@@ -21,6 +21,7 @@ import static Utilidades.Utilidades.DOS;
 import static Utilidades.Utilidades.UNO;
 import static Utilidades.Utilidades.conn;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,15 +118,17 @@ public class UsuarioRepository {
             insert = "INSERT INTO " + TABLA + " (id,nombre,password,id_rol,ultima_sesion) "
                     + "VALUES (NULL, ?, ?, ?, ?)";
             ps = conexion.prepareStatement(insert);
-            ps.setInt(1, get.getId());
-            ps.setString(2, get.getNombre());
-            ps.setString(3, get.getPassword());
+            //ps.setInt(1, get.getId());
+            ps.setString(1, get.getNombre());
+            ps.setString(2, get.getPassword());
             if (get.getId_rol().equals(UNO)) {
-                ps.setInt(4, 1);
+                ps.setInt(3, 1);
             } else if (get.getId_rol().equals(DOS)) {
-                ps.setInt(4, 2);
+                ps.setInt(3, 2);
+            } else {
+                ps.setInt(3, 0);
             }
-            ps.setString(5, get.getUltima_sesion());
+            ps.setString(4, "");
             ps.executeUpdate();
             conn.desconectar(conexion);
             usuarios.add(0, get);
@@ -141,16 +144,18 @@ public class UsuarioRepository {
         try {
             conn = new Conexion();
             conexion = conn.conectar_db_empresas();
-            update = "UPDATE " + TABLA + " SET nombre=?, id_rol=? WHERE id=?";
+            update = "UPDATE " + TABLA + " SET nombre=?,password=? ,id_rol=? WHERE id=?";
             ps = conexion.prepareStatement(update);
             ps.setString(1, get.getNombre());
+            ps.setString(2, get.getPassword());
             if (get.getId_rol().equals(UNO)) {
-                ps.setInt(2, 1);
+                ps.setInt(3, 1);
             } else if (get.getId_rol().equals(DOS)) {
-                ps.setInt(2, 2);
+                ps.setInt(3, 2);
             }
+            ps.setInt(4, get.getId());
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
-            ps.setInt(3, get.getId());
+            ps.execute();
             conn.desconectar(conexion);
             ejecutarConsulta(consulta);
         } catch (SQLException ex) {
@@ -168,6 +173,7 @@ public class UsuarioRepository {
             delete = "DELETE FROM " + TABLA + " WHERE id=?";
             ps = conexion.prepareStatement(delete);
             ps.setInt(1, id);
+            ps.execute();
             conn.desconectar(conexion);
             usuarios.remove(getById(id));
             correcto = true;

@@ -6,7 +6,7 @@
 package Modelo.Entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -24,10 +24,10 @@ public class Cliente implements Serializable{
     int fax;
     int movil;
     String email;
-    Date fecha_alta;
-    Date fecha_baja;
+    LocalDate fecha_alta;
+    LocalDate fecha_baja;
 
-    public Cliente(int id, String codigo, String cif, String nombre_fiscal, String nombre_comercial, String contacto, int telefono, int fax, int movil, String email, Date fecha_alta, Date fecha_baja) {
+    public Cliente(int id, String codigo, String cif, String nombre_fiscal, String nombre_comercial, String contacto, int telefono, int fax, int movil, String email, LocalDate fecha_alta, LocalDate fecha_baja) {
         this.id = id;
         this.codigo = codigo;
         this.cif = cif;
@@ -42,7 +42,7 @@ public class Cliente implements Serializable{
         this.fecha_baja = fecha_baja;
     }
 
-    public Cliente(String codigo, String cif, String nombre_fiscal, String nombre_comercial, String contacto, int telefono, int fax, int movil, String email, Date fecha_alta, Date fecha_baja) {
+    public Cliente(String codigo, String cif, String nombre_fiscal, String nombre_comercial, String contacto, int telefono, int fax, int movil, String email, LocalDate fecha_alta, LocalDate fecha_baja) {
         this.codigo = codigo;
         this.cif = cif;
         this.nombre_fiscal = nombre_fiscal;
@@ -140,19 +140,19 @@ public class Cliente implements Serializable{
         this.email = email;
     }
 
-    public Date getFecha_alta() {
+    public LocalDate getFecha_alta() {
         return fecha_alta;
     }
 
-    public void setFecha_alta(Date fecha_alta) {
+    public void setFecha_alta(LocalDate fecha_alta) {
         this.fecha_alta = fecha_alta;
     }
 
-    public Date getFecha_baja() {
+    public LocalDate getFecha_baja() {
         return fecha_baja;
     }
 
-    public void setFecha_baja(Date fecha_baja) {
+    public void setFecha_baja(LocalDate fecha_baja) {
         this.fecha_baja = fecha_baja;
     }
 

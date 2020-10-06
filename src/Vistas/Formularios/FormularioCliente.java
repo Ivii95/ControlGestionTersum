@@ -67,9 +67,13 @@ public class FormularioCliente extends javax.swing.JDialog {
         txt_fax.setText(clienteModificar.getFax() + "");
         txt_movil.setText(clienteModificar.getMovil() + "");
         txt_email.setText(clienteModificar.getEmail() + "");
+        if (clienteModificar.getFecha_alta() != null) {
+            fecha_alta.setDate(java.sql.Date.valueOf(clienteModificar.getFecha_alta()));
+        }
+        if (clienteModificar.getFecha_baja()!= null) {
+            fecha_baja.setDate(java.sql.Date.valueOf(clienteModificar.getFecha_baja()));
+        }
 
-        fecha_alta.setDate(clienteModificar.getFecha_alta());
-        fecha_baja.setDate(clienteModificar.getFecha_baja());
     }
 
     /**
@@ -472,24 +476,21 @@ public class FormularioCliente extends javax.swing.JDialog {
             }
             if (!txt_fax.getText().isBlank()) {
                 clienteModificar.setFax(Integer.parseInt(txt_fax.getText()));
+            }else{
+                clienteModificar.setFax(0);
             }
             if (!txt_movil.getText().isBlank()) {
                 clienteModificar.setMovil(Integer.parseInt(txt_movil.getText()));
+            }else{
+                clienteModificar.setMovil(0);
             }
             clienteModificar.setEmail(txt_email.getText());
-            clienteModificar.setFecha_alta(fecha_alta.getDate());
-            if (fecha_baja.getDate() != null) {//Fecha de baja vacia
-                if (fecha_alta.getDate().before(fecha_baja.getDate())) {//Fecha de alta antes de la fecha de baja
-                    clienteModificar.setFecha_baja(fecha_baja.getDate());
-                    correcto = true;
-                } else {
-                    JOptionPane.showMessageDialog(this, "La fecha de baja no puede ser superior a la fecha de alta", "Fechas", JOptionPane.WARNING_MESSAGE);
-                }
-            } else {
-                clienteModificar.setFecha_baja(null);
-                correcto = true;
+            if(fecha_alta.getDate() != null){
+                clienteModificar.setFecha_alta((UtilidadesPantalla.convertToLocalDateViaInstant(fecha_alta.getDate())));
             }
-
+            if (fecha_baja.getDate() != null) {//Fecha de baja vacia
+                clienteModificar.setFecha_baja(UtilidadesPantalla.convertToLocalDateViaInstant(fecha_baja.getDate()));
+            } 
             //} else {
             //  JOptionPane.showMessageDialog(this, "El codigo ya existe en la base de datos", "Codigo", JOptionPane.WARNING_MESSAGE);
             //}
@@ -497,7 +498,7 @@ public class FormularioCliente extends javax.swing.JDialog {
                 this.setVisible(false);
             }
         } catch (NumberFormatException e) {
-            //JOptionPane.showMessageDialog(this, "No se pueden meter números en algunos campos", "Errores con los números", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se pueden meter números en algunos campos", "Errores con los números", JOptionPane.WARNING_MESSAGE);
             System.out.println(e.getMessage());
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Problemas al meter los datos del formulario", "Error", JOptionPane.ERROR_MESSAGE);

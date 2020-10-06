@@ -6,7 +6,7 @@
 package Modelo.Entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -16,8 +16,8 @@ public class Contrato implements Serializable{
     int id;
     int codigo_tipo_contrato;
     int codigo_trabajador;
-    Date fechainicio;
-    Date fechafin;
+    LocalDate fechainicio;
+    LocalDate fechafin;
     double horas;
     boolean situacion;
     boolean asegurado;
@@ -25,7 +25,7 @@ public class Contrato implements Serializable{
     public Contrato() {
     }
 
-    public Contrato(int codigo, int codigo_trabajador, Date fechainicio, Date fechafin, double horas, boolean situacion, boolean asegurado) {
+    public Contrato(int codigo, int codigo_trabajador, LocalDate fechainicio, LocalDate fechafin, double horas, boolean situacion, boolean asegurado) {
         this.codigo_tipo_contrato = codigo;
         this.codigo_trabajador = codigo_trabajador;
         this.fechainicio = fechainicio;
@@ -44,19 +44,19 @@ public class Contrato implements Serializable{
         this.id = id;
     }
     
-    public Date getFechainicio() {
+    public LocalDate getFechainicio() {
         return fechainicio;
     }
 
-    public void setFechainicio(Date fechainicio) {
+    public void setFechainicio(LocalDate fechainicio) {
         this.fechainicio = fechainicio;
     }
 
-    public Date getFechafin() {
+    public LocalDate getFechafin() {
         return fechafin;
     }
 
-    public void setFechafin(Date fechafin) {
+    public void setFechafin(LocalDate fechafin) {
         this.fechafin = fechafin;
     }
 

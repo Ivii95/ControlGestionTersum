@@ -157,13 +157,14 @@ public class HorarioRepository {
         return decNumbert + intNumber;
     }
 
-    public boolean borrarColumnaHorario(JTable tabla, int codigo_trabajador, String dia) {
+    public boolean borrarColumnaHorario(JTable tabla, int id_centrotrabajador, String dia) {
         correcto = false;
         try {
-            delete = "DELETE FROM horarios WHERE dia_semana = '" + dia + "' && id_centrotrabajadores = (SELECT id FROM centrostrabajadores WHERE codigo_trabajadores=" + codigo_trabajador + ")";
-            conn = new Conexion();
-            conexion = conn.conectar_empresa_concreta(empresa);
-            ps = conexion.prepareStatement(delete);
+            delete = "DELETE FROM horarios WHERE dia_semana = ? && id_centrotrabajadores =?";
+            ps = conn.conectar_empresa_concreta(Utilidades.empresa).prepareStatement(delete);
+            ps.setString(1, dia);
+            ps.setInt(2, id_centrotrabajador);
+            ps.executeUpdate();
             DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
             for (int i = 0; i < dtm.getColumnCount(); i++) {
                 if (tabla.getColumnName(i).equals(dia)) {
@@ -172,6 +173,7 @@ public class HorarioRepository {
                     }
                 }
             }
+            conn.desconectar(conexion);
             correcto = true;
         } catch (SQLException ex) {
             correcto = false;

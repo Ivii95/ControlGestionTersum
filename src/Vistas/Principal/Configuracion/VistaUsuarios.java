@@ -174,9 +174,7 @@ public class VistaUsuarios extends javax.swing.JFrame {
                     .addGroup(Panel_botonesLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(Panel_botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(Panel_botonesLayout.createSequentialGroup()
-                                .addComponent(btn_Añadir_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btn_Añadir_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(Panel_botonesLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -304,6 +302,7 @@ public class VistaUsuarios extends javax.swing.JFrame {
         Usuario get = FT.usuarioModificar;
         if (get != null) {
             if (!repoUsuarios.ifIdExist(get.getId())) {
+                get.toString();
                 repoUsuarios.insert(get);
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo insertar el trabajador por que ya existe en la base de datos", "Error al insertar", JOptionPane.WARNING_MESSAGE);
@@ -416,7 +415,7 @@ public class VistaUsuarios extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void restablecerTabla() {
-
+        repoUsuarios.rellenarTablaDefault(tabla_usuarios);
     }
 
 }

@@ -10,6 +10,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,9 +28,9 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author DisenoWeb
  */
 public class UtilidadesPantalla {
-
+    
     public static SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy");
-
+    
     public static void resolucionPantalla(JFrame aThis) {
         aThis.setLocationRelativeTo(null);
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -37,10 +39,10 @@ public class UtilidadesPantalla {
             aThis.setExtendedState(JFrame.MAXIMIZED_HORIZ);
             aThis.setExtendedState(JFrame.MAXIMIZED_VERT);
         } else {
-
+            
         }
     }
-
+    
     public static URL obtenerUrlAyuda() {
         URL hsURL = null;
         try {
@@ -51,7 +53,7 @@ public class UtilidadesPantalla {
         }
         return hsURL;
     }
-
+    
     public static void centrarTablas(JTable aThis) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -59,7 +61,7 @@ public class UtilidadesPantalla {
         aThis.setDefaultRenderer(Integer.class, centerRenderer);
         aThis.setDefaultRenderer(Object.class, centerRenderer);
     }
-
+    
     public static void rellenarComboTiposContrato(JComboBox cbx) {
         cbx.addItem("Selecciona uno");
         cbx.addItem(100);
@@ -88,7 +90,7 @@ public class UtilidadesPantalla {
         cbx.addItem(418);
         cbx.addItem(420);
     }
-
+    
     public static boolean comprobarTelefono(String source) {
         Pattern fijos = Pattern.compile("^[89]\\d{8}$");
         Matcher fijoss = fijos.matcher(source);
@@ -97,7 +99,7 @@ public class UtilidadesPantalla {
         }
         return false;
     }
-
+    
     public static boolean comprobarMovil(String source) {
         Pattern moviles = Pattern.compile("^[67]\\d{8}$");
         Matcher moviless = moviles.matcher(source);
@@ -106,7 +108,7 @@ public class UtilidadesPantalla {
         }
         return false;
     }
-
+    
     public static boolean comprobarEmail(String source) {
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(regex);
@@ -114,17 +116,23 @@ public class UtilidadesPantalla {
         System.out.println(matcher.matches());
         return matcher.matches();
     }
-
+    
     public static int getIdSelected(JTable tabla) {
         return (Integer) (tabla.getValueAt(tabla.getSelectedRow(), 0));
     }
-
+    
     public static Date sumarRestarDiasFecha(Date fecha, int dias) {
-
+        
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha); // Configuramos la fecha que se recibe
         calendar.add(Calendar.DAY_OF_YEAR, dias);  // numero de días a añadir, o restar en caso de días<0
         java.util.Date fechaFinal = calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
         return new java.sql.Date(fechaFinal.getTime());
+    }
+    
+    public static LocalDate convertToLocalDateViaInstant(java.util.Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate().plusDays(1);
     }
 }

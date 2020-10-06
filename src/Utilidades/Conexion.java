@@ -8,6 +8,8 @@ package Utilidades;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,15 +38,20 @@ public class Conexion {
         try {
             //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, password);
+            conn = DriverManager.getConnection(url, user, password2);
             if (conn != null) {
                 //System.out.println("CONECTADO");
                 //JOptionPane.showMessageDialog(null, "CONECTADO");//SI NECESITAMOS SABER SI SE HA CONECTADO
             }
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Error al conectar: " + e);
-            JOptionPane.showMessageDialog(null, "No se pudo conectar con la Base de Datos");
-            JOptionPane.showMessageDialog(null, "Error al conectar: " + e);
+            try {
+                conn = DriverManager.getConnection(url, user, password);
+
+            } catch (SQLException ex) {
+                System.out.println("Error al conectar: " + e);
+                JOptionPane.showMessageDialog(null, "No se pudo conectar con la Base de Datos");
+                JOptionPane.showMessageDialog(null, "Error al conectar: " + e);
+            }
         }
         return conn;
     }
@@ -55,13 +62,18 @@ public class Conexion {
 //           urlbase = "jdbc:mysql://gesinformatica.es:3306/tiendage_programa"; //TEMPORAL
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(urlbase + url2 + urlHora, user, password);
+            conn = DriverManager.getConnection(urlbase + url2 + urlHora, user, password2);
 //    conn = DriverManager.getConnection(urlbase, user, password);//TEMPORAL
             if (conn != null) {
                 //System.out.println("CONECTADO");
             }
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Error al conectar: " + e);
+            try {
+                conn = DriverManager.getConnection(urlbase + url2 + urlHora, user, password);
+
+            } catch (SQLException ex) {
+                System.out.println("Error al conectar: " + e);
+            }
         }
         return conn;
     }

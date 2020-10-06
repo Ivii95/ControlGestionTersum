@@ -6,24 +6,24 @@
 package Modelo.Entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author DisenoWeb
  */
-public class Nominas implements Serializable{
+public class Nominas implements Serializable {
 
     int id, codigo_trabajador;
-    Date fecha_inicio;
-    Date fecha_fin;
+    LocalDate fecha_inicio;
+    LocalDate fecha_fin;
     double importe;
     boolean activo;
 
     public Nominas() {
     }
 
-    public Nominas(int id, int codigo_trabajador, Date fecha_inicio, Date fecha_fin, double importe, boolean activo) {
+    public Nominas(int id, int codigo_trabajador, LocalDate fecha_inicio, LocalDate fecha_fin, double importe, boolean activo) {
         this.id = id;
         this.codigo_trabajador = codigo_trabajador;
         this.fecha_inicio = fecha_inicio;
@@ -32,7 +32,7 @@ public class Nominas implements Serializable{
         this.activo = activo;
     }
 
-     public Nominas(int codigo_trabajador, Date fecha_inicio, Date fecha_fin, double importe, boolean activo) {
+    public Nominas(int codigo_trabajador, LocalDate fecha_inicio, LocalDate fecha_fin, double importe, boolean activo) {
         this.codigo_trabajador = codigo_trabajador;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
@@ -56,19 +56,19 @@ public class Nominas implements Serializable{
         this.codigo_trabajador = codigo_trabajador;
     }
 
-    public Date getFecha_inicio() {
+    public LocalDate getFecha_inicio() {
         return fecha_inicio;
     }
 
-    public void setFecha_inicio(Date fecha_inicio) {
+    public void setFecha_inicio(LocalDate fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public Date getFecha_fin() {
+    public LocalDate getFecha_fin() {
         return fecha_fin;
     }
 
-    public void setFecha_fin(Date fecha_fin) {
+    public void setFecha_fin(LocalDate fecha_fin) {
         this.fecha_fin = fecha_fin;
     }
 
@@ -92,6 +92,5 @@ public class Nominas implements Serializable{
     public String toString() {
         return "Nominas{" + "id=" + id + ", codigo_trabajador=" + codigo_trabajador + ", fecha_inicio=" + fecha_inicio + ", fecha_fin=" + fecha_fin + ", importe=" + importe + ", activo=" + activo + '}';
     }
-     
-    
+
 }

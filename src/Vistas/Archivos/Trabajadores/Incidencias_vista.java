@@ -10,7 +10,6 @@ import Modelo.Entidades.Incidencia;
 import Modelo.Repository.IncidenciaRepository;
 import Modelo.Entidades.Trabajador;
 import Utilidades.UtilidadesPantalla;
-import Vistas.Principal.Principal_vista;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -46,8 +45,8 @@ public class Incidencias_vista extends javax.swing.JFrame {
         this.trabajadorIncidencias = trabajadorFaltas;
         iniciarOtrosComponentes();
         txt_codigo.setText(falta.getCodigo());
-        txt_fecha_inicio.setDate(falta.getFecha_inicio());
-        txt_fecha_fin.setDate(falta.getFecha_fin());
+        txt_fecha_inicio.setDate(java.sql.Date.valueOf(falta.getFecha_inicio()));
+        txt_fecha_fin.setDate(java.sql.Date.valueOf(falta.getFecha_fin()));
         txt_descripcion.setText(falta.getMotivo());
     }
 
@@ -90,7 +89,6 @@ public class Incidencias_vista extends javax.swing.JFrame {
             HelpBroker hb = helpset.createHelpBroker();
             hb.enableHelpKey(this.getContentPane(), "incidencias_trabajador", helpset);
         } catch (HelpSetException ex) {
-            Logger.getLogger(Principal_vista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -363,7 +361,7 @@ public class Incidencias_vista extends javax.swing.JFrame {
             Date fecha_fin = (Date) txt_fecha_fin.getDate();
             //formato.format(fecha);
             int extras = Integer.parseInt((String) comboExtras.getSelectedItem());
-            Incidencia incidencia = new Incidencia(id, codigo, trabajadorIncidencias.getCodigo(), extras, descripcion, fecha_inicio, fecha_fin);
+            Incidencia incidencia = new Incidencia(id, codigo, trabajadorIncidencias.getCodigo(), extras, descripcion, UtilidadesPantalla.convertToLocalDateViaInstant(fecha_inicio), UtilidadesPantalla.convertToLocalDateViaInstant(fecha_fin));
             repoIncidencia.update(incidencia);
             restablecerTodo();
         }
@@ -378,7 +376,7 @@ public class Incidencias_vista extends javax.swing.JFrame {
             Date fecha_inicio = (Date) txt_fecha_inicio.getDate();
             Date fecha_fin = (Date) txt_fecha_fin.getDate();
             int extras = Integer.parseInt((String) comboExtras.getSelectedItem());
-            Incidencia incidencia = new Incidencia(codigo, trabajadorIncidencias.getCodigo(), extras, descripcion, fecha_inicio, fecha_fin);
+            Incidencia incidencia = new Incidencia(codigo, trabajadorIncidencias.getCodigo(), extras, descripcion, UtilidadesPantalla.convertToLocalDateViaInstant(fecha_inicio), UtilidadesPantalla.convertToLocalDateViaInstant(fecha_fin));
             repoIncidencia.insert(incidencia);
             restablecerTodo();
         }
@@ -454,8 +452,8 @@ public class Incidencias_vista extends javax.swing.JFrame {
         incidencia = repoIncidencia.getById(id);
         txt_codigo.setText(incidencia.getCodigo());
         comboExtras.setSelectedItem(incidencia.getExtras() + "");
-        txt_fecha_inicio.setDate(incidencia.getFecha_inicio());
-        txt_fecha_fin.setDate(incidencia.getFecha_fin());
+        txt_fecha_inicio.setDate(java.sql.Date.valueOf(incidencia.getFecha_inicio()));
+        txt_fecha_fin.setDate(java.sql.Date.valueOf(incidencia.getFecha_fin()));
         txt_descripcion.setText(incidencia.getDescripcion());
     }
 

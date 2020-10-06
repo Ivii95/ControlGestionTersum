@@ -25,7 +25,6 @@ public class FormularioCentro extends javax.swing.JDialog {
     public Centro centroModificar;
     ClienteRepository repoClientes;
     CentroRepository repoCentros;
-
     /**
      * Creates new form FormularioCentro
      *
@@ -40,7 +39,6 @@ public class FormularioCentro extends javax.swing.JDialog {
         this.centroModificar = centro;
         iniciarComponenteModificar();
     }
-
     /**
      *
      * @param parent
@@ -75,7 +73,6 @@ public class FormularioCentro extends javax.swing.JDialog {
         txt_horas.setText(centroModificar.getHoras_semana() + "");
         txt_faturacion.setText(centroModificar.getFacturacion_mes() + "");
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -524,7 +521,6 @@ public class FormularioCentro extends javax.swing.JDialog {
     private void comboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClienteActionPerformed
 
     }//GEN-LAST:event_comboClienteActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -601,7 +597,6 @@ public class FormularioCentro extends javax.swing.JDialog {
             evt.consume();
         }
     }
-
     private void comprobarLetra(KeyEvent evt) {
 
         if (Character.isDigit(evt.getKeyChar()) == true) {
@@ -609,7 +604,6 @@ public class FormularioCentro extends javax.swing.JDialog {
             evt.consume();
         }
     }
-
     private void comprobarCodigo(KeyEvent evt) {
         try {
             if (repoCentros.ifCodigoExist((String) txt_codigo.getText()) && lbl_codigo.getForeground().equals(new java.awt.Color(204, 204, 204))) {

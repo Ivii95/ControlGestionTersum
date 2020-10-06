@@ -5,12 +5,14 @@
  */
 package Vistas.Archivos.Clientes;
 
-import Vistas.Formularios.FormularioCliente;
+//import Vistas.Formularios.FormularioCliente;
 import Modelo.Entidades.Cliente;
 import Modelo.Entidades.Sede;
 import Modelo.Repository.ClienteRepository;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaCliente;
+import Vistas.Formularios.FormularioCliente;
+//import Vistas.Fichas.FichaCliente;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;

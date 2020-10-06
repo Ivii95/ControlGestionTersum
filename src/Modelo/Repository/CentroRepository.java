@@ -209,7 +209,16 @@ public final class CentroRepository {
             combo.addItem(centros.get(i).getNombre());
         }
     }
-
+    
+    public void rellenarComboByTrabajador(JComboBox combo,String codigo_trabajador) {
+        String consultaEspecial = consultaCentros + " WHERE codigo=( SELECT codigo_centro FROM centrostrabajadores WHERE codigo_trabajadores = '" + codigo_trabajador + "' ) " + ORDER;
+        ejecutarConsulta(consultaEspecial);
+        //combo.addItem("Sin centro");
+        for (int i = 0; i < centros.size(); i++) {
+            combo.addItem(centros.get(i).getNombre());
+        }
+    }
+    
     public JComboBox rellenarComboByCodigoCliente(JComboBox combo, String cod_cliente) {
         ejecutarConsulta(consultaCentros + " WHERE " + codCliente + "=" + cod_cliente + " ORDER BY " + nombre);
         combo.addItem("Selecciona uno");

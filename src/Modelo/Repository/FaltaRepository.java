@@ -56,8 +56,16 @@ public final class FaltaRepository {
                 falta.setId(rs.getInt(id));
                 falta.setCodigo(rs.getString(cod));
                 falta.setCodigo_trabajador(rs.getString(codTrabajador));
-                falta.setFecha_inicio(rs.getDate(fechaInicio));
-                falta.setFecha_fin(rs.getDate(fechaFin));
+                if (rs.getDate(fechaInicio) != null) {
+                    falta.setFecha_inicio(rs.getDate(fechaInicio).toLocalDate());
+                } else {
+                    falta.setFecha_inicio(null);
+                }
+                if (rs.getDate(fechaFin) != null) {
+                    falta.setFecha_fin(rs.getDate(fechaFin).toLocalDate());
+                } else {
+                    falta.setFecha_fin(null);
+                }
                 falta.setMotivo(rs.getString(motivo));
                 faltas.add(falta);
             }
@@ -147,13 +155,13 @@ public final class FaltaRepository {
             ps = conexion.prepareStatement(insert);
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCodigo_trabajador());
-            if(o.getFecha_inicio()!=null){
-                sqlDate= new java.sql.Date(o.getFecha_inicio().getTime());
+            if (o.getFecha_inicio() != null) {
+                sqlDate = java.sql.Date.valueOf(o.getFecha_inicio());
             }
-            sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+            sqlDate = java.sql.Date.valueOf(o.getFecha_inicio());
             ps.setDate(3, sqlDate);
             if (o.getFecha_fin() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_fin());
             } else {
                 sqlDate = null;
             }
@@ -202,15 +210,15 @@ public final class FaltaRepository {
             ps = conexion.prepareStatement(update);
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCodigo_trabajador());
-            sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
-            if (o.getFecha_inicio()!= null) {
-                sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+            sqlDate = java.sql.Date.valueOf(o.getFecha_inicio());
+            if (o.getFecha_inicio() != null) {
+                sqlDate = java.sql.Date.valueOf(o.getFecha_inicio());
             } else {
                 sqlDate = null;
             }
             ps.setDate(3, sqlDate);
             if (o.getFecha_fin() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_fin());
             } else {
                 sqlDate = null;
             }

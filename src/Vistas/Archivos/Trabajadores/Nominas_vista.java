@@ -7,12 +7,10 @@ package Vistas.Archivos.Trabajadores;
 
 import Modelo.Entidades.Nominas;
 import Modelo.Entidades.Trabajador;
+import Modelo.Repository.NominasRepository;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
-import Vistas.Principal.Principal_vista;
 import java.awt.event.KeyEvent;
-
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +29,8 @@ public class Nominas_vista extends javax.swing.JFrame {
 
     Utilidades utilidades = new Utilidades();
     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy");
-    public static int id_trabajador;
+    public static Trabajador trabajador;
+    NominasRepository repoNominas = new NominasRepository();
 
     /**
      * Creates new form Nominas_vista
@@ -45,7 +44,7 @@ public class Nominas_vista extends javax.swing.JFrame {
         UtilidadesPantalla.resolucionPantalla(this);
         UtilidadesPantalla.centrarTablas(tabla_nominas);
         ponAyuda();
-        id_trabajador = trabajador.getId();
+        trabajador = trabajador;
         tabla_nominas.getColumnModel().getColumn(0).setMaxWidth(0);
         tabla_nominas.getColumnModel().getColumn(0).setMinWidth(0);
         tabla_nominas.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
@@ -55,9 +54,9 @@ public class Nominas_vista extends javax.swing.JFrame {
         btn_borrar.setVisible(false);
         btn_limpiar.setVisible(false);
         btn_modificar.setVisible(false);
-        String trabajadorinfo = lbl_info_trabajador2.getText() + " " + id_trabajador + " - " + trabajador.getApellido1() + trabajador.getApellido2();
+        String trabajadorinfo = lbl_info_trabajador2.getText() + " " + trabajador.getCodigo() + " - " + trabajador.getApellido1() + trabajador.getApellido2();
         lbl_info_trabajador2.setText(trabajadorinfo.toUpperCase());
-        utilidades.rellenarTablaDatosIndividuales(tabla_nominas, "nominas", id_trabajador);
+        repoNominas.rellenarTablaByTrabajador(tabla_nominas, trabajador.getCodigo());
     }
 
     public void ponAyuda() {
@@ -66,7 +65,6 @@ public class Nominas_vista extends javax.swing.JFrame {
             HelpBroker hb = helpset.createHelpBroker();
             hb.enableHelpKey(this.getContentPane(), "nominas", helpset);
         } catch (HelpSetException ex) {
-            Logger.getLogger(Principal_vista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -96,7 +94,10 @@ public class Nominas_vista extends javax.swing.JFrame {
         lbl_fechafin = new javax.swing.JLabel();
         txt_fechafin = new org.jdesktop.swingx.JXDatePicker();
         txt_importe = new javax.swing.JTextField();
-        lbl_importe = new javax.swing.JLabel();
+        lbl_codigo_trabajador = new javax.swing.JLabel();
+        txt_codigo_trabajador = new javax.swing.JTextField();
+        lbl_importe1 = new javax.swing.JLabel();
+        checkActivo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -237,36 +238,37 @@ public class Nominas_vista extends javax.swing.JFrame {
         lbl_fechainicio.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_fechainicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_fechainicio.setText("Fecha de inicio");
-        panelRect2.add(lbl_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 200, 34));
+        panelRect2.add(lbl_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 200, 34));
 
         txt_fechainicio.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt_fechainicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_fechainicioActionPerformed(evt);
-            }
-        });
-        panelRect2.add(txt_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 200, 35));
+        panelRect2.add(txt_fechainicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 200, 35));
 
         lbl_fechafin.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lbl_fechafin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_fechafin.setText("Fecha de fin");
-        panelRect2.add(lbl_fechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 200, 34));
+        panelRect2.add(lbl_fechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 200, 34));
 
         txt_fechafin.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        panelRect2.add(txt_fechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 200, 35));
+        panelRect2.add(txt_fechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 200, 35));
 
         txt_importe.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        txt_importe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_importeActionPerformed(evt);
-            }
-        });
-        panelRect2.add(txt_importe, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 200, 35));
+        panelRect2.add(txt_importe, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 80, 200, 35));
 
-        lbl_importe.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        lbl_importe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_importe.setText("Importe");
-        panelRect2.add(lbl_importe, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 200, 35));
+        lbl_codigo_trabajador.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_codigo_trabajador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_codigo_trabajador.setText("Codigo Trabajador");
+        panelRect2.add(lbl_codigo_trabajador, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 200, 35));
+
+        txt_codigo_trabajador.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        panelRect2.add(txt_codigo_trabajador, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 200, 35));
+
+        lbl_importe1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_importe1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_importe1.setText("Importe");
+        panelRect2.add(lbl_importe1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, 200, 35));
+
+        checkActivo.setText("Activo");
+        panelRect2.add(checkActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(925, 20, 80, 30));
 
         panelCurves1.add(panelRect2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 1320, 150));
 
@@ -323,24 +325,67 @@ public class Nominas_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiarActionPerformed
 
     private void btn_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarActionPerformed
+        int filaSeleccionada = tabla_nominas.getSelectedRow();
+        int opcionborrar = JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de borrar el registro?\nContrato: " + (String) tabla_nominas.getValueAt(filaSeleccionada, 1));
+        switch (opcionborrar) {
+            case 0://OPCION SI BORRAR TRABAJADOR
+                int id = UtilidadesPantalla.getIdSelected(tabla_nominas);
+                repoNominas.delete(id);
+                restablecerTodo();
+                break;
 
+            case 1://OPCION NO BORRAR CONTRATO, se tiene que poner para que los datos que ya estan escritos en los jtextfield no se borren al darle a "NO"
+                break;
+
+            default://OPCION CANCELAR
+                restablecerTodo();
+                break;
+        }
     }//GEN-LAST:event_btn_borrarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
-
+        if (txt_fechainicio.getDate().equals("") || txt_fechafin.getDate().equals("") || txt_importe.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ningún campo puede estar vacio");
+        } else {
+            boolean activo;
+            int id = UtilidadesPantalla.getIdSelected(tabla_nominas);
+            int codigo = Integer.parseInt(txt_codigo_trabajador.getText());
+            double importe = Double.parseDouble(txt_importe.getText());
+            Date fecha_inicio = (Date) txt_fechainicio.getDate();
+            Date fecha_fin = (Date) txt_fechafin.getDate();
+            if (checkActivo.isSelected()) {
+                activo = true;
+            } else {
+                activo = false;
+            }
+            //formato.format(fecha);
+            Nominas nomina = new Nominas(id, codigo, UtilidadesPantalla.convertToLocalDateViaInstant(fecha_inicio), UtilidadesPantalla.convertToLocalDateViaInstant(fecha_fin), importe, activo);
+            repoNominas.update(nomina);
+            restablecerTodo();
+        }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirActionPerformed
-
+        if (txt_codigo_trabajador.getText().equals("") || txt_fechainicio.getDate() == null || txt_importe.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Ningún campo puede estar vacio y la fecha de inicio y fin deben ser correctas");
+        } else {
+            boolean activo;
+            int id = UtilidadesPantalla.getIdSelected(tabla_nominas);
+            int codigo = Integer.parseInt(txt_codigo_trabajador.getText());
+            double importe = Double.parseDouble(txt_importe.getText());
+            Date fecha_inicio = (Date) txt_fechainicio.getDate();
+            Date fecha_fin = (Date) txt_fechafin.getDate();
+            if (checkActivo.isSelected()) {
+                activo = true;
+            } else {
+                activo = false;
+            }
+            //formato.format(fecha);
+            Nominas nomina = new Nominas(id, codigo, UtilidadesPantalla.convertToLocalDateViaInstant(fecha_inicio), UtilidadesPantalla.convertToLocalDateViaInstant(fecha_fin), importe, activo);
+            repoNominas.insert(nomina);
+            restablecerTodo();
+        }
     }//GEN-LAST:event_btn_añadirActionPerformed
-
-    private void txt_fechainicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fechainicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_fechainicioActionPerformed
-
-    private void txt_importeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_importeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_importeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,17 +427,20 @@ public class Nominas_vista extends javax.swing.JFrame {
     private javax.swing.JButton btn_borrar;
     private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JCheckBox checkActivo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbl_codigo_trabajador;
     private javax.swing.JLabel lbl_fechafin;
     private javax.swing.JLabel lbl_fechainicio;
-    private javax.swing.JLabel lbl_importe;
+    private javax.swing.JLabel lbl_importe1;
     private javax.swing.JLabel lbl_info_trabajador2;
     private org.edisoncor.gui.panel.PanelCurves panelCurves1;
     private org.edisoncor.gui.panel.PanelRect panelRect1;
     private org.edisoncor.gui.panel.PanelRect panelRect2;
     private javax.swing.JTable tabla_nominas;
     private javax.swing.JTextField txt_buscar;
+    private javax.swing.JTextField txt_codigo_trabajador;
     private org.jdesktop.swingx.JXDatePicker txt_fechafin;
     private org.jdesktop.swingx.JXDatePicker txt_fechainicio;
     private javax.swing.JTextField txt_importe;

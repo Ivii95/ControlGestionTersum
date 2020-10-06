@@ -6,7 +6,8 @@
 package Modelo.Entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 /**
  *
@@ -18,7 +19,7 @@ public class Incidencia implements Serializable{
     String codigo;
     String codigo_trabajador;
     String descripcion;
-    Date fecha_inicio, fecha_fin;
+    LocalDate fecha_inicio, fecha_fin;
     int extras;
 
     public Incidencia() {
@@ -33,7 +34,7 @@ public class Incidencia implements Serializable{
      * @param fecha_inicio
      * @param fecha_fin
      */
-    public Incidencia(String codigo, String codigo_trabajador, int extras, String descripcion, Date fecha_inicio, Date fecha_fin) {
+    public Incidencia(String codigo, String codigo_trabajador, int extras, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin) {
         this.codigo = codigo;
         this.codigo_trabajador = codigo_trabajador;
         this.extras = extras;
@@ -52,7 +53,7 @@ public class Incidencia implements Serializable{
      * @param fecha_inicio
      * @param fecha_fin
      */
-    public Incidencia(int id, String codigo, String codigo_trabajador, int extras, String descripcion, Date fecha_inicio, Date fecha_fin) {
+    public Incidencia(int id, String codigo, String codigo_trabajador, int extras, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin) {
         this.id = id;
         this.codigo = codigo;
         this.codigo_trabajador = codigo_trabajador;
@@ -102,19 +103,19 @@ public class Incidencia implements Serializable{
         this.descripcion = descripcion;
     }
 
-    public Date getFecha_inicio() {
+    public LocalDate getFecha_inicio() {
         return fecha_inicio;
     }
 
-    public void setFecha_inicio(Date fecha_inicio) {
+    public void setFecha_inicio(LocalDate fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public Date getFecha_fin() {
+    public LocalDate getFecha_fin() {
         return fecha_fin;
     }
 
-    public void setFecha_fin(Date fecha_fin) {
+    public void setFecha_fin(LocalDate fecha_fin) {
         this.fecha_fin = fecha_fin;
     }
 

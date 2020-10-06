@@ -56,8 +56,8 @@ public final class NominasRepository {
                 Nominas o = new Nominas();
                 o.setId(rs.getInt(id));
                 o.setCodigo_trabajador(rs.getInt(codTrabajador));
-                o.setFecha_inicio(rs.getDate(fechaInicio));
-                o.setFecha_fin(rs.getDate(fechaFin));
+                o.setFecha_inicio(rs.getDate(fechaInicio).toLocalDate());
+                o.setFecha_fin(rs.getDate(fechaFin).toLocalDate());
                 o.setImporte(rs.getDouble(importe));
                 o.setActivo(rs.getBoolean(activo));
                 nominas.add(o);
@@ -147,13 +147,13 @@ public final class NominasRepository {
             ps = conexion.prepareStatement(insert);
             ps.setInt(1, o.getCodigo_trabajador());
             if (o.getFecha_inicio() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_inicio());
             } else {
                 sqlDate = null;
             }
             ps.setDate(2, sqlDate);
             if (o.getFecha_fin() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
+                sqlDate =  java.sql.Date.valueOf(o.getFecha_fin());
             } else {
                 sqlDate = null;
             }
@@ -205,14 +205,14 @@ public final class NominasRepository {
             ps.setInt(1, o.getCodigo_trabajador());
 
             if (o.getFecha_inicio() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_inicio().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_inicio());
             } else {
                 sqlDate = null;
             }
             ps.setDate(2, sqlDate);
 
             if (o.getFecha_fin() != null) {
-                sqlDate = new java.sql.Date(o.getFecha_fin().getTime());
+                sqlDate = java.sql.Date.valueOf(o.getFecha_fin());
             } else {
                 sqlDate = null;
             }

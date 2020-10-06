@@ -36,10 +36,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import Vistas.Principal.Login_vista;
-import Vistas.Principal.Principal_vista;
-import Vistas.Principal.Configuracion.Usuarios_vista;
+//import Vistas.Principal.Login_vista;
+//import Vistas.Principal.Principal_vista;
+//import Vistas.Principal.Configuracion.Usuarios_vista;
 import Vistas.Archivos.Trabajadores.Incidencias_vista;
+import Vistas.Principal.Configuracion.Usuarios_vista;
+import Vistas.Principal.Principal_vista;
 
 /**
  * Esta clase contiene todos los métodos/funciones que se van a utilizar en el programa, se intenta que todos los métodos/funciones sean lo mas generales posibles para poder utilizarlos entre las diferentes clases y objetos creados de dichas clases.
@@ -84,7 +86,7 @@ public class Utilidades {
                 ps.execute();
                 conn.desconectar(conexion);
             } catch (SQLException ex) {
-                Logger.getLogger(Login_vista.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         }
         return fechaHora.format(ultima_sesion);
@@ -132,9 +134,9 @@ public class Utilidades {
                                 id_usuario = rs.getInt("id");
                                 nombre = rs.getString("nombre");
                                 id_rol = rs.getInt("id_rol");
-                                tiene_permiso_de_acceso = consultarPermisos(id_usuario, id_empresa, ps, rs, conexion, tiene_permiso_de_acceso);
+                                //tiene_permiso_de_acceso = consultarPermisos(id_usuario, id_empresa, ps, rs, conexion, tiene_permiso_de_acceso);
 
-                                if (tiene_permiso_de_acceso) {
+                                //if (tiene_permiso_de_acceso) {
                                     fechaHora = actualizarHoraUltimaSesionUsuario(id_usuario, formatoFechaHora);
                                     usuario = new Usuario();
                                     usuario.setId(id_usuario);
@@ -150,10 +152,10 @@ public class Utilidades {
                                     Principal_vista principal = new Principal_vista(); //ventana Principal
                                     abrir_nueva_ventana(principal);
                                     return true;
-                                } else {
+                                /*} else {
                                     JOptionPane.showMessageDialog(null, "No tienes permiso para acceder a la empresa seleccionada.");
                                     return false;
-                                }
+                                }*/
 
                             } else {
                                 JOptionPane.showMessageDialog(null, "LA EMPRESA ELEGIDA EN EL COMBO NO EXISTE EN LA BBDD.");
@@ -168,7 +170,6 @@ public class Utilidades {
                     }
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(Login_vista.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {
@@ -344,16 +345,16 @@ public class Utilidades {
 
             switch (tabla) {
 
-                case "contratos":
+                /*case "contratos":
                     Contrato contrato = (Contrato) o;
                     insert = "INSERT INTO contratos (id,codigo_tipo_contrato,codigo_trabajador,fechainicio,fechafin,horas,situacion,asegurado)"
                             + " VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
                     ps = conexion.prepareStatement(insert);
                     ps.setInt(1, contrato.getCodigo_tipo_contrato());
-                    ps.setInt(2, contrato.getCodigo_trabajador());
-                    java.sql.Date fechainicio = new java.sql.Date(contrato.getFechainicio().getTime());
+                    //ps.setInt(2, contrato.getCodigo_trabajador());
+                    //java.sql.Date fechainicio = new java.sql.Date(contrato.getFechainicio().getTime());
                     ps.setDate(3, fechainicio);
-                    java.sql.Date fechafin = new java.sql.Date(contrato.getFechafin().getTime());
+                    //java.sql.Date fechafin = new java.sql.Date(contrato.getFechafin().getTime());
                     ps.setDate(4, fechafin);
                     ps.setDouble(5, contrato.getHoras());
                     ps.setBoolean(6, contrato.isSituacion());
@@ -365,10 +366,10 @@ public class Utilidades {
                     ps = conexion.prepareStatement(insert);
                     ps.setString(1, falta.getCodigo());
                     ps.setString(2, falta.getCodigo_trabajador());
-                    sqlDate = new java.sql.Date(falta.getFecha_inicio().getTime());
+                    //sqlDate = new java.sql.Date(falta.getFecha_inicio().getTime());
                     ps.setDate(3, sqlDate);
                     if (falta.getFecha_fin() != null) {
-                        sqlDate = new java.sql.Date(falta.getFecha_fin().getTime());
+                        //sqlDate = new java.sql.Date(falta.getFecha_fin().getTime());
                     } else {
                         sqlDate = null;
                     }
@@ -383,9 +384,9 @@ public class Utilidades {
                     ps.setString(1, incidencia.getCodigo());
                     ps.setString(2, incidencia.getCodigo_trabajador());
                     ps.setString(3, incidencia.getDescripcion());
-                    sqlDate = new java.sql.Date(incidencia.getFecha_inicio().getTime());
+                    //sqlDate = new java.sql.Date(incidencia.getFecha_inicio().getTime());
                     ps.setDate(4, sqlDate);
-                    sqlDate = new java.sql.Date(incidencia.getFecha_fin().getTime());
+                    //sqlDate = new java.sql.Date(incidencia.getFecha_fin().getTime());
                     ps.setDate(5, sqlDate);
                     ps.setInt(6, incidencia.getExtras());
                     break;
@@ -401,21 +402,21 @@ public class Utilidades {
                     ps.setDate(3, fechafin);
                     break;*/
 
-                case "nominas":
+                /*case "nominas":
                     Nominas nominas = (Nominas) o;
                     insert = "INSERT INTO nominas (id,codigo_trabajador,fecha_inicio,fecha_fin,importe,activo)"
                             + " VALUES(NULL, ?, ?, ?, ?, ?)";
                     ps = conexion.prepareStatement(insert);
                     ps.setInt(1, nominas.getCodigo_trabajador());
-                    fechainicio = new java.sql.Date(nominas.getFecha_inicio().getTime());
-                    ps.setDate(2, fechainicio);
+                    //fechainicio = new java.sql.Date(nominas.getFecha_inicio().getTime());
+                    //ps.setDate(2, fechainicio);
                     if (nominas.getFecha_fin() == null) {
-                        fechafin = null;
+                    //    fechafin = null;
                     } else {
-                        fechafin = new java.sql.Date(nominas.getFecha_fin().getTime());
+                      //  fechafin = new java.sql.Date(nominas.getFecha_fin().getTime());
                     }
 
-                    ps.setDate(3, fechafin);
+                    //ps.setDate(3, fechafin);
                     ps.setDouble(4, nominas.getImporte());
                     ps.setBoolean(5, nominas.isActivo());
                     break;
@@ -530,7 +531,7 @@ public class Utilidades {
             switch (tabla) {
 
                 case "contratos":
-                    Contrato contrato = (Contrato) o;
+                   /* Contrato contrato = (Contrato) o;
                     update = "UPDATE contratos SET codigo_tipo_contrato=?, codigo_trabajador=?, fechainicio=?, fechafin=?, horas=?, situacion=?, asegurado=? WHERE id=?";
                     ps = conexion.prepareStatement(update);
                     ps.setInt(1, contrato.getCodigo_tipo_contrato());
@@ -581,7 +582,7 @@ public class Utilidades {
                     break;
 
                 case "nominas":
-                    Nominas nominas = (Nominas) o;
+                    /*Nominas nominas = (Nominas) o;
                     update = "UPDATE nominas SET codigo_trabajador=?, fecha_inicio=?, fecha_fin=?, importe=?, activo=? where id=?";
                     ps = conexion.prepareStatement(update);
                     ps.setInt(1, nominas.getCodigo_trabajador());
@@ -592,7 +593,7 @@ public class Utilidades {
                     ps.setDouble(4, nominas.getImporte());
                     ps.setBoolean(5, nominas.isActivo());
                     ps.setInt(6, id);
-                    break;
+                    break;*/
 
             }
             try {
@@ -799,7 +800,7 @@ public class Utilidades {
                     ps = conexion.prepareStatement(consulta);
                     rs = ps.executeQuery();
 
-                    while (rs.next()) {
+                    /*while (rs.next()) {
                         Contrato contrato = new Contrato();
                         contrato.setId(rs.getInt("id"));
                         contrato.setCodigo_tipo_contrato(rs.getInt("codigo_tipo_contrato"));
@@ -811,7 +812,7 @@ public class Utilidades {
                         contrato.setAsegurado(rs.getBoolean("asegurado"));
 
                         lista_de_contratos.add(contrato);
-                    }
+                    }*/
 
                     conn.desconectar(conexion);
 
@@ -853,7 +854,7 @@ public class Utilidades {
                     ps = conexion.prepareStatement(consulta);
                     rs = ps.executeQuery();
 
-                    while (rs.next()) {
+                    /*while (rs.next()) {
                         Nominas nominas = new Nominas();
                         nominas.setId(rs.getInt("id"));
                         nominas.setCodigo_trabajador(rs.getInt("codigo_trabajador"));
@@ -862,7 +863,7 @@ public class Utilidades {
                         nominas.setImporte(rs.getDouble("importe"));
                         nominas.setActivo(rs.getBoolean("activo"));
                         lista_de_nominas.add(nominas);
-                    }
+                    }*/
 
                     conn.desconectar(conexion);
 
@@ -1283,7 +1284,7 @@ public class Utilidades {
                 nominas = lista_de_nominas.get(i);
                 if (nominas.getCodigo_trabajador() == id_trabajador) {
                     if (nominas.isActivo() && nominas.getFecha_fin() == null) {
-                        try {
+                        /*try {
                             nominas.setActivo(false);
                             nominas.setFecha_fin(fechaHoy);
                             updatebbdd("nominas", nominas, nominas.getId());
@@ -1292,7 +1293,7 @@ public class Utilidades {
                             Logger.getLogger(Utilidades.class
                                     .getName()).log(Level.SEVERE, null, ex);
 
-                        }
+                        }*/
                     }
                 }
             }
