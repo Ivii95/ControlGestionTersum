@@ -24,7 +24,6 @@ public class FormularioCliente extends javax.swing.JDialog {
     Utilidades utilidades = new Utilidades();
     public Cliente clienteModificar;
     ClienteRepository repoCliente;
-
     /**
      * Creates new form FormularioCliente
      *
@@ -38,7 +37,7 @@ public class FormularioCliente extends javax.swing.JDialog {
         this.setLocationRelativeTo(parent);
         clienteModificar = new Cliente();
     }
-
+    
     /**
      * Creates new form FormularioCliente
      *
@@ -62,7 +61,6 @@ public class FormularioCliente extends javax.swing.JDialog {
         txt_nombre_fiscal.setText(clienteModificar.getNombre_fiscal());
         txt_nombre_comercial.setText(clienteModificar.getNombre_comercial());
         txt_contacto.setText(clienteModificar.getContacto());
-
         txt_tlf.setText(clienteModificar.getTelefono() + "");
         txt_fax.setText(clienteModificar.getFax() + "");
         txt_movil.setText(clienteModificar.getMovil() + "");
@@ -73,7 +71,6 @@ public class FormularioCliente extends javax.swing.JDialog {
         if (clienteModificar.getFecha_baja()!= null) {
             fecha_baja.setDate(java.sql.Date.valueOf(clienteModificar.getFecha_baja()));
         }
-
     }
 
     /**
@@ -589,7 +586,6 @@ public class FormularioCliente extends javax.swing.JDialog {
     private javax.swing.JTextField txt_tlf;
     // End of variables declaration//GEN-END:variables
 private void comprobarNumero(KeyEvent evt) {
-
         if (Character.isDigit(evt.getKeyChar()) == false) {
             //JOptionPane.showMessageDialog(rootPane, "No puedes introducir letras");
             evt.consume();
@@ -597,7 +593,6 @@ private void comprobarNumero(KeyEvent evt) {
     }
 
     private void comprobarLetra(KeyEvent evt) {
-
         if (Character.isDigit(evt.getKeyChar()) == true) {
             //JOptionPane.showMessageDialog(rootPane, "No puedes introducir números");
             evt.consume();

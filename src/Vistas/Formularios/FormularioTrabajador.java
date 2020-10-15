@@ -75,15 +75,26 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private void iniciarComboBox() {
         this.repoCentro = new CentroRepository();
         this.setLocationRelativeTo(null);
-        comboHorasSemanaAlta.addItem("40:00");
-        comboHorasSemanaReales.addItem("40:00");
-        for (int i = 39; i > 0; i--) {
-            for (int j = 45; j > 0; j = j - 15) {
-                comboHorasSemanaAlta.addItem(i + ":" + j);
-                comboHorasSemanaReales.addItem(i + ":" + j);
+        for (int i = 0; i < 40; i++) {
+            for (int j = 0; j < 46; j = j + 15) {
+
+                if (i < 10 && j == 0) {
+                    comboHorasSemanaAlta.addItem("0" + i + ":" + "0" + j);
+                    comboHorasSemanaReales.addItem("0" + i + ":" + "0" + j);
+                } else if (i < 10) {
+                    comboHorasSemanaAlta.addItem("0" + i + ":" + j);
+                    comboHorasSemanaReales.addItem("0" + i + ":" + j);
+                } else if (j == 0) {
+                    comboHorasSemanaAlta.addItem(i + ":" + "0" + j);
+                    comboHorasSemanaReales.addItem(i + ":" + "0" + j);
+                } else {
+                    comboHorasSemanaAlta.addItem(i + ":" + j);
+                    comboHorasSemanaReales.addItem(i + ":" + j);
+                }
             }
         }
-
+        comboHorasSemanaAlta.addItem("40:00");
+        comboHorasSemanaReales.addItem("40:00");
         /*for (int i = 40; i > 0; i = i--) {
             comboHorasSemanaReales.addItem(i + "");
         }*/
@@ -121,7 +132,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         txt_costemes.setText(trabajadorModificar.getCoste_mes() + "");
         txt_DNI.setText(trabajadorModificar.getDNI());
         txt_codigo_sede.setText(trabajadorModificar.getCodigo_sede());
-        txt_seguridad_social.setText(trabajadorModificar.getSeguridad_social()+"");
+        txt_seguridad_social.setText(trabajadorModificar.getSeguridad_social() + "");
         //txt_codigo_trabajador.setEditable(false);
     }
 
@@ -824,10 +835,10 @@ public class FormularioTrabajador extends javax.swing.JDialog {
             if (txt_fecha_baja.getDate() != null) {
                 trabajadorModificar.setFecha_baja(UtilidadesPantalla.convertToLocalDateViaInstant(txt_fecha_baja.getDate()));
             }
-            if(txt_seguridad_social.getText() != null){
+            if (txt_seguridad_social.getText() != null) {
                 trabajadorModificar.setSeguridad_social(Integer.parseInt(txt_seguridad_social.getText()));
             }
-            
+
 
             /*
             if (!txt_DNI.getText().equals("") && txt_DNI.getText() != null) {//Codigo

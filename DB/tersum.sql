@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2020 a las 11:22:58
+-- Tiempo de generación: 14-10-2020 a las 12:40:22
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.10
 
@@ -105,7 +105,7 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`id`, `codigo`, `cif`, `nombre_fiscal`, `nombre_comercial`, `contacto`, `telefono`, `fax`, `movil`, `email`, `fecha_alta`, `fecha_baja`) VALUES
 (5, '1', 'A78865441', 'CORPORACION DE MEDIOS DE EXTREMADURA, SA', 'CORPORACION DE MEDIOS DE EXTREMADURA, SA', 'Antonio Pitera', 924214300, 924205320, 0, 'apiterac@hoy.es', '2019-11-04', NULL),
 (7, '4', 'B10219913', 'FISSA FINALIDAD SOCIAL, SL', 'FISSA FINALIDAD SOCIAL, SL', 'Juan Diaz', 987654321, 987654321, 654321987, 'juan@fissafinalidadsocial.com', '2019-11-04', NULL),
-(9, '123', '', 'as', 'as', '', 0, 0, 0, '', NULL, NULL);
+(12, '15', '', '', '', '', 0, 0, 0, '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -534,7 +534,7 @@ ALTER TABLE `centrostrabajadores`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `contratos`

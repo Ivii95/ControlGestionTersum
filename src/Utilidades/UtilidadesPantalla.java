@@ -89,6 +89,18 @@ public class UtilidadesPantalla {
         cbx.addItem(410);
         cbx.addItem(418);
         cbx.addItem(420);
+        cbx.addItem(501);
+        cbx.addItem(502);
+        cbx.addItem(508);
+        cbx.addItem(510);
+        cbx.addItem(518);
+        cbx.addItem(520);
+        cbx.addItem(521);
+        cbx.addItem(530);
+        cbx.addItem(540);
+        cbx.addItem(541);
+        cbx.addItem(550);
+        cbx.addItem(552); 
     }
     
     public static boolean comprobarTelefono(String source) {

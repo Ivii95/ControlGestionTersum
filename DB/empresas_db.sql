@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-12-2019 a las 10:40:00
+-- Tiempo de generación: 14-10-2020 a las 12:43:13
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.10
 
@@ -421,10 +421,11 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `password`, `id_rol`, `ultima_sesion`) VALUES
-(5, 'ismael', '81dc9bdb52d04dc20036dbd8313ed055', 1, '2019-11-04 09:04:34'),
-(6, 'ivan', '81dc9bdb52d04dc20036dbd8313ed055', 1, '2019-12-13 11:02:37'),
+(5, 'ismael', '81dc9bdb52d04dc20036dbd8313ed055', 1, '2020-07-03 12:54:07'),
+(6, 'ivan', '81dc9bdb52d04dc20036dbd8313ed055', 1, '2020-10-14 12:25:20'),
 (7, 'pepe', '926e27eecdbc7a18858b3798ba99bddd', 1, '2019-12-13 11:03:44'),
-(8, 'luis', '81dc9bdb52d04dc20036dbd8313ed055', 1, '2019-12-13 13:43:48');
+(8, 'luis', '81dc9bdb52d04dc20036dbd8313ed055', 1, '2019-12-13 13:43:48'),
+(12, 'Eduardo', 'bb7946e7d85c81a9e69fee1cea4a087c', 1, '2020-09-15 13:05:09');
 
 --
 -- Índices para tablas volcadas
@@ -492,7 +493,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
