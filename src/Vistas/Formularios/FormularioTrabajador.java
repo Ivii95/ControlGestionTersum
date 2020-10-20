@@ -618,7 +618,12 @@ public class FormularioTrabajador extends javax.swing.JDialog {
 
         txt_costemes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_costemes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_costemes.setText("0");
+        txt_costemes.setText("0.0");
+        txt_costemes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_costemesActionPerformed(evt);
+            }
+        });
         txt_costemes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_costemesKeyTyped(evt);
@@ -727,6 +732,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         txt_seguridad_social.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_seguridad_social.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_seguridad_social.setText("0");
+        txt_seguridad_social.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_seguridad_social.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_seguridad_socialKeyTyped(evt);
@@ -813,7 +819,6 @@ public class FormularioTrabajador extends javax.swing.JDialog {
             if (txt_antiguedad.getDate() != null) {
                 trabajadorModificar.setAntiguedad(UtilidadesPantalla.convertToLocalDateViaInstant(txt_antiguedad.getDate()));
             }
-
             if (txt_tlf.getText() != null) {
                 trabajadorModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
             }
@@ -836,10 +841,8 @@ public class FormularioTrabajador extends javax.swing.JDialog {
                 trabajadorModificar.setFecha_baja(UtilidadesPantalla.convertToLocalDateViaInstant(txt_fecha_baja.getDate()));
             }
             if (txt_seguridad_social.getText() != null) {
-                trabajadorModificar.setSeguridad_social(Integer.parseInt(txt_seguridad_social.getText()));
+                trabajadorModificar.setSeguridad_social(txt_seguridad_social.getText());
             }
-
-
             /*
             if (!txt_DNI.getText().equals("") && txt_DNI.getText() != null) {//Codigo
                 //if (!utilidades.comprobarCodigoRepetido(txt_codigo_trabajador.getText(), "trabajadores")) {//Codigo repetido
@@ -1013,6 +1016,10 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private void txt_seguridad_socialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_seguridad_socialKeyTyped
         comprobarNumero(evt);
     }//GEN-LAST:event_txt_seguridad_socialKeyTyped
+
+    private void txt_costemesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_costemesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_costemesActionPerformed
 
     /**
      * @param args the command line arguments

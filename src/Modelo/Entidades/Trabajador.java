@@ -33,10 +33,10 @@ public class Trabajador implements Serializable {
     LocalDate fecha_baja;
     String horas_semana_alta;
     String horas_semana_reales;
-    int seguridad_social;
+    String seguridad_social;
     float coste_mes;
 
-    public Trabajador(int id, String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, LocalDate fechanacimiento, String categoria, LocalDate antiguedad, int telefono, String email, LocalDate fecha_alta, LocalDate fecha_baja, String horas_semana_alta, String horas_semana_reales, int seguridad_social, float coste_mes) {
+    public Trabajador(int id, String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, LocalDate fechanacimiento, String categoria, LocalDate antiguedad, int telefono, String email, LocalDate fecha_alta, LocalDate fecha_baja, String horas_semana_alta, String horas_semana_reales, String seguridad_social, float coste_mes) {
         this.id = id;
         this.codigo = codigo;
         this.codigo_tipo_contrato = codigo_tipo_contrato;
@@ -60,7 +60,7 @@ public class Trabajador implements Serializable {
         this.coste_mes = coste_mes;
     }
 
-    public Trabajador(String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, LocalDate fechanacimiento, String categoria, LocalDate antiguedad, int telefono, String email, LocalDate fecha_alta, LocalDate fecha_baja, String horas_semana_alta, String horas_semana_reales, int seguridad_social, float coste_mes) {
+    public Trabajador(String codigo, int codigo_tipo_contrato, String codigo_sede, String apellido1, String apellido2, String nombre, String DNI, String direccion, String poblacion, LocalDate fechanacimiento, String categoria, LocalDate antiguedad, int telefono, String email, LocalDate fecha_alta, LocalDate fecha_baja, String horas_semana_alta, String horas_semana_reales, String seguridad_social, float coste_mes) {
         this.codigo = codigo;
         this.codigo_tipo_contrato = codigo_tipo_contrato;
         this.codigo_sede = codigo_sede;
@@ -239,11 +239,11 @@ public class Trabajador implements Serializable {
         this.horas_semana_reales = horas_semana_reales;
     }
 
-    public int getSeguridad_social() {
+    public String getSeguridad_social() {
         return seguridad_social;
     }
 
-    public void setSeguridad_social(int seguridad_social) {
+    public void setSeguridad_social(String seguridad_social) {
         this.seguridad_social = seguridad_social;
     }
 

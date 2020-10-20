@@ -237,12 +237,14 @@ public class ClienteRepository {
                 ps.setInt(8, o.getMovil());
                 ps.setString(9, o.getEmail());
                 if (o.getFecha_alta() != null) {
+                    o.setFecha_alta(o.getFecha_alta().minusDays(1));
                     sqlDate = java.sql.Date.valueOf(o.getFecha_alta());
                 } else {
                     sqlDate = null;
                 }
                 ps.setDate(10, sqlDate);
                 if (o.getFecha_baja() != null) {
+                    o.setFecha_baja(o.getFecha_baja().minusDays(1));
                     sqlDate = java.sql.Date.valueOf(o.getFecha_baja());
                 } else {
                     sqlDate = null;

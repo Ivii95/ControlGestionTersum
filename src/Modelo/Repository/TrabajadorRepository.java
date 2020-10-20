@@ -29,7 +29,6 @@ public class TrabajadorRepository {
     private final ArrayList<Trabajador> trabajadores;
     private final String TABLA = "trabajadores";
     private final String consulta = consultaPrincipal + TABLA;
-
     private final String ORDER = " ORDER BY apellido1 ";
 
     public TrabajadorRepository() {
@@ -154,6 +153,7 @@ public class TrabajadorRepository {
                 trabajador.setCoste_mes(rs.getFloat("coste_mes"));
                 trabajador.setCodigo_sede(rs.getString("codigo_sede"));
                 trabajador.setDNI(rs.getString("DNI"));
+                trabajador.setSeguridad_social(rs.getString("seguridad_social"));
                 trabajadores.add(trabajador);
             }
             conn.desconectar(conexion);
@@ -340,7 +340,7 @@ public class TrabajadorRepository {
             ps.setString(17, trabajador.getHoras_semana_alta());
             ps.setString(18, trabajador.getHoras_semana_reales());
             ps.setFloat(19, trabajador.getCoste_mes());
-            ps.setInt(20, trabajador.getSeguridad_social());
+            ps.setString(20, trabajador.getSeguridad_social());
             ps.executeUpdate();
             conn.desconectar(conexion);
             trabajadores.add(0, trabajador);
@@ -416,7 +416,7 @@ public class TrabajadorRepository {
             ps.setString(17, trabajador.getHoras_semana_alta());
             ps.setString(18, trabajador.getHoras_semana_reales());
             ps.setFloat(19, trabajador.getCoste_mes());
-            ps.setInt(20, trabajador.getSeguridad_social());
+            ps.setString(20, trabajador.getSeguridad_social());
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
             ps.setInt(21, trabajador.getId());
             ps.executeUpdate();
