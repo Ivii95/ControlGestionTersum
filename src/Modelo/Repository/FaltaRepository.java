@@ -131,6 +131,18 @@ public final class FaltaRepository {
         tabla.setModel(dtm);
     }
 
+    public void rellenarTablaByFaltasDeUnCentro(JTable tabla, String codigo) {
+        ejecutarConsulta("SELECT i.* FROM faltas i WHERE i.codigo_trabajador_faltas IN(\n"
+                + "    SELECT ct.codigo_trabajadores FROM centrostrabajadores ct WHERE ct.codigo_centro=" + codigo + ");");
+        dtm = (DefaultTableModel) tabla.getModel();
+        columnas = new Object[dtm.getColumnCount()];
+        dtm.setRowCount(0);
+        for (int i = 0; i < faltas.size(); i++) {
+            dtm.addRow(addRow(faltas.get(i)));
+        }
+        tabla.setModel(dtm);
+    }
+
     private Object[] addRow(Falta o) {
         columnas = new Object[4];
         columnas[0] = o.getId();

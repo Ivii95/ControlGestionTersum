@@ -9,6 +9,8 @@ import Modelo.Entidades.Centro;
 import Modelo.Entidades.Cliente;
 import Modelo.Repository.CentroRepository;
 import Utilidades.UtilidadesPantalla;
+import Vistas.Archivos.Trabajadores.Faltas_vista;
+import Vistas.Archivos.Trabajadores.Incidencias_vista;
 import Vistas.Archivos.Trabajadores.VistaTrabajadores;
 import Vistas.Fichas.FichaCentros;
 import Vistas.Formularios.FormularioCentro;
@@ -88,6 +90,8 @@ public class VistaCentros extends javax.swing.JFrame {
         btn_buscar = new org.edisoncor.gui.button.ButtonIcon();
         btn_trabajadores = new javax.swing.JButton();
         btn_trabajadores1 = new javax.swing.JButton();
+        btn_incidencias_centro = new javax.swing.JButton();
+        btn_vacaciones_centro = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla_centros = new javax.swing.JTable();
         panelRect1 = new org.edisoncor.gui.panel.PanelRect();
@@ -196,6 +200,24 @@ public class VistaCentros extends javax.swing.JFrame {
             }
         });
 
+        btn_incidencias_centro.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btn_incidencias_centro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incidencias .png"))); // NOI18N
+        btn_incidencias_centro.setText("Incidencias");
+        btn_incidencias_centro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_incidencias_centroActionPerformed(evt);
+            }
+        });
+
+        btn_vacaciones_centro.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btn_vacaciones_centro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/falta.png"))); // NOI18N
+        btn_vacaciones_centro.setText("Faltas");
+        btn_vacaciones_centro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_vacaciones_centroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Panel_botonesLayout = new javax.swing.GroupLayout(Panel_botones);
         Panel_botones.setLayout(Panel_botonesLayout);
         Panel_botonesLayout.setHorizontalGroup(
@@ -208,7 +230,9 @@ public class VistaCentros extends javax.swing.JFrame {
                     .addComponent(btn_añadir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Buscador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_trabajadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_trabajadores1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_trabajadores1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_incidencias_centro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_vacaciones_centro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26))
         );
         Panel_botonesLayout.setVerticalGroup(
@@ -216,16 +240,20 @@ public class VistaCentros extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_botonesLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(btn_añadir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(225, 225, 225)
-                .addComponent(btn_trabajadores1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_trabajadores, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(btn_incidencias_centro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_vacaciones_centro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121)
+                .addComponent(btn_trabajadores1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_trabajadores, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
@@ -405,6 +433,30 @@ public class VistaCentros extends javax.swing.JFrame {
         asignarTrabajadores.setVisible(true);
     }//GEN-LAST:event_btn_trabajadores1ActionPerformed
 
+    private void btn_incidencias_centroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_incidencias_centroActionPerformed
+        if (tabla_centros.getSelectedRow() != -1) {
+            Centro centro = cr.getById(UtilidadesPantalla.getIdSelected(tabla_centros));//Cogemos el trabajador seleccionado.
+            if (centro != null) {
+                Incidencias_vista vista_incidencias = new Incidencias_vista(centro);
+                vista_incidencias.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar un trabajador");
+        }
+    }//GEN-LAST:event_btn_incidencias_centroActionPerformed
+
+    private void btn_vacaciones_centroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vacaciones_centroActionPerformed
+        if (tabla_centros.getSelectedRow() != -1) {
+            Centro centro = cr.getById(UtilidadesPantalla.getIdSelected(tabla_centros));//Cogemos el trabajador seleccionado.
+            if (centro != null) {
+                Faltas_vista vista_faltas = new Faltas_vista(centro);
+                vista_faltas.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar un trabajador");
+        }
+    }//GEN-LAST:event_btn_vacaciones_centroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -440,9 +492,11 @@ public class VistaCentros extends javax.swing.JFrame {
     private javax.swing.JButton btn_añadir;
     private javax.swing.JButton btn_borrar;
     private org.edisoncor.gui.button.ButtonIcon btn_buscar;
+    private javax.swing.JButton btn_incidencias_centro;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_trabajadores;
     private javax.swing.JButton btn_trabajadores1;
+    private javax.swing.JButton btn_vacaciones_centro;
     private javax.swing.JScrollPane jScrollPane2;
     private org.edisoncor.gui.panel.PanelCurves panelCurves1;
     private org.edisoncor.gui.panel.PanelRect panelRect1;

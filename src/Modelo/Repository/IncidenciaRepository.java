@@ -133,6 +133,18 @@ public final class IncidenciaRepository {
         tabla.setModel(dtm);
     }
 
+    public void rellenarTablaByIncidenciasDeUnCentro(JTable tabla, String codigo) {
+        ejecutarConsulta("SELECT i.* FROM incidencias i WHERE i.codigo_trabajador_incidencia IN(\n"
+                + "    SELECT ct.codigo_trabajadores FROM centrostrabajadores ct WHERE ct.codigo_centro=" + codigo + ");");
+        dtm = (DefaultTableModel) tabla.getModel();
+        columnas = new Object[dtm.getColumnCount()];
+        dtm.setRowCount(0);
+        for (int i = 0; i < incidencias.size(); i++) {
+            dtm.addRow(addRow(incidencias.get(i)));
+        }
+        tabla.setModel(dtm);
+    }
+
     private Object[] addRow(Incidencia o) {
         columnas = new Object[4];
         columnas[0] = o.getId();
@@ -263,4 +275,5 @@ public final class IncidenciaRepository {
         ejecutarConsulta(consultaIncidencia + " WHERE (" + fechaInicio + " LIKE '%" + buscar + "%' OR " + fechaFin + "LIKE '%" + buscar + "%' ) AND codigo_trabajador=" + codigo + ORDER);
         rellenarTabla(tabla);
     }
+
 }

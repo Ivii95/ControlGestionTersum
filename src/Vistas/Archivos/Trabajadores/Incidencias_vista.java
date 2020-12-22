@@ -5,6 +5,7 @@
  */
 package Vistas.Archivos.Trabajadores;
 
+import Modelo.Entidades.Centro;
 import Modelo.Entidades.Falta;
 import Modelo.Entidades.Incidencia;
 import Modelo.Repository.IncidenciaRepository;
@@ -31,6 +32,7 @@ public class Incidencias_vista extends javax.swing.JFrame {
     IncidenciaRepository repoIncidenciaTotal;
     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy");
     Trabajador trabajadorIncidencias;
+    Centro centroIncidencias;
 
     public Incidencias_vista(Trabajador trabajador) {
         this.trabajadorIncidencias = trabajador;
@@ -39,15 +41,29 @@ public class Incidencias_vista extends javax.swing.JFrame {
 
     private Incidencias_vista() {
         iniciarOtrosComponentes();
+        repoIncidencia.rellenarTablaByTrabajador(tabla_incidencias, trabajadorIncidencias.getCodigo());
+        String trabajadorinfo = lbl_info_trabajador1.getText() + " " + trabajadorIncidencias.getNombre() + " - " + trabajadorIncidencias.getApellido1() + " " + trabajadorIncidencias.getApellido2();
+        lbl_info_trabajador1.setText(trabajadorinfo.toUpperCase());
     }
 
-    Incidencias_vista(Trabajador trabajadorFaltas, Falta falta) {
+    public Incidencias_vista(Centro centro) {
+        this.centroIncidencias = centro;
+        iniciarOtrosComponentes();
+        repoIncidencia.rellenarTablaByIncidenciasDeUnCentro(tabla_incidencias, centro.getCodigo());
+        String centroinfo = centro.getNombre();
+        lbl_info_trabajador1.setText(centroinfo.toUpperCase());
+    }
+
+    public Incidencias_vista(Trabajador trabajadorFaltas, Falta falta) {
         this.trabajadorIncidencias = trabajadorFaltas;
         iniciarOtrosComponentes();
+        repoIncidencia.rellenarTablaByTrabajador(tabla_incidencias, trabajadorIncidencias.getCodigo());
         txt_codigo.setText(falta.getCodigo());
         txt_fecha_inicio.setDate(java.sql.Date.valueOf(falta.getFecha_inicio()));
         txt_fecha_fin.setDate(java.sql.Date.valueOf(falta.getFecha_fin()));
         txt_descripcion.setText(falta.getMotivo());
+        String trabajadorinfo = lbl_info_trabajador1.getText() + " " + trabajadorIncidencias.getNombre() + " - " + trabajadorIncidencias.getApellido1() + " " + trabajadorIncidencias.getApellido2();
+        lbl_info_trabajador1.setText(trabajadorinfo.toUpperCase());
     }
 
     private void iniciarOtrosComponentes() {
@@ -62,14 +78,13 @@ public class Incidencias_vista extends javax.swing.JFrame {
         //INICIAMOS REPO
         repoIncidencia = new IncidenciaRepository();
         repoIncidenciaTotal = new IncidenciaRepository();
-        repoIncidencia.rellenarTablaByTrabajador(tabla_incidencias, trabajadorIncidencias.getCodigo());
+        
         //TABLA INCIDENCIAS
         tabla_incidencias.getColumnModel().getColumn(0).setMaxWidth(0);
         tabla_incidencias.getColumnModel().getColumn(0).setMinWidth(0);
         tabla_incidencias.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         tabla_incidencias.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-        String trabajadorinfo = lbl_info_trabajador1.getText() + " " + trabajadorIncidencias.getNombre() + " - " + trabajadorIncidencias.getApellido1() + " " + trabajadorIncidencias.getApellido2();
-        lbl_info_trabajador1.setText(trabajadorinfo.toUpperCase());
+        
         txt_codigo.requestFocus();
     }
 

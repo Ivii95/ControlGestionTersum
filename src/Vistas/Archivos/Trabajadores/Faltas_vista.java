@@ -5,6 +5,7 @@
  */
 package Vistas.Archivos.Trabajadores;
 
+import Modelo.Entidades.Centro;
 import Modelo.Entidades.Falta;
 import Modelo.Repository.FaltaRepository;
 import Modelo.Repository.TrabajadorRepository;
@@ -36,6 +37,7 @@ public final class Faltas_vista extends javax.swing.JFrame {
     FaltaRepository repoFaltaTotal;
     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yy");
     Trabajador trabajadorFaltas;
+    Centro centroFaltas;
 
     /**
      * Creates new form Vacaciones_vista
@@ -43,8 +45,24 @@ public final class Faltas_vista extends javax.swing.JFrame {
     public Faltas_vista() {
     }
 
+    public Faltas_vista(Centro centro) {
+        this.centroFaltas = centro;
+        iniciarOtrosComponentes();
+        String trabajadorinfo = centroFaltas.getNombre();
+        lbl_info_trabajador1.setText(trabajadorinfo.toUpperCase());
+        repoFalta.rellenarTablaByFaltasDeUnCentro(tabla_faltas, centroFaltas.getCodigo());
+    }
+
     public Faltas_vista(Trabajador trabajador) {
         this.trabajadorFaltas = trabajador;
+        iniciarOtrosComponentes();
+        String trabajadorinfo = lbl_info_trabajador1.getText() + " " + trabajadorFaltas.getNombre() + " - " + trabajadorFaltas.getApellido1() + " " + trabajadorFaltas.getApellido2();
+        lbl_info_trabajador1.setText(trabajadorinfo.toUpperCase());
+        repoFalta.rellenarTablaByTrabajador(tabla_faltas, trabajadorFaltas.getCodigo());
+
+    }
+
+    private void iniciarOtrosComponentes() {
         repoFalta = new FaltaRepository();
         repoFaltaTotal = new FaltaRepository();
         initComponents();
@@ -61,9 +79,6 @@ public final class Faltas_vista extends javax.swing.JFrame {
         btn_borrar_faltas.setVisible(false);
         btn_limpiar_faltas.setVisible(false);
         btn_modificar_faltas.setVisible(false);
-        String trabajadorinfo = lbl_info_trabajador1.getText() + " " + trabajadorFaltas.getNombre() + " - " + trabajadorFaltas.getApellido1() + " " + trabajadorFaltas.getApellido2();
-        lbl_info_trabajador1.setText(trabajadorinfo.toUpperCase());
-        repoFalta.rellenarTablaByTrabajador(tabla_faltas, trabajadorFaltas.getCodigo());
         txt_codigo_falta.requestFocus();
     }
 
