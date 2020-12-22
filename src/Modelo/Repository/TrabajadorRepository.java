@@ -121,9 +121,11 @@ public class TrabajadorRepository {
                 trabajador.setId(rs.getInt("id"));
                 trabajador.setCodigo(rs.getString("codigo"));
                 trabajador.setCodigo_tipo_contrato(rs.getInt("codigo_tipo_contrato"));
+                trabajador.setCodigo_sede(rs.getString("codigo_sede"));
                 trabajador.setApellido1(rs.getString("apellido1"));
                 trabajador.setApellido2(rs.getString("apellido2"));
                 trabajador.setNombre(rs.getString("nombre"));
+                trabajador.setDNI(rs.getString("DNI"));
                 trabajador.setDireccion(rs.getString("direccion"));
                 trabajador.setPoblacion(rs.getString("poblacion"));
                 if (rs.getDate("fechanacimiento") != null) {
@@ -131,6 +133,7 @@ public class TrabajadorRepository {
                 } else {
                     trabajador.setFechanacimiento(null);
                 }
+                trabajador.setCategoria(rs.getString("categoria"));
                 if (rs.getDate("antiguedad") != null) {
                     trabajador.setAntiguedad(rs.getDate("antiguedad").toLocalDate());
                 } else {
@@ -151,9 +154,8 @@ public class TrabajadorRepository {
                 trabajador.setHoras_semana_alta(rs.getString("horas_semana_alta"));
                 trabajador.setHoras_semana_reales(rs.getString("horas_semana_reales"));
                 trabajador.setCoste_mes(rs.getFloat("coste_mes"));
-                trabajador.setCodigo_sede(rs.getString("codigo_sede"));
-                trabajador.setDNI(rs.getString("DNI"));
                 trabajador.setSeguridad_social(rs.getString("seguridad_social"));
+                trabajador.setIban(rs.getString("iban"));
                 trabajadores.add(trabajador);
             }
             conn.desconectar(conexion);
@@ -267,6 +269,7 @@ public class TrabajadorRepository {
         }
         tabla.setModel(dtm);
     }
+
     /**
      *
      * @param codigoTrabajador
@@ -303,17 +306,37 @@ public class TrabajadorRepository {
         try {
             Utilidades.conn = new Conexion();
             conexion = conn.conectar_empresa_concreta(Utilidades.empresa);
-            insert = "INSERT INTO trabajadores (id,codigo,codigo_tipo_contrato,codigo_sede,apellido1,apellido2,nombre,direccion,poblacion,"
-                    + "fechanacimiento,categoria,antiguedad,telefono,email,fecha_alta,fecha_baja,horas_semana_alta,horas_semana_reales,coste_mes,seguridad_social) "
-                    + "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            insert = "INSERT INTO trabajadores (id,"
+                    + "codigo,"
+                    + "codigo_tipo_contrato,"
+                    + "codigo_sede,"
+                    + "apellido1,"
+                    + "apellido2,"
+                    + "nombre,"
+                    + "DNI,"
+                    + "direccion,"
+                    + "poblacion,"
+                    + "fechanacimiento,"
+                    + "categoria,"
+                    + "antiguedad,"
+                    + "telefono,"
+                    + "email,"
+                    + "fecha_alta,"
+                    + "fecha_baja,"
+                    + "horas_semana_alta,"
+                    + "horas_semana_reales,"
+                    + "coste_mes,"
+                    + "seguridad_social,"
+                    + "iban) "
+                    + "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conexion.prepareStatement(insert);
             ps.setString(1, trabajador.getCodigo());
             ps.setInt(2, trabajador.getCodigo_tipo_contrato());
             ps.setString(3, trabajador.getCodigo_sede());
             ps.setString(4, trabajador.getApellido1());
             ps.setString(5, trabajador.getApellido2());
-            ps.setString(6, trabajador.getDNI());
-            ps.setString(7, trabajador.getNombre());
+            ps.setString(6, trabajador.getNombre());
+            ps.setString(7, trabajador.getDNI());
             ps.setString(8, trabajador.getDireccion());
             ps.setString(9, trabajador.getPoblacion());
             if (trabajador.getFechanacimiento() != null) {
@@ -341,6 +364,7 @@ public class TrabajadorRepository {
             ps.setString(18, trabajador.getHoras_semana_reales());
             ps.setFloat(19, trabajador.getCoste_mes());
             ps.setString(20, trabajador.getSeguridad_social());
+            ps.setString(21, trabajador.getIban());
             ps.executeUpdate();
             conn.desconectar(conexion);
             trabajadores.add(0, trabajador);
@@ -381,7 +405,7 @@ public class TrabajadorRepository {
             conexion = conn.conectar_empresa_concreta(Utilidades.empresa);
             update = "UPDATE trabajadores SET codigo=?, codigo_tipo_contrato=?,codigo_sede=?, apellido1=?, apellido2=?,nombre=?,DNI=?,direccion=?,poblacion=?,"
                     + "fechanacimiento=?, categoria=?, antiguedad=?, telefono=?, email=?, fecha_alta=?, fecha_baja=?,"
-                    + "horas_semana_alta=?, horas_semana_reales=?, coste_mes=?, seguridad_social=? WHERE id=?";
+                    + "horas_semana_alta=?, horas_semana_reales=?, coste_mes=?, seguridad_social=?,iban=? WHERE id=?";
             ps = conexion.prepareStatement(update);
             ps.setString(1, trabajador.getCodigo());
             ps.setInt(2, trabajador.getCodigo_tipo_contrato());
@@ -417,8 +441,9 @@ public class TrabajadorRepository {
             ps.setString(18, trabajador.getHoras_semana_reales());
             ps.setFloat(19, trabajador.getCoste_mes());
             ps.setString(20, trabajador.getSeguridad_social());
+            ps.setString(21, trabajador.getIban());
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
-            ps.setInt(21, trabajador.getId());
+            ps.setInt(22, trabajador.getId());
             ps.executeUpdate();
             conn.desconectar(conexion);
 

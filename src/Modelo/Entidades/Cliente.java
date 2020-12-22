@@ -12,7 +12,7 @@ import java.time.LocalDate;
  *
  * @author diseño
  */
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 
     int id;
     String codigo;
@@ -26,8 +26,9 @@ public class Cliente implements Serializable{
     String email;
     LocalDate fecha_alta;
     LocalDate fecha_baja;
+    String iban;
 
-    public Cliente(int id, String codigo, String cif, String nombre_fiscal, String nombre_comercial, String contacto, int telefono, int fax, int movil, String email, LocalDate fecha_alta, LocalDate fecha_baja) {
+    public Cliente(int id, String codigo, String cif, String nombre_fiscal, String nombre_comercial, String contacto, int telefono, int fax, int movil, String email, LocalDate fecha_alta, LocalDate fecha_baja, String iban) {
         this.id = id;
         this.codigo = codigo;
         this.cif = cif;
@@ -40,9 +41,10 @@ public class Cliente implements Serializable{
         this.email = email;
         this.fecha_alta = fecha_alta;
         this.fecha_baja = fecha_baja;
+        this.iban = iban;
     }
 
-    public Cliente(String codigo, String cif, String nombre_fiscal, String nombre_comercial, String contacto, int telefono, int fax, int movil, String email, LocalDate fecha_alta, LocalDate fecha_baja) {
+    public Cliente(String codigo, String cif, String nombre_fiscal, String nombre_comercial, String contacto, int telefono, int fax, int movil, String email, LocalDate fecha_alta, LocalDate fecha_baja, String iban) {
         this.codigo = codigo;
         this.cif = cif;
         this.nombre_fiscal = nombre_fiscal;
@@ -54,6 +56,7 @@ public class Cliente implements Serializable{
         this.email = email;
         this.fecha_alta = fecha_alta;
         this.fecha_baja = fecha_baja;
+        this.iban = iban;
     }
 
     public Cliente() {
@@ -156,4 +159,11 @@ public class Cliente implements Serializable{
         this.fecha_baja = fecha_baja;
     }
 
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
 }

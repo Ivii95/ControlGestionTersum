@@ -447,6 +447,7 @@ public class VistaTrabajadores extends javax.swing.JFrame {
         if (get != null) {
             if (!repoTrabajador.ifCodigoExist(get.getCodigo())) {
                 repoTrabajador.insert(get);
+                restablecerTabla();
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo insertar el trabajador por que ya existe en la base de datos", "Error al insertar", JOptionPane.WARNING_MESSAGE);
             }

@@ -133,6 +133,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         txt_DNI.setText(trabajadorModificar.getDNI());
         txt_codigo_sede.setText(trabajadorModificar.getCodigo_sede());
         txt_seguridad_social.setText(trabajadorModificar.getSeguridad_social() + "");
+        txt_iban.setText(trabajadorModificar.getIban() + "");
         //txt_codigo_trabajador.setEditable(false);
     }
 
@@ -199,6 +200,8 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         txt_codigo_trabajador = new javax.swing.JTextField();
         txt_seguridad_social = new javax.swing.JTextField();
         lbl_seguridad_social = new javax.swing.JLabel();
+        lbl_iban = new javax.swing.JLabel();
+        txt_iban = new javax.swing.JTextField();
 
         setTitle("INSERTAR O MODIFICAR TRABAJADOR");
         setMinimumSize(new java.awt.Dimension(1100, 697));
@@ -440,7 +443,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         jSeparator1.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 18;
+        gridBagConstraints.gridy = 20;
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipady = 25;
@@ -454,7 +457,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 19;
+        gridBagConstraints.gridy = 21;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel2.add(Aceptar, gridBagConstraints);
 
@@ -466,7 +469,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 19;
+        gridBagConstraints.gridy = 21;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel2.add(Cancelar, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -485,7 +488,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         jPanel2.add(jLabel1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridy = 18;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.ipady = 20;
         jPanel2.add(jLabel5, gridBagConstraints);
@@ -545,7 +548,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         lbl_denominacion_contrato.setText("TIPO DE CONTRATO");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 17;
+        gridBagConstraints.gridy = 19;
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel2.add(lbl_denominacion_contrato, gridBagConstraints);
@@ -753,6 +756,38 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         gridBagConstraints.gridy = 14;
         jPanel2.add(lbl_seguridad_social, gridBagConstraints);
 
+        lbl_iban.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_iban.setForeground(new java.awt.Color(204, 204, 204));
+        lbl_iban.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_iban.setText("IBAN");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        jPanel2.add(lbl_iban, gridBagConstraints);
+
+        txt_iban.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_iban.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_iban.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_ibanActionPerformed(evt);
+            }
+        });
+        txt_iban.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_ibanKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_ibanKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 17;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel2.add(txt_iban, gridBagConstraints);
+
         panelCurves1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 1050, 640));
 
         panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1110, 700));
@@ -812,7 +847,10 @@ public class FormularioTrabajador extends javax.swing.JDialog {
             trabajadorModificar.setApellido2(txt_apellido2.getText());
             trabajadorModificar.setDireccion(txt_direccion.getText());
             trabajadorModificar.setPoblacion(txt_poblacion.getText());
-            trabajadorModificar.setCategoria(txt_categoria.getText());
+            if (txt_categoria.getText() != null || !txt_categoria.getText().equals("")) {
+                System.out.println(txt_categoria.getText());
+                trabajadorModificar.setCategoria(txt_categoria.getText());
+            }
             if (fecha_nacimiento.getDate() != null) {
                 trabajadorModificar.setFechanacimiento(UtilidadesPantalla.convertToLocalDateViaInstant(fecha_nacimiento.getDate()));
             }
@@ -842,6 +880,9 @@ public class FormularioTrabajador extends javax.swing.JDialog {
             }
             if (txt_seguridad_social.getText() != null) {
                 trabajadorModificar.setSeguridad_social(txt_seguridad_social.getText());
+            }
+            if (txt_iban.getText() != null) {
+                trabajadorModificar.setIban(txt_iban.getText());
             }
             /*
             if (!txt_DNI.getText().equals("") && txt_DNI.getText() != null) {//Codigo
@@ -1021,6 +1062,18 @@ public class FormularioTrabajador extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_costemesActionPerformed
 
+    private void txt_ibanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ibanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_ibanActionPerformed
+
+    private void txt_ibanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ibanKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_ibanKeyReleased
+
+    private void txt_ibanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ibanKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_ibanKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -1102,6 +1155,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_fecha_baja;
     private javax.swing.JLabel lbl_horasreales;
     private javax.swing.JLabel lbl_horassemanales;
+    private javax.swing.JLabel lbl_iban;
     private javax.swing.JLabel lbl_nacimiento;
     private javax.swing.JLabel lbl_nombre_;
     private javax.swing.JLabel lbl_poblacion;
@@ -1122,6 +1176,7 @@ public class FormularioTrabajador extends javax.swing.JDialog {
     private javax.swing.JTextField txt_email;
     private org.jdesktop.swingx.JXDatePicker txt_fecha_alta;
     private org.jdesktop.swingx.JXDatePicker txt_fecha_baja;
+    private javax.swing.JTextField txt_iban;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_poblacion;
     private javax.swing.JTextField txt_seguridad_social;

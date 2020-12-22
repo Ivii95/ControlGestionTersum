@@ -13,6 +13,7 @@ import Utilidades.Conexion;
 import Utilidades.Utilidades;
 import static Utilidades.Utilidades.conn;
 import java.sql.SQLException;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,6 +40,7 @@ public class ClienteRepository {
     private final String fax = "fax";
     private final String movil = "movil";
     private final String email = "email";
+    private final String iban = "iban";
     private final String fechaAlta = "fecha_alta";
     private final String fechaBaja = "fecha_baja";
     private final String ORDER = " ORDER BY " + nombreComercial + " ASC ";
@@ -77,6 +79,7 @@ public class ClienteRepository {
                 } else {
                     cliente.setFecha_baja(null);
                 }
+                cliente.setIban(rs.getString(iban));
                 clientes.add(cliente);
             }
             conn.desconectar(conexion);
@@ -223,8 +226,9 @@ public class ClienteRepository {
                     + movil + ", "
                     + email + ", "
                     + fechaAlta + ", "
-                    + fechaBaja + " "
-                    + ") VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + fechaBaja + ", "
+                    + iban + ""
+                    + ") VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conexion.prepareStatement(insert);
             if (o.getCodigo() != null) {
                 ps.setString(1, o.getCodigo());
@@ -250,6 +254,7 @@ public class ClienteRepository {
                     sqlDate = null;
                 }
                 ps.setDate(11, sqlDate);
+                ps.setString(12, o.getIban());
                 ps.executeUpdate();
             }
             conn.desconectar(conexion);
@@ -307,7 +312,8 @@ public class ClienteRepository {
                     + movil + "=?, "
                     + email + "=?, "
                     + fechaAlta + "=?, "
-                    + fechaBaja + "=?"
+                    + fechaBaja + "=?,"
+                    + iban + "=?"
                     + " WHERE " + id + "=?";
             ps = conexion.prepareStatement(update);
             ps.setString(1, o.getCodigo());
@@ -331,7 +337,8 @@ public class ClienteRepository {
                 sqlDate = null;
             }
             ps.setDate(11, sqlDate);
-            ps.setInt(12, o.getId());
+            ps.setString(12, o.getIban());
+            ps.setInt(13, o.getId());
             ps.executeUpdate();
             conn.desconectar(conexion);
         } catch (SQLException ex) {
@@ -349,12 +356,10 @@ public class ClienteRepository {
     public void buscar(JTable tabla, String cadena) {
         DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
         for (int i = 0; i < clientes.size(); i++) {
-            if (clientes.get(i).getNombre_comercial().contains(cadena) || clientes.get(i).getCif().contains(cadena)) {
+            if (clientes.get(i).getCodigo().contains(cadena)) {
                 dtm.addRow(addRow(clientes.get(i)));
-            } else if (Utilidades.isInteger(cadena)) {
-                if (clientes.get(i).getCodigo().equals(Integer.parseInt(cadena))) {
-                    dtm.addRow(addRow(clientes.get(i)));
-                }
+            } else if (clientes.get(i).getNombre_comercial().contains(cadena)) {
+                dtm.addRow(addRow(clientes.get(i)));
             }
         }
         tabla.setModel(dtm);

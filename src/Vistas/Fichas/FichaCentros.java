@@ -35,6 +35,7 @@ public class FichaCentros extends javax.swing.JDialog {
         txt_contacto.setText(centro.getContacto());
         txt_horas_semana.setText(centro.getHoras_semana() + "");
         txt_facturacion.setText(centro.getFacturacion_mes() + "");
+        txt_iban.setText(centro.getIban() + "");
     }
 
     private FichaCentros(JFrame jFrame, boolean b) {
@@ -74,6 +75,8 @@ public class FichaCentros extends javax.swing.JDialog {
         txt_contacto = new javax.swing.JLabel();
         txt_email = new javax.swing.JLabel();
         txt_codigo = new javax.swing.JLabel();
+        lbl_iban = new javax.swing.JLabel();
+        txt_iban = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(442, 446));
@@ -91,7 +94,7 @@ public class FichaCentros extends javax.swing.JDialog {
         lbl_facturacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_facturacion.setText("Facturación/Mes");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         jPanel2.add(lbl_facturacion, gridBagConstraints);
@@ -191,7 +194,6 @@ public class FichaCentros extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         jPanel2.add(lbl_cif, gridBagConstraints);
 
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
         jSeparator1.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -218,7 +220,6 @@ public class FichaCentros extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         jPanel2.add(Aceptar, gridBagConstraints);
 
-        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(51, 51, 51));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -281,7 +282,7 @@ public class FichaCentros extends javax.swing.JDialog {
         txt_facturacion.setForeground(new java.awt.Color(204, 204, 204));
         txt_facturacion.setText("aaaa");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         jPanel2.add(txt_facturacion, gridBagConstraints);
@@ -321,6 +322,23 @@ public class FichaCentros extends javax.swing.JDialog {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         jPanel2.add(txt_codigo, gridBagConstraints);
+
+        lbl_iban.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_iban.setForeground(new java.awt.Color(153, 153, 153));
+        lbl_iban.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_iban.setText("IBAN");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
+        jPanel2.add(lbl_iban, gridBagConstraints);
+
+        txt_iban.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txt_iban.setForeground(new java.awt.Color(204, 204, 204));
+        txt_iban.setText("aaaa");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 11;
+        jPanel2.add(txt_iban, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -396,6 +414,7 @@ public class FichaCentros extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_email;
     private javax.swing.JLabel lbl_facturacion;
     private javax.swing.JLabel lbl_horas_semana;
+    private javax.swing.JLabel lbl_iban;
     private javax.swing.JLabel lbl_nombre_comercial;
     private javax.swing.JLabel lbl_nombre_fiscal;
     private javax.swing.JLabel lbl_responsable2;
@@ -406,6 +425,7 @@ public class FichaCentros extends javax.swing.JDialog {
     private javax.swing.JLabel txt_email;
     private javax.swing.JLabel txt_facturacion;
     private javax.swing.JLabel txt_horas_semana;
+    private javax.swing.JLabel txt_iban;
     private javax.swing.JLabel txt_nombre;
     private javax.swing.JLabel txt_poblacion;
     private javax.swing.JLabel txt_tlf;

@@ -37,6 +37,7 @@ public final class CentroRepository {
     private final String telefono = "telefono";
     private final String contacto = "contacto";
     private final String email = "email";
+    private final String iban = "iban";
     private final String horasNecesariosSemana = "horas_semana";
     private final String facturacionMes = "facturacion_mes";
     private final String ORDER = " ORDER BY " + nombre + " ASC ";
@@ -74,6 +75,7 @@ public final class CentroRepository {
                 centro.setEmail(rs.getString(email));
                 centro.setHoras_semana(rs.getInt(horasNecesariosSemana));
                 centro.setFacturacion_mes(rs.getFloat(facturacionMes));
+                centro.setIban(rs.getString(iban));
                 centros.add(centro);
             }
             conn.desconectar(conexion);
@@ -209,8 +211,8 @@ public final class CentroRepository {
             combo.addItem(centros.get(i).getNombre());
         }
     }
-    
-    public void rellenarComboByTrabajador(JComboBox combo,String codigo_trabajador) {
+
+    public void rellenarComboByTrabajador(JComboBox combo, String codigo_trabajador) {
         String consultaEspecial = consultaCentros + " WHERE codigo=( SELECT codigo_centro FROM centrostrabajadores WHERE codigo_trabajadores = '" + codigo_trabajador + "' ) " + ORDER;
         ejecutarConsulta(consultaEspecial);
         //combo.addItem("Sin centro");
@@ -218,7 +220,7 @@ public final class CentroRepository {
             combo.addItem(centros.get(i).getNombre());
         }
     }
-    
+
     public JComboBox rellenarComboByCodigoCliente(JComboBox combo, String cod_cliente) {
         ejecutarConsulta(consultaCentros + " WHERE " + codCliente + "=" + cod_cliente + " ORDER BY " + nombre);
         combo.addItem("Selecciona uno");
@@ -264,7 +266,7 @@ public final class CentroRepository {
                     + email + ", "
                     + horasNecesariosSemana + ", "
                     + facturacionMes + " "
-                    + ") VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + ") VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conexion.prepareStatement(insert);
             ps.setString(1, centro.getCodigo());
             ps.setString(2, centro.getCodigo_cliente());
@@ -276,6 +278,7 @@ public final class CentroRepository {
             ps.setString(8, centro.getEmail());
             ps.setInt(9, centro.getHoras_semana());
             ps.setFloat(10, centro.getFacturacion_mes());
+            ps.setString(11, centro.getIban());
             ps.executeUpdate();
             conn.desconectar(conexion);
             centros.add(centro);
@@ -330,7 +333,9 @@ public final class CentroRepository {
                     + contacto + "=?,"
                     + email + "=?, "
                     + horasNecesariosSemana + "=?, "
-                    + facturacionMes + "=? WHERE " + id + "=?";
+                    + facturacionMes + "=?,"
+                    + iban + "=? "
+                    + " WHERE " + id + "=?";
             ps = conexion.prepareStatement(update);
             ps.setString(1, o.getCodigo());
             ps.setString(2, o.getCodigo_cliente());
@@ -342,8 +347,9 @@ public final class CentroRepository {
             ps.setString(8, o.getEmail());
             ps.setInt(9, o.getHoras_semana());
             ps.setFloat(10, o.getFacturacion_mes());
+            ps.setString(11, o.getIban());
             //PARAMETRO QUE VA AL WHERE QUE SIEMPRE ES EL ID
-            ps.setInt(11, o.getId());
+            ps.setInt(12, o.getId());
             ps.executeUpdate();
             conn.desconectar(conexion);
             ejecutarConsulta(consultaCentros);

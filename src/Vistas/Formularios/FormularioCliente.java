@@ -24,6 +24,7 @@ public class FormularioCliente extends javax.swing.JDialog {
     Utilidades utilidades = new Utilidades();
     public Cliente clienteModificar;
     ClienteRepository repoCliente;
+
     /**
      * Creates new form FormularioCliente
      *
@@ -37,7 +38,7 @@ public class FormularioCliente extends javax.swing.JDialog {
         this.setLocationRelativeTo(parent);
         clienteModificar = new Cliente();
     }
-    
+
     /**
      * Creates new form FormularioCliente
      *
@@ -68,9 +69,10 @@ public class FormularioCliente extends javax.swing.JDialog {
         if (clienteModificar.getFecha_alta() != null) {
             fecha_alta.setDate(java.sql.Date.valueOf(clienteModificar.getFecha_alta()));
         }
-        if (clienteModificar.getFecha_baja()!= null) {
+        if (clienteModificar.getFecha_baja() != null) {
             fecha_baja.setDate(java.sql.Date.valueOf(clienteModificar.getFecha_baja()));
         }
+        txt_iban.setText(clienteModificar.getIban() + "");
     }
 
     /**
@@ -113,6 +115,8 @@ public class FormularioCliente extends javax.swing.JDialog {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        txt_iban = new javax.swing.JTextField();
+        lbl_contacto1 = new javax.swing.JLabel();
         panelRect1 = new org.edisoncor.gui.panel.PanelRect();
         panelCurves1 = new org.edisoncor.gui.panel.PanelCurves();
 
@@ -417,6 +421,28 @@ public class FormularioCliente extends javax.swing.JDialog {
         gridBagConstraints.ipady = 20;
         jPanel2.add(jLabel2, gridBagConstraints);
 
+        txt_iban.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_iban.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_iban.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_ibanKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel2.add(txt_iban, gridBagConstraints);
+
+        lbl_contacto1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_contacto1.setForeground(new java.awt.Color(204, 204, 204));
+        lbl_contacto1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_contacto1.setText("IBAN");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 12;
+        jPanel2.add(lbl_contacto1, gridBagConstraints);
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 540, 520));
 
         panelRect1.setColorPrimario(new java.awt.Color(102, 102, 102));
@@ -424,7 +450,6 @@ public class FormularioCliente extends javax.swing.JDialog {
         panelRect1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
-        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
         panelCurves1.setOpaque(true);
         panelCurves1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 952, 654));
@@ -473,21 +498,24 @@ public class FormularioCliente extends javax.swing.JDialog {
             }
             if (!txt_fax.getText().isBlank()) {
                 clienteModificar.setFax(Integer.parseInt(txt_fax.getText()));
-            }else{
+            } else {
                 clienteModificar.setFax(0);
             }
             if (!txt_movil.getText().isBlank()) {
                 clienteModificar.setMovil(Integer.parseInt(txt_movil.getText()));
-            }else{
+            } else {
                 clienteModificar.setMovil(0);
             }
             clienteModificar.setEmail(txt_email.getText());
-            if(fecha_alta.getDate() != null){
+            if (fecha_alta.getDate() != null) {
                 clienteModificar.setFecha_alta((UtilidadesPantalla.convertToLocalDateViaInstant(fecha_alta.getDate())));
             }
             if (fecha_baja.getDate() != null) {//Fecha de baja vacia
                 clienteModificar.setFecha_baja(UtilidadesPantalla.convertToLocalDateViaInstant(fecha_baja.getDate()));
-            } 
+            }
+            if (!txt_iban.getText().isBlank()) {
+                clienteModificar.setIban(txt_iban.getText());
+            }
             //} else {
             //  JOptionPane.showMessageDialog(this, "El codigo ya existe en la base de datos", "Codigo", JOptionPane.WARNING_MESSAGE);
             //}
@@ -510,6 +538,10 @@ public class FormularioCliente extends javax.swing.JDialog {
     private void txt_codigo_clienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_codigo_clienteKeyReleased
         comprobarCodigo(evt);
     }//GEN-LAST:event_txt_codigo_clienteKeyReleased
+
+    private void txt_ibanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ibanKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_ibanKeyTyped
 
     /**
      * @param args the command line arguments
@@ -566,6 +598,7 @@ public class FormularioCliente extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_cif;
     private javax.swing.JLabel lbl_codigo;
     private javax.swing.JLabel lbl_contacto;
+    private javax.swing.JLabel lbl_contacto1;
     private javax.swing.JLabel lbl_email;
     private javax.swing.JLabel lbl_fax;
     private javax.swing.JLabel lbl_movil;
@@ -580,6 +613,7 @@ public class FormularioCliente extends javax.swing.JDialog {
     private javax.swing.JTextField txt_contacto;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_fax;
+    private javax.swing.JTextField txt_iban;
     private javax.swing.JTextField txt_movil;
     private javax.swing.JTextField txt_nombre_comercial;
     private javax.swing.JTextField txt_nombre_fiscal;

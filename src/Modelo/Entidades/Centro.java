@@ -24,12 +24,13 @@ public class Centro implements Serializable {
     String email;
     int horas_semana;
     float facturacion_mes;
+    String iban;
 
     public Centro() {
 
     }
 
-    public Centro(String codigo, String codigo_cliente, String nombre, String direccion, String poblacion, int telefono, String contacto, String email, int horas_semana, float facturacion_mes) {
+    public Centro(String codigo, String codigo_cliente, String nombre, String direccion, String poblacion, int telefono, String contacto, String email, int horas_semana, float facturacion_mes, String iban) {
         this.codigo = codigo;
         this.codigo_cliente = codigo_cliente;
         this.nombre = nombre;
@@ -40,9 +41,10 @@ public class Centro implements Serializable {
         this.email = email;
         this.horas_semana = horas_semana;
         this.facturacion_mes = facturacion_mes;
+        this.iban = iban;
     }
 
-    public Centro(int id, String codigo, String codigo_cliente, String nombre, String direccion, String poblacion, int telefono, String contacto, String email, int horas_semana, float facturacion_mes) {
+    public Centro(int id, String codigo, String codigo_cliente, String nombre, String direccion, String poblacion, int telefono, String contacto, String email, int horas_semana, float facturacion_mes, String iban) {
         this.id = id;
         this.codigo = codigo;
         this.codigo_cliente = codigo_cliente;
@@ -54,6 +56,7 @@ public class Centro implements Serializable {
         this.email = email;
         this.horas_semana = horas_semana;
         this.facturacion_mes = facturacion_mes;
+        this.iban = iban;
     }
 
     public int getId() {
@@ -142,6 +145,14 @@ public class Centro implements Serializable {
 
     public void setFacturacion_mes(float facturacion_mes) {
         this.facturacion_mes = facturacion_mes;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
     }
 
 }

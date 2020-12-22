@@ -6,10 +6,8 @@
 package Vistas.Formularios;
 
 import Modelo.Entidades.Centro;
-import Modelo.Entidades.Cliente;
 import Modelo.Repository.CentroRepository;
 import Modelo.Repository.ClienteRepository;
-import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
 import java.awt.Color;
 import java.awt.HeadlessException;
@@ -25,6 +23,7 @@ public class FormularioCentro extends javax.swing.JDialog {
     public Centro centroModificar;
     ClienteRepository repoClientes;
     CentroRepository repoCentros;
+
     /**
      * Creates new form FormularioCentro
      *
@@ -34,11 +33,12 @@ public class FormularioCentro extends javax.swing.JDialog {
      */
     public FormularioCentro(java.awt.Frame parent, boolean modal, Centro centro) {
         super(parent, modal);
-        this.setLocationRelativeTo(parent);
         iniciarOtrosComponentes();
         this.centroModificar = centro;
         iniciarComponenteModificar();
+        this.setLocationRelativeTo(parent);
     }
+
     /**
      *
      * @param parent
@@ -46,9 +46,10 @@ public class FormularioCentro extends javax.swing.JDialog {
      */
     public FormularioCentro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.setLocationRelativeTo(parent);
+
         iniciarOtrosComponentes();
         this.centroModificar = new Centro();
+        this.setLocationRelativeTo(parent);
     }
 
     private void iniciarOtrosComponentes() {
@@ -72,7 +73,9 @@ public class FormularioCentro extends javax.swing.JDialog {
         txt_email.setText(centroModificar.getEmail() + "");
         txt_horas.setText(centroModificar.getHoras_semana() + "");
         txt_faturacion.setText(centroModificar.getFacturacion_mes() + "");
+        txt_iban.setText(centroModificar.getIban() + "");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,6 +116,8 @@ public class FormularioCentro extends javax.swing.JDialog {
         lbl_facturacion = new javax.swing.JLabel();
         txt_faturacion = new javax.swing.JTextField();
         comboCliente = new javax.swing.JComboBox<>();
+        txt_iban = new javax.swing.JTextField();
+        lbl_iban = new javax.swing.JLabel();
 
         setTitle("INSERTAR O MODIFICAR CENTROS");
         setMaximumSize(new java.awt.Dimension(903, 682));
@@ -413,6 +418,29 @@ public class FormularioCentro extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel2.add(comboCliente, gridBagConstraints);
 
+        txt_iban.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_iban.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_iban.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_ibanKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel2.add(txt_iban, gridBagConstraints);
+
+        lbl_iban.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        lbl_iban.setForeground(new java.awt.Color(204, 204, 204));
+        lbl_iban.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_iban.setText("IBAN");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        jPanel2.add(lbl_iban, gridBagConstraints);
+
         panelCurves1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 540, 520));
 
         panelRect1.add(panelCurves1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 952, 654));
@@ -449,53 +477,41 @@ public class FormularioCentro extends javax.swing.JDialog {
                 String codigo = repoClientes.getByNombre((String) comboCliente.getSelectedItem()).getCodigo();
                 System.out.println("Codigo:" + codigo);
                 centroModificar.setCodigo_cliente(codigo);
+
                 if (!txt_codigo.getText().equals("") && txt_codigo.getText() != null) {//Codigo
                     //if (!repoCentros.ifCodigoExist(txt_codigo.getText())) {//Codigo repetido
                     centroModificar.setCodigo(txt_codigo.getText());
-                    if (txt_poblacion.getText() != null && !txt_poblacion.getText().equals("")) {//Poblacion
-                        centroModificar.setPoblacion(txt_poblacion.getText());
-                        if (txt_nombre.getText() != null && !txt_nombre.getText().equals("")) {//Nombre
-                            centroModificar.setNombre(txt_nombre.getText());
-                            if (txt_direccion.getText() != null && !txt_direccion.getText().equals("")) {//Direccion
-                                centroModificar.setDireccion(txt_direccion.getText());
-                                if (txt_contacto.getText() != null && !txt_contacto.getText().equals("")) {//Contacto
-                                    centroModificar.setContacto(txt_contacto.getText());
-                                    if (UtilidadesPantalla.comprobarTelefono(txt_tlf.getText()) && txt_tlf.getText() != null && !txt_tlf.getText().equals("")) {//Telefono
-                                        centroModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
-                                        if (txt_horas.getText() != null && !txt_horas.getText().equals("")) {//Horas
-                                            centroModificar.setHoras_semana(Integer.parseInt(txt_horas.getText()));
-                                            if (UtilidadesPantalla.comprobarEmail(txt_email.getText())) {//Email
-                                                centroModificar.setEmail(txt_email.getText());
-
-                                            } else {
-                                                JOptionPane.showMessageDialog(this, "Necesita ingresar un e-mail valido", "E-mail", JOptionPane.INFORMATION_MESSAGE);
-                                            }
-                                        } else {
-                                            JOptionPane.showMessageDialog(this, "Necesita ingresar un numero de horas", "Horas", JOptionPane.INFORMATION_MESSAGE);
-                                        }
-                                    } else {
-                                        JOptionPane.showMessageDialog(this, "Necesita ingresar un numero de telefono valido", "Telefono", JOptionPane.INFORMATION_MESSAGE);
-                                    }
-                                } else {
-                                    JOptionPane.showMessageDialog(this, "Necesita ingresar un nombre de contacto", "Contacto", JOptionPane.INFORMATION_MESSAGE);
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Necesita ingresar una dirección", "Dirección", JOptionPane.INFORMATION_MESSAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Necesita ingresar un nombre", "Nombre", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Necesita ingresar una población", "Población", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    //} else {
-                    //  JOptionPane.showMessageDialog(this, "El codigo ya existe en la base de datos", "Codigo", JOptionPane.WARNING_MESSAGE);
-                    //}
-                } else {
-                    JOptionPane.showMessageDialog(this, "Necesita ingresar un codigo", "Codigo", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Necesita ingresar un cliente", "Cliente", JOptionPane.INFORMATION_MESSAGE);
+                if (txt_poblacion.getText() != null && !txt_poblacion.getText().equals("")) {//Poblacion
+                    centroModificar.setPoblacion(txt_poblacion.getText());
+                }
+                if (txt_nombre.getText() != null && !txt_nombre.getText().equals("")) {//Nombre
+                    centroModificar.setNombre(txt_nombre.getText());
+                }
+                if (txt_direccion.getText() != null && !txt_direccion.getText().equals("")) {//Direccion
+                    centroModificar.setDireccion(txt_direccion.getText());
+                }
+                if (txt_contacto.getText() != null && !txt_contacto.getText().equals("")) {//Contacto
+                    centroModificar.setContacto(txt_contacto.getText());
+                }
+                if (UtilidadesPantalla.comprobarTelefono(txt_tlf.getText()) && txt_tlf.getText() != null && !txt_tlf.getText().equals("")) {//Telefono
+                    centroModificar.setTelefono(Integer.parseInt(txt_tlf.getText()));
+                }
+                if (txt_iban.getText() != null && !txt_iban.getText().equals("")) {//IBAN
+                    centroModificar.setIban(txt_iban.getText());
+                }
+                if (txt_horas.getText() != null && !txt_horas.getText().equals("")) {//Horas
+                    centroModificar.setHoras_semana(Integer.parseInt(txt_horas.getText()));
+                }
+                if (txt_faturacion.getText() != null && !txt_faturacion.getText().equals("")) {//Facturacion
+                    centroModificar.setFacturacion_mes(Float.parseFloat(txt_faturacion.getText()));
+                }
+                if (UtilidadesPantalla.comprobarEmail(txt_email.getText())) {//Email
+                    centroModificar.setEmail(txt_email.getText());
+                }
+                if (txt_iban.getText() != null && !txt_iban.getText().equals("")) {//Facturacion
+                    centroModificar.setIban(txt_iban.getText());
+                }
             }
             if (correcto) {
                 this.setVisible(false);
@@ -521,6 +537,10 @@ public class FormularioCentro extends javax.swing.JDialog {
     private void comboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClienteActionPerformed
 
     }//GEN-LAST:event_comboClienteActionPerformed
+
+    private void txt_ibanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ibanKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_ibanKeyTyped
     /**
      * @param args the command line arguments
      */
@@ -574,6 +594,7 @@ public class FormularioCentro extends javax.swing.JDialog {
     private javax.swing.JLabel lbl_email;
     private javax.swing.JLabel lbl_facturacion;
     private javax.swing.JLabel lbl_horas;
+    private javax.swing.JLabel lbl_iban;
     private javax.swing.JLabel lbl_nombrel;
     private javax.swing.JLabel lbl_poblacion;
     private javax.swing.JLabel lbl_responsable2;
@@ -586,6 +607,7 @@ public class FormularioCentro extends javax.swing.JDialog {
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_faturacion;
     private javax.swing.JTextField txt_horas;
+    private javax.swing.JTextField txt_iban;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_poblacion;
     private javax.swing.JTextField txt_tlf;
@@ -597,6 +619,7 @@ public class FormularioCentro extends javax.swing.JDialog {
             evt.consume();
         }
     }
+
     private void comprobarLetra(KeyEvent evt) {
 
         if (Character.isDigit(evt.getKeyChar()) == true) {
@@ -604,6 +627,7 @@ public class FormularioCentro extends javax.swing.JDialog {
             evt.consume();
         }
     }
+
     private void comprobarCodigo(KeyEvent evt) {
         try {
             if (repoCentros.ifCodigoExist((String) txt_codigo.getText()) && lbl_codigo.getForeground().equals(new java.awt.Color(204, 204, 204))) {
