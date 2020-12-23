@@ -415,6 +415,7 @@ public class VistaTrabajadores extends javax.swing.JFrame {
                     int id = UtilidadesPantalla.getIdSelected(tabla_trabajadores);
                     int codigo = Integer.parseInt((String) tabla_trabajadores.getValueAt(filaSeleccionada, 1));
                     repoTrabajador.delete(id, codigo);
+                    JOptionPane.showMessageDialog(this, "Trabajador borrado", "Trabajador", JOptionPane.INFORMATION_MESSAGE);
                     restablecerTabla();
                     break;
             }

@@ -403,31 +403,7 @@ public class TrabajadorRepository {
      * @param id
      * @return
      */
-    public boolean deleteAllByCentro(String codigo_centro) {
-        correcto = false;
-        try {
-            Utilidades.conn = new Conexion();
-            conexion = Utilidades.conn.conectar_empresa_concreta(Utilidades.empresa);
-            delete = "DELETE FROM centrostrabajadores WHERE codigo_centro=?";
-            ps = conexion.prepareStatement(delete);
-            ps.setString(1, codigo_centro);
-            ps.executeUpdate();
-            delete = "DELETE FROM trabajadores WHERE id IN("
-                    + "SELECT codigo_trabajadores"
-                    + "FROM centrotrabajadores"
-                    + "WHERE codigo_centro=?";
-            ps = conexion.prepareStatement(delete);
-            ps.setString(1, codigo_centro);
-            ps.executeUpdate();
-            conn.desconectar(conexion);
-            //trabajadores.remove(getById(id));
-            correcto = true;
-        } catch (SQLException ex) {
-            correcto = false;
-            Logger.getLogger(nombreClase).log(Level.SEVERE, null, ex);
-        }
-        return correcto;
-    }
+    
     public boolean update(Trabajador trabajador) {
         try {
             Utilidades.conn = new Conexion();

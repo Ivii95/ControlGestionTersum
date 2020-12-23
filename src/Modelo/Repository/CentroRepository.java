@@ -10,6 +10,7 @@ import Modelo.Entidades.Cliente;
 import java.util.ArrayList;
 import static Modelo.Repository.UtilidadesRepository.*;
 import Utilidades.Conexion;
+import Utilidades.Utilidades;
 import static Utilidades.Utilidades.conn;
 import static Utilidades.Utilidades.empresa;
 import java.sql.SQLException;
@@ -49,6 +50,10 @@ public final class CentroRepository {
 
     public void rellenarListaDefault() {
         ejecutarConsulta(consultaCentros + ORDER);
+    }
+
+    public void rellenarListaByCliente(Cliente cliente) {
+        ejecutarConsulta(consultaCentros + " WHERE " + codCliente + "=" + cliente.getCodigo() + " ORDER BY " + nombre);
     }
 
     /**
@@ -310,6 +315,31 @@ public final class CentroRepository {
         } catch (SQLException ex) {
             correcto = false;
             Logger.getLogger(TrabajadorRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return correcto;
+    }
+
+    public boolean deleteAllTrabajadoresByCentro(String codigo_centro) {
+        correcto = false;
+        try {
+            Utilidades.conn = new Conexion();
+            conexion = Utilidades.conn.conectar_empresa_concreta(Utilidades.empresa);
+            delete = "DELETE FROM centrostrabajadores WHERE codigo_centro=?";
+            ps = conexion.prepareStatement(delete);
+            ps.setString(1, codigo_centro);
+            ps.executeUpdate();
+            delete = "DELETE FROM trabajadores WHERE id IN("
+                    + "SELECT codigo_trabajadores"
+                    + "FROM centrotrabajadores"
+                    + "WHERE codigo_centro=?";
+            ps = conexion.prepareStatement(delete);
+            ps.setString(1, codigo_centro);
+            ps.executeUpdate();
+            conn.desconectar(conexion);
+            //trabajadores.remove(getById(id));
+            correcto = true;
+        } catch (SQLException ex) {
+            correcto = false;
         }
         return correcto;
     }

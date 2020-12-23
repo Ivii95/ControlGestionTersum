@@ -6,8 +6,10 @@
 package Vistas.Archivos.Clientes;
 
 //import Vistas.Formularios.FormularioCliente;
+import Modelo.Entidades.Centro;
 import Modelo.Entidades.Cliente;
 import Modelo.Entidades.Sede;
+import Modelo.Repository.CentroRepository;
 import Modelo.Repository.ClienteRepository;
 import Utilidades.UtilidadesPantalla;
 import Vistas.Fichas.FichaCliente;
@@ -27,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  * @author DisenoWeb
  */
 public class VistaClientes extends javax.swing.JFrame {
-
+    
     ArrayList<Sede> sedesByUsuario;
     ClienteRepository repoCliente;
     boolean isAlreadyOneClick;
@@ -41,16 +43,16 @@ public class VistaClientes extends javax.swing.JFrame {
         iniciarOtrosComponentes();
         repoCliente.rellenarTabla(tabla_clientes);
     }
-
+    
     public VistaClientes(ArrayList<Sede> sedes) {
         this.sedesByUsuario = sedes;
         initComponents();
         iniciarOtrosComponentes();
         repoCliente.rellenarTablaPorSedes(tabla_clientes, sedesByUsuario);
     }
-
+    
     private void iniciarOtrosComponentes() {
-
+        
         UtilidadesPantalla.centrarTablas(tabla_clientes);
         UtilidadesPantalla.resolucionPantalla(this);
         ponAyuda();
@@ -284,7 +286,7 @@ public class VistaClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabla_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_clientesMouseClicked
-
+        
         if (isAlreadyOneClick) {
             cliente = repoCliente.getById(UtilidadesPantalla.getIdSelected(tabla_clientes));
             FichaCliente ficha = new FichaCliente(this, true, cliente);
@@ -320,12 +322,35 @@ public class VistaClientes extends javax.swing.JFrame {
             switch (opcionborrar) {
                 case 0://OPCION SI BORRAR TRABAJADOR
                     int id = UtilidadesPantalla.getIdSelected(tabla_clientes);
+                    CentroRepository cr = new CentroRepository();
+                    /*cr.rellenarListaByCliente(repoCliente.getById(id));
+                    for (Centro c : cr.getCentros()) {
+                        int confirmarC = JOptionPane.showConfirmDialog(this, "¿Quieres borrar este centro?\n"
+                                + c.getCodigo() + "\n"
+                                + c.getNombre() + "\n"
+                                + c.getPoblacion() + "\n"
+                                + c.getTelefono() + "\n",
+                                "Centros", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+                        if (JOptionPane.YES_OPTION == confirmarC) {
+                            int confirmarT = JOptionPane.showConfirmDialog(this, "¿Quieres borrar todos los trabajadores de este centro?", "Trabajadores", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+                            if (JOptionPane.YES_OPTION == confirmarT) {
+                                cr.deleteAllTrabajadoresByCentro(c.getCodigo());
+                                JOptionPane.showMessageDialog(this, "Trabajadores borrados", "Trabajador",JOptionPane.INFORMATION_MESSAGE);
+                                //System.out.println("borrado trabajadores");
+                            }
+                            cr.delete(c.getId());
+                            JOptionPane.showMessageDialog(this, "Centro borrado", "Centro",JOptionPane.INFORMATION_MESSAGE);
+                            //System.out.println("borrado centro" + c.getCodigo());
+                        }
+                    }*/
+                    //System.out.println("borrado cliente" + id);
                     repoCliente.delete(id);
+                    JOptionPane.showMessageDialog(this, "Cliente borrado", "Cliente",JOptionPane.INFORMATION_MESSAGE);
                     repoCliente.rellenarTablaDefault(tabla_clientes);
                     break;
                 case 1://OPCION NO BORRAR TRABAJADOR, se tiene que poner para que los datos que ya estan escritos en los jtextfield no se borren al darle a "NO"
                     break;
-
+                
                 default://OPCION CANCELAR
                     restablecerTabla();
                     break;
@@ -377,13 +402,13 @@ public class VistaClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_buscadorFocusLost
 
     private void txt_buscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscadorKeyReleased
-
+        
         if (!txt_buscador.getText().isEmpty()) {//SI EL BUSCADOR NO ESTA VACIO, VACIA LA TABLA Y EMPIEZA A BUSCAR CON LOS CARACTERES QUE LE VAMOS INTRODUCIENDO
             DefaultTableModel dm = (DefaultTableModel) tabla_clientes.getModel();
             dm.getDataVector().removeAllElements();
             dm.fireTableDataChanged();
             repoCliente.buscar(tabla_clientes, txt_buscador.getText());
-
+            
         } else {//SI POR EL CONTRARIO ESTA VACIO EL BUSCADOR, ENTONCES RELLENA LA TABLA CON TODO
             repoCliente.rellenarTablaDefault(tabla_clientes);
         }
@@ -425,11 +450,11 @@ public class VistaClientes extends javax.swing.JFrame {
             new VistaClientes().setVisible(true);
         });
     }
-
+    
     private void ponAyuda() {
-
+        
     }
-
+    
     private void pulsarX() {
         this.addWindowListener(new WindowAdapter() {
             @Override
