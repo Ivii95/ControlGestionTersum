@@ -23,6 +23,7 @@ import Vistas.Archivos.Clientes.VistaClientes;
 import Vistas.Principal.Configuracion.Usuarios_vista;
 import Vistas.Archivos.Trabajadores.VistaTrabajadores;
 import Vistas.Listado.Listado;
+import Vistas.Listado.ListadoCentros;
 import Vistas.Listado.ListadoClientes;
 import Vistas.Listado.ListadoTrabajadores;
 import Vistas.Principal.Configuracion.VistaSedes;
@@ -115,6 +116,7 @@ public class Principal_vista extends javax.swing.JFrame {
         Listados = new javax.swing.JMenuItem();
         ListarTrabajadores = new javax.swing.JMenuItem();
         ListarClientes = new javax.swing.JMenuItem();
+        ListarCentros = new javax.swing.JMenuItem();
         menu_configuracion = new javax.swing.JMenu();
         menuitemconfiguracionusuario = new javax.swing.JMenuItem();
         menuitemsedes = new javax.swing.JMenuItem();
@@ -226,6 +228,11 @@ public class Principal_vista extends javax.swing.JFrame {
 
         Listados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/listados.png"))); // NOI18N
         Listados.setText("Listados");
+        Listados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListadosActionPerformed(evt);
+            }
+        });
         menu_listados.add(Listados);
 
         ListarTrabajadores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/trabajador.png"))); // NOI18N
@@ -245,6 +252,15 @@ public class Principal_vista extends javax.swing.JFrame {
             }
         });
         menu_listados.add(ListarClientes);
+
+        ListarCentros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/centros .png"))); // NOI18N
+        ListarCentros.setText("Centros");
+        ListarCentros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarCentrosActionPerformed(evt);
+            }
+        });
+        menu_listados.add(ListarCentros);
 
         menubar.add(menu_listados);
 
@@ -383,6 +399,16 @@ public class Principal_vista extends javax.swing.JFrame {
         vs.setVisible(true);
     }//GEN-LAST:event_menuitemsedesActionPerformed
 
+    private void ListadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListadosActionPerformed
+        Listado listar = new Listado();
+        listar.ListarTrabajadores();
+    }//GEN-LAST:event_ListadosActionPerformed
+
+    private void ListarCentrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarCentrosActionPerformed
+        ListadoCentros lt = new ListadoCentros();
+        lt.setVisible(true);
+    }//GEN-LAST:event_ListarCentrosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -399,6 +425,7 @@ public class Principal_vista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Listados;
+    private javax.swing.JMenuItem ListarCentros;
     private javax.swing.JMenuItem ListarClientes;
     private javax.swing.JMenuItem ListarTrabajadores;
     private javax.swing.JMenu jMenu1;

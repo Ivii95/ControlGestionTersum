@@ -37,7 +37,7 @@ public class Conexion {
 //        url = "jdbc:mysql://gesinformatica.es:3306/tiendage_programa"; //SERVIDOR
         try {
             //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, user, password2);
             if (conn != null) {
                 //System.out.println("CONECTADO");
@@ -61,7 +61,7 @@ public class Conexion {
         urlbase = "jdbc:mysql://" + ipPrueba + "/";
 //           urlbase = "jdbc:mysql://gesinformatica.es:3306/tiendage_programa"; //TEMPORAL
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(urlbase + url2 + urlHora, user, password2);
 //    conn = DriverManager.getConnection(urlbase, user, password);//TEMPORAL
             if (conn != null) {

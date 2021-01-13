@@ -17,30 +17,35 @@ import java.util.TimerTask;
  * @author usuario
  */
 public class ListadoCentros extends javax.swing.JFrame {
+
     CentroRepository repoCentros;
-    private boolean isAlreadyOneClick;        
+    private boolean isAlreadyOneClick;
     private Centro centroListadoClientes;
+
     /**
      * Creates new form ListadoCentros
      */
     public ListadoCentros() {
         iniciarOtros();
     }
+
     public ListadoCentros(String codigo_trabajador) {
         iniciarOtros();
-        repoCentros.rellenarTablaCentrosByTrabajador(listado_centros, codigo_trabajador);
+        
     }
-    private void iniciarOtros(){
+
+    private void iniciarOtros() {
         initComponents();
-        repoCentros=new CentroRepository();
+        repoCentros = new CentroRepository();
         UtilidadesPantalla.centrarTablas(listado_centros);
         UtilidadesPantalla.resolucionPantalla(this);
         listado_centros.getColumnModel().getColumn(0).setMaxWidth(0);
         listado_centros.getColumnModel().getColumn(0).setMinWidth(0);
         listado_centros.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         listado_centros.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+        repoCentros.rellenarTablaDefault(listado_centros);
     }
-            
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +66,6 @@ public class ListadoCentros extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(300, 150));
 
         listado_centros.setAutoCreateRowSorter(true);
-        listado_centros.setBackground(new java.awt.Color(102, 102, 102));
         listado_centros.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         listado_centros.setForeground(new java.awt.Color(51, 51, 51));
         listado_centros.setModel(new javax.swing.table.DefaultTableModel(
@@ -87,6 +91,7 @@ public class ListadoCentros extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        listado_centros.setGridColor(new java.awt.Color(204, 204, 204));
         listado_centros.setPreferredSize(new java.awt.Dimension(300, 150));
         listado_centros.setRowHeight(30);
         listado_centros.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,14 +107,14 @@ public class ListadoCentros extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -117,22 +122,12 @@ public class ListadoCentros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void listado_centrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listado_centrosMouseClicked
-        if (isAlreadyOneClick) {
-            Centro centro;
-            int id = (Integer) (listado_centros.getValueAt(listado_centros.getSelectedRow(), 0));
-            FichaCentros ficha = new FichaCentros(this, rootPaneCheckingEnabled, repoCentros.getById(id));
-            ficha.setVisible(true);
-            isAlreadyOneClick = false;
-        } else {
-            isAlreadyOneClick = true;
-            Timer t = new Timer("doubleclickTimer", false);
-            t.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    isAlreadyOneClick = false;
-                }
-            }, 250);
-        }
+        int id_centro = 0;
+        Centro c = null;
+        id_centro = (Integer) (listado_centros.getValueAt(listado_centros.getSelectedRow(), 0));
+        c = repoCentros.getById(id_centro);
+        Listado listar = new Listado();
+        listar.ListarCentro(c.getCodigo());
     }//GEN-LAST:event_listado_centrosMouseClicked
 
     /**

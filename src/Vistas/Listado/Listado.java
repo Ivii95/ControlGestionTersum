@@ -33,9 +33,9 @@ public class Listado {
         try {
             //JasperReport reporte = (JasperReport) JRLoader.loadObject(reportFile("Tersum_FichaPersonal.jasper"));
             HashMap<String, Object> parametros = new HashMap<>();
-            parametros.put("codigo_trabajador", codigo);
+            parametros.put("codigo", codigo);
             JasperPrint jasperPrint = JasperFillManager.fillReport(
-                    ".\\lib\\plantillasjasper\\Tersum_FichaPersonal.jasper",
+                    ".\\lib\\plantillasjasper\\Tersum_FichaTrabajador.jasper",
                     //reporte,
                     parametros,
                     iniciarConexion());
@@ -55,6 +55,39 @@ public class Listado {
                     ".\\lib\\plantillasjasper\\Tersum_FichaCliente.jasper",
                     //reporte,
                     parametros,
+                    iniciarConexion());
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Listado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void ListarCentro(String codigo) {
+        try {
+            //JasperReport reporte = (JasperReport) JRLoader.loadObject(reportFile("Tersum_FichaPersonal.jasper"));
+            HashMap<String, Object> parametros = new HashMap<>();
+            parametros.put("codigo", codigo);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    ".\\lib\\plantillasjasper\\Tersum_FichaCentro.jasper",
+                    //reporte,
+                    parametros,
+                    iniciarConexion());
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Listado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void ListarTrabajadores() {
+        try {
+            //JasperReport reporte = (JasperReport) JRLoader.loadObject(reportFile("Tersum_FichaPersonal.jasper"));
+            //HashMap<String, Object> parametros = new HashMap<>();
+            //parametros.put("codigo_trabajador", codigo);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    ".\\lib\\plantillasjasper\\Trabajadores_datos.jasper",
+                    //reporte,
+                    null,
                     iniciarConexion());
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
             jasperViewer.setVisible(true);
