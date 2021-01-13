@@ -8,9 +8,6 @@ package Vistas.Listado;
 import Modelo.Entidades.Centro;
 import Modelo.Repository.CentroRepository;
 import Utilidades.UtilidadesPantalla;
-import Vistas.Fichas.FichaCentros;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  *

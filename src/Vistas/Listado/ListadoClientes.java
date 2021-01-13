@@ -9,7 +9,6 @@ import Modelo.Entidades.Centro;
 import Modelo.Entidades.Cliente;
 import Modelo.Repository.ClienteRepository;
 import Utilidades.UtilidadesPantalla;
-import Vistas.Fichas.FichaCliente;
 
 /**
  *
