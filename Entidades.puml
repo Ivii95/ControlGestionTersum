@@ -1,0 +1,45 @@
+@startuml
+annotation java.lang.Override
+class Modelo.Entidades.Centro
+class Modelo.Entidades.CentroTrabajador
+class Modelo.Entidades.Cliente
+class Modelo.Entidades.Contrato
+class Modelo.Entidades.Falta
+class Modelo.Entidades.Horario
+class Modelo.Entidades.Incidencia
+class Modelo.Entidades.Nominas
+class Modelo.Entidades.Permiso
+class Modelo.Entidades.Sede
+class Modelo.Entidades.SedeCliente
+class Modelo.Entidades.SedeUsuario
+class Modelo.Entidades.Trabajador
+class Modelo.Entidades.Usuario
+class java.time.LocalDate
+class java.time.LocalTime
+class java.util.ArrayList
+interface java.io.Serializable
+Modelo.Entidades.Centro --|> java.io.Serializable
+Modelo.Entidades.CentroTrabajador --|> java.io.Serializable
+Modelo.Entidades.Cliente ..> java.time.LocalDate
+Modelo.Entidades.Cliente --|> java.io.Serializable
+Modelo.Entidades.Contrato ..> java.time.LocalDate
+Modelo.Entidades.Contrato --|> java.io.Serializable
+Modelo.Entidades.Falta ..> java.time.LocalDate
+Modelo.Entidades.Falta --|> java.io.Serializable
+Modelo.Entidades.Horario ..> java.time.LocalTime
+Modelo.Entidades.Horario --|> java.io.Serializable
+Modelo.Entidades.Incidencia ..> java.time.LocalDate
+Modelo.Entidades.Incidencia --|> java.io.Serializable
+Modelo.Entidades.Nominas ..> java.lang.Override
+Modelo.Entidades.Nominas ..> java.time.LocalDate
+Modelo.Entidades.Nominas --|> java.io.Serializable
+Modelo.Entidades.Permiso --|> java.io.Serializable
+Modelo.Entidades.Sede ..> java.util.ArrayList
+Modelo.Entidades.Sede --|> java.io.Serializable
+Modelo.Entidades.SedeCliente ..> java.util.ArrayList
+Modelo.Entidades.SedeCliente --|> java.io.Serializable
+Modelo.Entidades.SedeUsuario --|> java.io.Serializable
+Modelo.Entidades.Trabajador ..> java.time.LocalDate
+Modelo.Entidades.Trabajador --|> java.io.Serializable
+Modelo.Entidades.Usuario --|> java.io.Serializable
+@enduml

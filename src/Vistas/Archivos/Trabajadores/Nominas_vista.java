@@ -474,7 +474,7 @@ public class Nominas_vista extends javax.swing.JFrame {
             txt_fechainicio.setDate(fechainicio);
             txt_importe.setText(String.valueOf(tabla_nominas.getValueAt(filaSeleccionada, 4)));
         } catch (ParseException ex) {
-            Logger.getLogger(Faltas_vista.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AsuntosPropios_vista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

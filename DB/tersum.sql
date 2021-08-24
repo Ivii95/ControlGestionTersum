@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2020 a las 12:40:22
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.10
+-- Servidor: localhost:3306
+-- Tiempo de generación: 24-08-2021 a las 08:01:57
+-- Versión del servidor: 5.7.24
+-- Versión de PHP: 7.4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tersum`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asuntos_propios`
+--
+
+CREATE TABLE `asuntos_propios` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(20) NOT NULL,
+  `codigo_trabajador_ap` varchar(20) NOT NULL,
+  `codigo_trabajador_sustituto` varchar(20) DEFAULT NULL,
+  `dia` date NOT NULL,
+  `motivo` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `asuntos_propios`
+--
+
+INSERT INTO `asuntos_propios` (`id`, `codigo`, `codigo_trabajador_ap`, `codigo_trabajador_sustituto`, `dia`, `motivo`) VALUES
+(1, '22', '77', '77', '2021-08-17', '12'),
+(2, 'BA02', '22', NULL, '2021-08-17', ''),
+(3, '12', '77', '77', '2021-08-19', 'a');
 
 -- --------------------------------------------------------
 
@@ -39,17 +62,19 @@ CREATE TABLE `centros` (
   `contacto` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `email` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `horas_semana` int(4) DEFAULT NULL,
-  `facturacion_mes` float DEFAULT NULL
+  `facturacion_mes` float DEFAULT NULL,
+  `iban` varchar(25) COLLATE utf8_spanish_ci DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `centros`
 --
 
-INSERT INTO `centros` (`id`, `codigo`, `codigo_cliente`, `nombre`, `direccion`, `poblacion`, `telefono`, `contacto`, `email`, `horas_semana`, `facturacion_mes`) VALUES
-(11, '22', '1', 'Sede Sepad', 'C/Nebrija 8', 'Badajoz', 123456789, 'Juan', 'JuanAntonio@gmail.com', 20, 300),
-(12, '15', '1', 'Sede Diputacion', 'C/Ambroz 34', 'Caceres', 0, '', '', 0, NULL),
-(13, '11', '4', 'aa', 'aa', 'null', 0, 'aa', NULL, 0, 0);
+INSERT INTO `centros` (`id`, `codigo`, `codigo_cliente`, `nombre`, `direccion`, `poblacion`, `telefono`, `contacto`, `email`, `horas_semana`, `facturacion_mes`, `iban`) VALUES
+(11, '22', '1', 'Sede Sepad', 'C/Nebrija 8', 'Badajoz', 123456789, 'Juan', 'JuanAntonio@gmail.com', 20, 300, '0'),
+(12, '15', '1', 'Sede Diputacion', 'C/Ambroz 34', 'Caceres', 0, 'Iv', 'Iv@asdf.com', 0, 2, '10'),
+(13, '11', '4', 'aa', 'aa', 'null', 0, 'aa', NULL, 0, 1, '0'),
+(14, '123', '34', 'MUTUA', NULL, 'null', 0, 'ANTONIO', NULL, 0, 0, '123');
 
 -- --------------------------------------------------------
 
@@ -95,17 +120,18 @@ CREATE TABLE `clientes` (
   `movil` int(9) DEFAULT NULL,
   `email` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha_alta` date DEFAULT NULL,
-  `fecha_baja` date DEFAULT NULL
+  `fecha_baja` date DEFAULT NULL,
+  `iban` varchar(25) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `codigo`, `cif`, `nombre_fiscal`, `nombre_comercial`, `contacto`, `telefono`, `fax`, `movil`, `email`, `fecha_alta`, `fecha_baja`) VALUES
-(5, '1', 'A78865441', 'CORPORACION DE MEDIOS DE EXTREMADURA, SA', 'CORPORACION DE MEDIOS DE EXTREMADURA, SA', 'Antonio Pitera', 924214300, 924205320, 0, 'apiterac@hoy.es', '2019-11-04', NULL),
-(7, '4', 'B10219913', 'FISSA FINALIDAD SOCIAL, SL', 'FISSA FINALIDAD SOCIAL, SL', 'Juan Diaz', 987654321, 987654321, 654321987, 'juan@fissafinalidadsocial.com', '2019-11-04', NULL),
-(12, '15', '', '', '', '', 0, 0, 0, '', NULL, NULL);
+INSERT INTO `clientes` (`id`, `codigo`, `cif`, `nombre_fiscal`, `nombre_comercial`, `contacto`, `telefono`, `fax`, `movil`, `email`, `fecha_alta`, `fecha_baja`, `iban`) VALUES
+(5, '1', 'A78865441', 'CORPORACION DE MEDIOS DE EXTREMADURA, SA', 'CORPORACION DE MEDIOS DE EXTREMADURA, SA', 'Antonio Pitera', 12, 924205320, 699966996, 'apiterac@hoy.es', '2019-10-30', NULL, '11'),
+(7, '4', 'B10219913', 'FISSA FINALIDAD SOCIAL, SL', 'FISSA FINALIDAD SOCIAL, SL', 'Juan Diaz', 987654321, 987654321, 654321987, 'juan@fissafinalidadsocial.com', '2019-11-01', NULL, NULL),
+(8, '34', 'U123123123', 'PRUEBA DEFIN', 'PRUEBA DEFIN', 'ANTONIO', 927456123, 0, 0, '', NULL, NULL, '123123');
 
 -- --------------------------------------------------------
 
@@ -140,39 +166,6 @@ INSERT INTO `contratos` (`id`, `codigo_tipo_contrato`, `codigo_trabajador`, `fec
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `faltas`
---
-
-CREATE TABLE `faltas` (
-  `id` int(11) NOT NULL,
-  `codigo` varchar(9) COLLATE utf8_spanish_ci NOT NULL,
-  `codigo_trabajador_faltas` varchar(9) COLLATE utf8_spanish_ci NOT NULL,
-  `fecha_inicio` date NOT NULL,
-  `fecha_fin` date NOT NULL,
-  `motivo` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `faltas`
---
-
-INSERT INTO `faltas` (`id`, `codigo`, `codigo_trabajador_faltas`, `fecha_inicio`, `fecha_fin`, `motivo`) VALUES
-(3, 'BA18', '66', '2019-11-11', '2019-11-18', 'Se tiene que ir al hospital con su madre'),
-(4, 'BA17', '66', '2019-11-02', '2019-11-05', 'Estuvo de competicion con su hijo'),
-(5, 'CC1', '14', '2019-11-04', '2019-11-05', 'Tuvo un problema con el coche'),
-(6, 'CC2', '14', '2019-11-12', '2019-11-13', 'Estuvo todo el dia en el hospital'),
-(7, 'CC3', '14', '2019-11-11', '2019-11-12', 'Estuvo en el hospital'),
-(8, '1', '22', '2020-01-16', '2020-01-16', 'Falta de nosquien'),
-(12, '311', '77', '2020-07-27', '2020-07-28', 'aaaa'),
-(13, '23', '77', '2020-07-21', '2020-07-22', 'esta malo'),
-(14, 'BA3', '14', '2020-07-28', '2020-07-30', 'esta malito'),
-(15, '254', '77', '2020-08-26', '2020-08-30', 'eo'),
-(16, '132', '77', '2020-08-26', '2020-08-31', 'eo'),
-(17, '344', '123', '2020-09-10', '2020-09-25', '');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `horarios`
 --
 
@@ -191,34 +184,6 @@ CREATE TABLE `horarios` (
 
 INSERT INTO `horarios` (`id`, `id_centrotrabajadores`, `dia_semana`, `hora_inicio`, `hora_fin`, `horas_totales`) VALUES
 (1, 1, 'Lunes', '00:00:00', '04:00:00', 5);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `incidencias`
---
-
-CREATE TABLE `incidencias` (
-  `id` int(11) NOT NULL,
-  `codigo` varchar(9) COLLATE utf8_spanish_ci NOT NULL,
-  `codigo_trabajador_incidencia` varchar(9) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
-  `fecha_inicio` date DEFAULT NULL,
-  `fecha_fin` date DEFAULT NULL,
-  `extras` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `incidencias`
---
-
-INSERT INTO `incidencias` (`id`, `codigo`, `codigo_trabajador_incidencia`, `descripcion`, `fecha_inicio`, `fecha_fin`, `extras`) VALUES
-(6, '7', '14', 'Estuvo en la diputacion de Badajoz por que Antonio se tuvo que ir corriendo a por su hijo al colegio', '2019-10-01', NULL, 2),
-(7, '1', '22', 'Sustitucion de ', '2020-01-15', '2020-01-15', 3),
-(14, '32', '22', '1111', '2020-07-26', '2020-07-27', 2),
-(18, '12', '77', 'aaaaa', '2020-07-27', '2020-07-28', 3),
-(19, '13', '77', 'aaaaa', '2020-07-01', '2020-07-28', 2),
-(20, '87', '77', 'esta malito	', '2020-07-03', '2020-07-29', 3);
 
 -- --------------------------------------------------------
 
@@ -244,6 +209,36 @@ INSERT INTO `nominas` (`id`, `codigo_trabajador`, `fecha_inicio`, `fecha_fin`, `
 (2, '66', '2019-10-08', '2019-10-15', '33', 1),
 (3, '66', '2019-10-01', '2019-10-31', '60', 1),
 (4, '35', '2019-11-04', '2019-11-05', '1200', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pluses`
+--
+
+CREATE TABLE `pluses` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(9) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo_trabajador_incidencia` varchar(9) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  `horas` int(6) NOT NULL,
+  `precio` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `pluses`
+--
+
+INSERT INTO `pluses` (`id`, `codigo`, `codigo_trabajador_incidencia`, `descripcion`, `fecha_inicio`, `fecha_fin`, `horas`, `precio`) VALUES
+(6, '7', '14', 'Estuvo en la diputacion de Badajoz por que Antonio se tuvo que ir corriendo a por su hijo al colegio', '2019-10-01', NULL, 2, 0),
+(7, '1', '22', 'Sustitucion de ', '2020-01-15', '2020-01-15', 3, 0),
+(14, '32', '22', '1111', '2020-07-26', '2020-07-27', 2, 0),
+(18, '12', '77', 'aaaaa', '2020-07-27', '2020-07-28', 3, 7),
+(19, '13', '77', 'aaaaa', '2020-07-01', '2020-07-28', 2, 0),
+(20, '87', '77', 'esta malito	', '2020-07-03', '2020-07-29', 3, 0),
+(21, '74', '77', 'aaaaa', '2021-08-23', '2021-08-28', 20, 12);
 
 -- --------------------------------------------------------
 
@@ -397,27 +392,65 @@ CREATE TABLE `trabajadores` (
   `fecha_baja` date DEFAULT NULL,
   `horas_semana_alta` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
   `horas_semana_reales` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `coste_mes` float NOT NULL,
-  `seguridad_social` int(12) NOT NULL
+  `coste_mes` float DEFAULT NULL,
+  `seguridad_social` varchar(13) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `iban` varchar(25) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `trabajadores`
 --
 
-INSERT INTO `trabajadores` (`id`, `codigo`, `codigo_tipo_contrato`, `codigo_sede`, `apellido1`, `apellido2`, `nombre`, `DNI`, `direccion`, `poblacion`, `fechanacimiento`, `categoria`, `antiguedad`, `telefono`, `email`, `fecha_alta`, `fecha_baja`, `horas_semana_alta`, `horas_semana_reales`, `coste_mes`, `seguridad_social`) VALUES
-(6, '14', 100, '600', 'valle', 'martinez', 'ismael', '', 'prueba', 'prueba', '1992-03-08', 'prueba', NULL, 999555888, NULL, NULL, NULL, '0', '0', 0, 0),
-(29, '25', 100, '600', 'gomez', 'juez', 'juan', '', '', '', '2019-07-15', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, 0),
-(33, '66', 100, '600', 'gomez', 'gonzalez', 'juan', '', '', '', '2019-07-15', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, 0),
-(38, '65', 100, '600', 'gomez', 'perez', 'juan', '', '', '', '2019-07-15', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, 0),
-(39, '23', 200, '600', 'hurtado', 'lopez', 'ismael', '', '', '', '2019-07-19', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, 0),
-(40, '22', 109, '600', 'hurtado', 'garcia', 'ismael', '', '', '', '2019-07-17', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, 0),
-(42, '77', 100, '600', 'ruiz ', 'mateos', 'antonio', '', 'C/ sn', 'mérida', '2019-10-31', 'null', '2019-10-31', 666666, 's@x.es', '2019-10-30', '2020-09-15', '40', '80', 2000, 0),
-(44, '123', 0, '', 'as', 'as', 'adefasdf', '', '', '', NULL, 'null', NULL, 0, '', NULL, NULL, '40:00', '40:00', 0, 0);
+INSERT INTO `trabajadores` (`id`, `codigo`, `codigo_tipo_contrato`, `codigo_sede`, `apellido1`, `apellido2`, `nombre`, `DNI`, `direccion`, `poblacion`, `fechanacimiento`, `categoria`, `antiguedad`, `telefono`, `email`, `fecha_alta`, `fecha_baja`, `horas_semana_alta`, `horas_semana_reales`, `coste_mes`, `seguridad_social`, `iban`) VALUES
+(6, '14', 100, '600', 'valle', 'martinez', 'ismael', 'C564684968', 'prueba', 'prueba', '1992-03-08', 'asd', '1992-03-08', 999555888, '1321', '1992-03-08', NULL, '00:00', '00:00', 0, '0', '10'),
+(29, '25', 100, '600', 'gomez', 'juez', 'juan', '', '', '', '2019-07-15', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, '0', '0'),
+(33, '66', 100, '600', 'gomez', 'gonzalez', 'juan', '', '', '', '2019-07-15', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, '0', '0'),
+(38, '65', 100, '600', 'gomez', 'perez', 'juan', '', '', '', '2019-07-15', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, '0', '0'),
+(39, '23', 200, '600', 'hurtado', 'lopez', 'ismael', '', '', '', '2019-07-19', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, '0', '0'),
+(40, '22', 109, '600', 'hurtado', 'garcia', 'ismael', '', '', '', '2019-07-17', '', NULL, NULL, NULL, NULL, NULL, '0', '0', 0, '0', '0'),
+(42, '77', 100, '600', 'ruiz ', 'mateos', 'antonio', '', 'C/ sn', 'mérida', '2019-10-31', 'null', '2019-10-31', 666666, 's@x.es', '2019-10-30', '2020-09-15', '40', '80', 2000, '0', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vacaciones`
+--
+
+CREATE TABLE `vacaciones` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(9) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo_trabajador_vacaciones` varchar(9) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `motivo` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `vacaciones`
+--
+
+INSERT INTO `vacaciones` (`id`, `codigo`, `codigo_trabajador_vacaciones`, `fecha_inicio`, `fecha_fin`, `motivo`) VALUES
+(3, 'BA18', '66', '2019-11-11', '2019-11-18', 'Se tiene que ir al hospital con su madre'),
+(4, 'BA17', '66', '2019-11-02', '2019-11-05', 'Estuvo de competicion con su hijo'),
+(5, 'CC1', '14', '2019-11-04', '2019-11-05', 'Tuvo un problema con el coche'),
+(6, 'CC2', '14', '2019-11-12', '2019-11-13', 'Estuvo todo el dia en el hospital'),
+(7, 'CC3', '14', '2019-11-11', '2019-11-12', 'Estuvo en el hospital'),
+(8, '1', '22', '2020-01-16', '2020-01-16', 'Falta de nosquien'),
+(12, '311', '77', '2020-07-27', '2020-07-28', 'aaaa'),
+(13, '23', '77', '2020-07-21', '2020-07-22', 'esta malo'),
+(14, 'BA3', '14', '2020-07-28', '2020-07-30', 'esta malito'),
+(15, '254', '77', '2020-08-26', '2020-08-30', 'eo'),
+(16, '132', '77', '2020-08-26', '2020-08-31', 'eo');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `asuntos_propios`
+--
+ALTER TABLE `asuntos_propios`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `centros`
@@ -449,14 +482,6 @@ ALTER TABLE `contratos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `faltas`
---
-ALTER TABLE `faltas`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `codigo` (`codigo`),
-  ADD KEY `faltas_ibfk_1` (`codigo_trabajador_faltas`);
-
---
 -- Indices de la tabla `horarios`
 --
 ALTER TABLE `horarios`
@@ -464,18 +489,18 @@ ALTER TABLE `horarios`
   ADD KEY `id_centrotrabajadores` (`id_centrotrabajadores`);
 
 --
--- Indices de la tabla `incidencias`
---
-ALTER TABLE `incidencias`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `codigo` (`codigo`),
-  ADD KEY `codigo_trabajador_incidencia` (`codigo_trabajador_incidencia`);
-
---
 -- Indices de la tabla `nominas`
 --
 ALTER TABLE `nominas`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `pluses`
+--
+ALTER TABLE `pluses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `codigo` (`codigo`),
+  ADD KEY `codigo_trabajador_incidencia` (`codigo_trabajador_incidencia`);
 
 --
 -- Indices de la tabla `sedecliente`
@@ -515,14 +540,28 @@ ALTER TABLE `trabajadores`
   ADD KEY `codigo_tipo_contrato` (`codigo_tipo_contrato`);
 
 --
+-- Indices de la tabla `vacaciones`
+--
+ALTER TABLE `vacaciones`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `codigo` (`codigo`),
+  ADD KEY `faltas_ibfk_1` (`codigo_trabajador_vacaciones`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `asuntos_propios`
+--
+ALTER TABLE `asuntos_propios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `centros`
 --
 ALTER TABLE `centros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `centrostrabajadores`
@@ -534,7 +573,7 @@ ALTER TABLE `centrostrabajadores`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `contratos`
@@ -543,28 +582,22 @@ ALTER TABLE `contratos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT de la tabla `faltas`
---
-ALTER TABLE `faltas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
 -- AUTO_INCREMENT de la tabla `horarios`
 --
 ALTER TABLE `horarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `incidencias`
---
-ALTER TABLE `incidencias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
 -- AUTO_INCREMENT de la tabla `nominas`
 --
 ALTER TABLE `nominas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `pluses`
+--
+ALTER TABLE `pluses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `sedecliente`
@@ -588,7 +621,13 @@ ALTER TABLE `sedeusuario`
 -- AUTO_INCREMENT de la tabla `trabajadores`
 --
 ALTER TABLE `trabajadores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT de la tabla `vacaciones`
+--
+ALTER TABLE `vacaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas
@@ -608,21 +647,15 @@ ALTER TABLE `centrostrabajadores`
   ADD CONSTRAINT `codigo_trabajadores` FOREIGN KEY (`codigo_trabajadores`) REFERENCES `trabajadores` (`codigo`);
 
 --
--- Filtros para la tabla `faltas`
---
-ALTER TABLE `faltas`
-  ADD CONSTRAINT `faltas_ibfk_1` FOREIGN KEY (`codigo_trabajador_faltas`) REFERENCES `trabajadores` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `horarios`
 --
 ALTER TABLE `horarios`
   ADD CONSTRAINT `horarios_ibfk_1` FOREIGN KEY (`id_centrotrabajadores`) REFERENCES `centrostrabajadores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `incidencias`
+-- Filtros para la tabla `pluses`
 --
-ALTER TABLE `incidencias`
+ALTER TABLE `pluses`
   ADD CONSTRAINT `codigo_trabajador_incidencia` FOREIGN KEY (`codigo_trabajador_incidencia`) REFERENCES `trabajadores` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -633,11 +666,10 @@ ALTER TABLE `sedecliente`
   ADD CONSTRAINT `id_sede` FOREIGN KEY (`id_sede`) REFERENCES `sedes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `sedeusuario`
+-- Filtros para la tabla `vacaciones`
 --
-ALTER TABLE `sedeusuario`
-  ADD CONSTRAINT `codigo_sede` FOREIGN KEY (`codigo_sede`) REFERENCES `sedes` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `empresas_db`.`usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `vacaciones`
+  ADD CONSTRAINT `vacaciones_ibfk_1` FOREIGN KEY (`codigo_trabajador_vacaciones`) REFERENCES `trabajadores` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

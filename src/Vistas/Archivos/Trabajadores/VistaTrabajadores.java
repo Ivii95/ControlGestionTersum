@@ -94,8 +94,9 @@ public class VistaTrabajadores extends javax.swing.JFrame {
         Panel_botones = new org.edisoncor.gui.panel.Panel();
         btn_nominas_trabajador = new javax.swing.JButton();
         btn_horario_trabajador = new javax.swing.JButton();
-        btn_vacaciones_trabajador = new javax.swing.JButton();
+        btn_asuntospropios_trabajador = new javax.swing.JButton();
         btn_incidencias_trabajador = new javax.swing.JButton();
+        btn_vacaciones_trabajador = new javax.swing.JButton();
         btn_borrar_trabjador = new javax.swing.JButton();
         btn_modificar_trabajador = new javax.swing.JButton();
         btn_añadir_trabajador = new javax.swing.JButton();
@@ -133,28 +134,37 @@ public class VistaTrabajadores extends javax.swing.JFrame {
 
         btn_horario_trabajador.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         btn_horario_trabajador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/planificador.png"))); // NOI18N
-        btn_horario_trabajador.setText("Horario");
+        btn_horario_trabajador.setText("Horarios");
         btn_horario_trabajador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_horario_trabajadorActionPerformed(evt);
             }
         });
 
-        btn_vacaciones_trabajador.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        btn_vacaciones_trabajador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/falta.png"))); // NOI18N
-        btn_vacaciones_trabajador.setText("Faltas");
-        btn_vacaciones_trabajador.addActionListener(new java.awt.event.ActionListener() {
+        btn_asuntospropios_trabajador.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btn_asuntospropios_trabajador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/falta.png"))); // NOI18N
+        btn_asuntospropios_trabajador.setText("Asuntos Propios");
+        btn_asuntospropios_trabajador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_vacaciones_trabajadorActionPerformed(evt);
+                btn_asuntospropios_trabajadorActionPerformed(evt);
             }
         });
 
         btn_incidencias_trabajador.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         btn_incidencias_trabajador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incidencias .png"))); // NOI18N
-        btn_incidencias_trabajador.setText("Incidencias");
+        btn_incidencias_trabajador.setText("Pluses");
         btn_incidencias_trabajador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_incidencias_trabajadorActionPerformed(evt);
+            }
+        });
+
+        btn_vacaciones_trabajador.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btn_vacaciones_trabajador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vacaciones.png"))); // NOI18N
+        btn_vacaciones_trabajador.setText("Vacaciones");
+        btn_vacaciones_trabajador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_vacaciones_trabajadorActionPerformed(evt);
             }
         });
 
@@ -241,9 +251,10 @@ public class VistaTrabajadores extends javax.swing.JFrame {
                         .addComponent(btn_modificar_trabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_borrar_trabjador, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                         .addComponent(btn_incidencias_trabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_vacaciones_trabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_asuntospropios_trabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_horario_trabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_nominas_trabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btn_nominas_trabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_vacaciones_trabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
@@ -258,11 +269,13 @@ public class VistaTrabajadores extends javax.swing.JFrame {
                 .addComponent(btn_modificar_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(btn_borrar_trabjador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addGap(37, 37, 37)
                 .addComponent(btn_incidencias_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_asuntospropios_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_vacaciones_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_horario_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(btn_nominas_trabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,7 +287,6 @@ public class VistaTrabajadores extends javax.swing.JFrame {
         tabla_trabajadores.setAutoCreateRowSorter(true);
         tabla_trabajadores.setBackground(new java.awt.Color(204, 204, 204));
         tabla_trabajadores.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        tabla_trabajadores.setForeground(new java.awt.Color(0, 0, 0));
         tabla_trabajadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -312,7 +324,6 @@ public class VistaTrabajadores extends javax.swing.JFrame {
         panelRect1.setColorSecundario(new java.awt.Color(204, 204, 204));
 
         panelCurves1.setBackground(new java.awt.Color(102, 102, 102));
-        panelCurves1.setForeground(new java.awt.Color(0, 0, 0));
         panelCurves1.setOpaque(true);
 
         javax.swing.GroupLayout panelRect1Layout = new javax.swing.GroupLayout(panelRect1);
@@ -380,23 +391,23 @@ public class VistaTrabajadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_horario_trabajadorActionPerformed
 
-    private void btn_vacaciones_trabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vacaciones_trabajadorActionPerformed
+    private void btn_asuntospropios_trabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_asuntospropios_trabajadorActionPerformed
         if (tabla_trabajadores.getSelectedRow() != -1) {
             trabajador = repoTrabajador.getById(UtilidadesPantalla.getIdSelected(tabla_trabajadores));//Cogemos el trabajador seleccionado.
             if (trabajador != null) {
-                Faltas_vista vista_faltas = new Faltas_vista(trabajador);
+                AsuntosPropios_vista vista_faltas = new AsuntosPropios_vista(trabajador);
                 vista_faltas.setVisible(true);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un trabajador");
         }
-    }//GEN-LAST:event_btn_vacaciones_trabajadorActionPerformed
+    }//GEN-LAST:event_btn_asuntospropios_trabajadorActionPerformed
 
     private void btn_incidencias_trabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_incidencias_trabajadorActionPerformed
         if (tabla_trabajadores.getSelectedRow() != -1) {
             trabajador = repoTrabajador.getById(UtilidadesPantalla.getIdSelected(tabla_trabajadores));//Cogemos el trabajador seleccionado.
             if (trabajador != null) {
-                Incidencias_vista vista_incidencias = new Incidencias_vista(trabajador);
+                Pluses_vista vista_incidencias = new Pluses_vista(trabajador);
                 vista_incidencias.setVisible(true);
             }
         } else {
@@ -487,6 +498,19 @@ public class VistaTrabajadores extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_buscarActionPerformed
 
+    private void btn_vacaciones_trabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_vacaciones_trabajadorActionPerformed
+        // TODO add your handling code here:
+        if (tabla_trabajadores.getSelectedRow() != -1) {
+            trabajador = repoTrabajador.getById(UtilidadesPantalla.getIdSelected(tabla_trabajadores));//Cogemos el trabajador seleccionado.
+            if (trabajador != null) {
+                Vacaciones_vista vista_faltas = new Vacaciones_vista(trabajador);
+                vista_faltas.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar un trabajador");
+        }
+    }//GEN-LAST:event_btn_vacaciones_trabajadorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -523,6 +547,7 @@ public class VistaTrabajadores extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Buscador;
     private org.edisoncor.gui.panel.Panel Panel_botones;
+    private javax.swing.JButton btn_asuntospropios_trabajador;
     private javax.swing.JButton btn_añadir_trabajador;
     private javax.swing.JButton btn_borrar_trabjador;
     private org.edisoncor.gui.button.ButtonIcon btn_buscar;

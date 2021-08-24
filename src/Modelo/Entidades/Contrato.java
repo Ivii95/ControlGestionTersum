@@ -30,7 +30,6 @@ public class Contrato implements Serializable{
         this.codigo_trabajador = codigo_trabajador;
         this.fechainicio = fechainicio;
         this.fechafin = fechafin;
-       
         this.horas = horas;
         this.situacion = situacion;
         this.asegurado = asegurado;

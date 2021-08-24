@@ -6,9 +6,9 @@
 package Utilidades;
 
 import Modelo.Entidades.Contrato;
-import Modelo.Entidades.Falta;
+import Modelo.Entidades.Vacaciones;
 import Modelo.Entidades.Horario;
-import Modelo.Entidades.Incidencia;
+import Modelo.Entidades.Pluses;
 import Modelo.Entidades.Nominas;
 import Modelo.Entidades.Permiso;
 import Modelo.Entidades.Usuario;
@@ -39,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
 //import Vistas.Principal.Login_vista;
 //import Vistas.Principal.Principal_vista;
 //import Vistas.Principal.Configuracion.Usuarios_vista;
-import Vistas.Archivos.Trabajadores.Incidencias_vista;
+import Vistas.Archivos.Trabajadores.Pluses_vista;
 import Vistas.Principal.Configuracion.Usuarios_vista;
 import Vistas.Principal.Principal_vista;
 
@@ -55,8 +55,8 @@ public class Utilidades {
     public static ArrayList<Permiso> lista_de_permisos = new ArrayList<Permiso>();
     public static ArrayList<Contrato> lista_de_contratos = new ArrayList<Contrato>();
     public static ArrayList<Usuario> lista_de_usuarios = new ArrayList<Usuario>();
-    public static ArrayList<Incidencia> lista_de_incidencias = new ArrayList<Incidencia>();
-    public static ArrayList<Falta> lista_de_faltas = new ArrayList<Falta>();
+    public static ArrayList<Pluses> lista_de_incidencias = new ArrayList<Pluses>();
+    public static ArrayList<Vacaciones> lista_de_faltas = new ArrayList<Vacaciones>();
     public static ArrayList<Nominas> lista_de_nominas = new ArrayList<Nominas>();
     public static ArrayList<Horario> lista_de_horas_trabajadas = new ArrayList<Horario>();
     public static Usuario usuario = null;
@@ -361,7 +361,7 @@ public class Utilidades {
                     ps.setBoolean(7, contrato.isAsegurado());
                     break;
                 case "faltas":
-                    Falta falta = (Falta) o;
+                    Vacaciones falta = (Vacaciones) o;
                     insert = "INSERT INTO faltas (id,codigo, codigo_trabajador_faltas, fecha_inicio, fecha_fin, motivo) VALUES (NULL,?, ?, ?, ?, ?)";
                     ps = conexion.prepareStatement(insert);
                     ps.setString(1, falta.getCodigo());
@@ -1494,7 +1494,7 @@ public class Utilidades {
             conn.desconectar(conexion);
 
         } catch (SQLException ex) {
-            Logger.getLogger(Incidencias_vista.class
+            Logger.getLogger(Pluses_vista.class
                     .getName()).log(Level.SEVERE, null, ex);
         } finally {
 

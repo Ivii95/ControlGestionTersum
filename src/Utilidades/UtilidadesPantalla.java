@@ -142,7 +142,7 @@ public class UtilidadesPantalla {
         return new java.sql.Date(fechaFinal.getTime());
     }
     
-    public static LocalDate convertToLocalDateViaInstant(java.util.Date dateToConvert) {
+    public static LocalDate convertToLocalDateViaInstant(java.util.Date dateToConvert)throws NullPointerException{
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate().plusDays(1);

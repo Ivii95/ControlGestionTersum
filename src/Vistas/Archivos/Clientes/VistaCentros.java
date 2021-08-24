@@ -9,8 +9,8 @@ import Modelo.Entidades.Centro;
 import Modelo.Entidades.Cliente;
 import Modelo.Repository.CentroRepository;
 import Utilidades.UtilidadesPantalla;
-import Vistas.Archivos.Trabajadores.Faltas_vista;
-import Vistas.Archivos.Trabajadores.Incidencias_vista;
+import Vistas.Archivos.Trabajadores.AsuntosPropios_vista;
+import Vistas.Archivos.Trabajadores.Pluses_vista;
 import Vistas.Archivos.Trabajadores.VistaTrabajadores;
 import Vistas.Fichas.FichaCentros;
 import Vistas.Formularios.FormularioCentro;
@@ -446,7 +446,7 @@ public class VistaCentros extends javax.swing.JFrame {
         if (tabla_centros.getSelectedRow() != -1) {
             Centro centro = cr.getById(UtilidadesPantalla.getIdSelected(tabla_centros));//Cogemos el trabajador seleccionado.
             if (centro != null) {
-                Incidencias_vista vista_incidencias = new Incidencias_vista(centro);
+                Pluses_vista vista_incidencias = new Pluses_vista(centro);
                 vista_incidencias.setVisible(true);
             }
         } else {
@@ -458,7 +458,7 @@ public class VistaCentros extends javax.swing.JFrame {
         if (tabla_centros.getSelectedRow() != -1) {
             Centro centro = cr.getById(UtilidadesPantalla.getIdSelected(tabla_centros));//Cogemos el trabajador seleccionado.
             if (centro != null) {
-                Faltas_vista vista_faltas = new Faltas_vista(centro);
+                AsuntosPropios_vista vista_faltas = new AsuntosPropios_vista(centro);
                 vista_faltas.setVisible(true);
             }
         } else {
