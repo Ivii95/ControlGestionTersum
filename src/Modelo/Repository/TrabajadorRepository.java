@@ -13,6 +13,7 @@ import Utilidades.Conexion;
 import Utilidades.Utilidades;
 import static Utilidades.Utilidades.conn;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -186,7 +187,11 @@ public class TrabajadorRepository {
         }
         tabla.setModel(dtm);
     }
-
+    /**
+     * Rellena una tablacon los datos d elos trabajadores que no estan contratados
+     * @param tabla
+     * @param centro 
+     */
     public void rellenarTablaTrabajadoresNoContratados(JTable tabla, Centro centro) {
 
         String consultaEspecial = "SELECT t.* "
@@ -195,6 +200,23 @@ public class TrabajadorRepository {
                 + "SELECT ct.codigo_trabajadores "
                 + "FROM centrostrabajadores ct "
                 + "WHERE ct.codigo_centro='" + centro.getCodigo() + "')";
+        ejecutarConsulta(consultaEspecial); //METODO PARA RELLENAR LA LISTA DE TRABAJADORES
+        dtm = (DefaultTableModel) tabla.getModel();
+        columnas = new Object[dtm.getColumnCount()];
+        dtm.setRowCount(0);
+        for (int i = 0; i < trabajadores.size(); i++) {
+            dtm.addRow(addRow(trabajadores.get(i)));
+        }
+        tabla.setModel(dtm);
+    }
+    /**
+     * Rellena una tabla con todos los trabajadores diponibles en una fecha determinada
+     * @param tabla
+     * @param fecha 
+     */
+    public void rellenarTablaTrabajadoresDisponibles(JTable tabla,LocalDate fecha) {
+
+        String consultaEspecial = "SELECT * FROM `trabajadores` WHERE `codigo` NOT IN (SELECT `codigo_trabajador_vacaciones` FROM vacaciones WHERE `fecha_fin` >= \""+fecha.getYear()+"-"+fecha.getMonth()+"-"+fecha.getDayOfMonth()+"\");";
         ejecutarConsulta(consultaEspecial); //METODO PARA RELLENAR LA LISTA DE TRABAJADORES
         dtm = (DefaultTableModel) tabla.getModel();
         columnas = new Object[dtm.getColumnCount()];

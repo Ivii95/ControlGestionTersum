@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Programacion/OneDrive/Documents/GitHub/ControlGestionTersum/src/Vistas/Archivos/Trabajadores/Pluses_vista.java</file>
-            <file>file:/C:/Users/Programacion/OneDrive/Documents/GitHub/ControlGestionTersum/src/Modelo/Entidades/Contrato.java</file>
-            <file>file:/C:/Users/Programacion/OneDrive/Documents/GitHub/ControlGestionTersum/src/Modelo/Repository/PlusesRepository.java</file>
-            <file>file:/C:/Users/Programacion/OneDrive/Documents/GitHub/ControlGestionTersum/src/Vistas/Archivos/Trabajadores/AsuntosPropios_vista.java</file>
+            <file>file:/C:/Users/Programacion/OneDrive/Documents/GitHub/ControlGestionTersum/src/Modelo/Repository/AccidentesLaboralesRepository.java</file>
+            <file>file:/C:/Users/Programacion/OneDrive/Documents/GitHub/ControlGestionTersum/src/Vistas/Archivos/Trabajadores/Accidentes_vista.java</file>
+            <file>file:/C:/Users/Programacion/OneDrive/Documents/GitHub/ControlGestionTersum/src/Modelo/Repository/AsuntosPropiosRepository.java</file>
+            <file>file:/C:/Users/Programacion/OneDrive/Documents/GitHub/ControlGestionTersum/src/Modelo/Repository/ClienteRepository.java</file>
+            <file>file:/C:/Users/Programacion/OneDrive/Documents/GitHub/ControlGestionTersum/src/Modelo/Repository/HorarioRepository.java</file>
         </group>
     </open-files>
 </project-private>

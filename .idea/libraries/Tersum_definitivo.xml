@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Tersum_definitivo">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/Tersum_definitivo.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="librerias-nuevas">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/librerias-nuevas/jasperreports-fonts-6.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/librerias-nuevas/jasperreports-functions-6.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/librerias-nuevas/jasperreports-chart-themes-6.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/librerias-nuevas/jasperreports-javaflow-6.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/librerias-nuevas/jasperreports-custom-visualization-6.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/librerias-nuevas/jasperreports-6.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/librerias-nuevas/jasperreports-annotation-processors-6.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/librerias-nuevas/jasperreports-chart-customizers-6.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/librerias-nuevas/jasperreports-metadata-6.11.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

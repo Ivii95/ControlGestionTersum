@@ -20,7 +20,6 @@ import javax.swing.ImageIcon;
 import Vistas.Archivos.Contratos_vista;
 import Vistas.Archivos.Vacaciones_vista;
 import Vistas.Archivos.Clientes.VistaClientes;
-import Vistas.Principal.Configuracion.Usuarios_vista;
 import Vistas.Archivos.Trabajadores.VistaTrabajadores;
 import Vistas.Listado.Listado;
 import Vistas.Listado.ListadoCentros;
@@ -28,12 +27,14 @@ import Vistas.Listado.ListadoClientes;
 import Vistas.Listado.ListadoTrabajadores;
 import Vistas.Principal.Configuracion.VistaSedes;
 import Vistas.Principal.Configuracion.VistaUsuarios;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.help.HelpSetException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -115,6 +116,7 @@ public class Principal_vista extends javax.swing.JFrame {
         menu_listados = new javax.swing.JMenu();
         Listados = new javax.swing.JMenuItem();
         ListarTrabajadores = new javax.swing.JMenuItem();
+        ListarTrabajadoresDisponibles = new javax.swing.JMenuItem();
         ListarClientes = new javax.swing.JMenuItem();
         ListarCentros = new javax.swing.JMenuItem();
         menu_configuracion = new javax.swing.JMenu();
@@ -243,6 +245,15 @@ public class Principal_vista extends javax.swing.JFrame {
             }
         });
         menu_listados.add(ListarTrabajadores);
+
+        ListarTrabajadoresDisponibles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/trabajador.png"))); // NOI18N
+        ListarTrabajadoresDisponibles.setText("Trabajadores Disponibles");
+        ListarTrabajadoresDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarTrabajadoresDisponiblesActionPerformed(evt);
+            }
+        });
+        menu_listados.add(ListarTrabajadoresDisponibles);
 
         ListarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clientes.png"))); // NOI18N
         ListarClientes.setText("Clientes");
@@ -395,7 +406,7 @@ public class Principal_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_ListarClientesActionPerformed
 
     private void menuitemsedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemsedesActionPerformed
-        VistaSedes vs=new VistaSedes();
+        VistaSedes vs = new VistaSedes();
         vs.setVisible(true);
     }//GEN-LAST:event_menuitemsedesActionPerformed
 
@@ -408,6 +419,25 @@ public class Principal_vista extends javax.swing.JFrame {
         ListadoCentros lt = new ListadoCentros();
         lt.setVisible(true);
     }//GEN-LAST:event_ListarCentrosActionPerformed
+
+    private void ListarTrabajadoresDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTrabajadoresDisponiblesActionPerformed
+        LocalDate fechaA = LocalDate.now();
+        LocalDate fecha = null;
+        int d = (int) JOptionPane.showInputDialog(this, "Seleccione Un Dia",
+                "DIAS", JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31}, "Seleccione");
+
+        if (d > 0) {
+            fecha = LocalDate.of(fechaA.getYear(), fechaA.getMonth(), d);
+        } else {
+            fecha = LocalDate.of(fechaA.getYear(), fechaA.getMonth(), fechaA.getDayOfMonth());
+        }
+        if (fecha != null) {
+            ListadoTrabajadores listar = new ListadoTrabajadores(fecha);
+            listar.setVisible(true);
+        }
+
+    }//GEN-LAST:event_ListarTrabajadoresDisponiblesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -428,6 +458,7 @@ public class Principal_vista extends javax.swing.JFrame {
     private javax.swing.JMenuItem ListarCentros;
     private javax.swing.JMenuItem ListarClientes;
     private javax.swing.JMenuItem ListarTrabajadores;
+    private javax.swing.JMenuItem ListarTrabajadoresDisponibles;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

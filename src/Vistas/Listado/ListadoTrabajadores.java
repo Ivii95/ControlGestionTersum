@@ -10,6 +10,7 @@ import Modelo.Repository.TrabajadorRepository;
 import Modelo.Entidades.Trabajador;
 import Utilidades.Utilidades;
 import Utilidades.UtilidadesPantalla;
+import java.time.LocalDate;
 
 /**
  *
@@ -29,9 +30,15 @@ public class ListadoTrabajadores extends javax.swing.JFrame {
     /**
      * Creates new form ListadoTrabajadores
      */
+    
     public ListadoTrabajadores() {
         iniciarOtrosComponentes();
         repoTrabajador.rellenarTablaDefault(listado_trabajadores);
+        //utilidades.rellenarTabla(listado_trabajadores, "trabajadores", "");
+    }
+    public ListadoTrabajadores(LocalDate fecha) {
+        iniciarOtrosComponentes();
+        repoTrabajador.rellenarTablaTrabajadoresDisponibles(listado_trabajadores,fecha);
         //utilidades.rellenarTabla(listado_trabajadores, "trabajadores", "");
     }
 
@@ -40,7 +47,9 @@ public class ListadoTrabajadores extends javax.swing.JFrame {
         //repoTrabajador.buscarTrabajadoresPorCentrosDeUnCodigoTrabajador(t.getCodigo() + "");
         repoTrabajador.rellenarTablaDefault(listado_trabajadores);
     }
-    
+    /**
+     * Inicia los componentes generales de la vista.
+     */
     private void iniciarOtrosComponentes() {
         repoTrabajador = new TrabajadorRepository();
         initComponents();

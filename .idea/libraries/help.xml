@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="help">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/help/javahelp-2.0.05.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/help/html24102019.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

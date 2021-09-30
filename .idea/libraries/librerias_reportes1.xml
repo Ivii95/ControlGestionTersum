@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="librerias-reportes1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/librerias-reportes/commons.collections-3.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/librerias-reportes/commons-javaflow.jar!/" />
+      <root url="jar://$PROJECT_DIR$/librerias-reportes/commons-beanutils-1.8.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/librerias-reportes/mysql-connector-java-5.1.40-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/librerias-reportes/commons-digester-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/librerias-reportes/commons-logging-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/librerias-reportes/jasperreports-6.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/librerias-reportes/com.lowagie.text-2.1.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

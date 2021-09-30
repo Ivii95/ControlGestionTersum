@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="librerias-reportes">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/com.lowagie.text-2.1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/spring-beans-5.2.3.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/spring-jcl-5.2.3.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/spring-core-5.2.3.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/commons-digester-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/commons-logging-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/commons-collections4-4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/commons-collections4-4.4-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/commons-javaflow.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/joda-time-2.10.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/mysql-connector-java-5.1.40-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/commons.collections-3.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/jasperreports-6.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/librerias-reportes/commons-beanutils-1.8.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
