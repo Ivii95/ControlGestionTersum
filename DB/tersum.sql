@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 24-08-2021 a las 08:01:57
+-- Tiempo de generación: 11-10-2021 a las 08:42:57
 -- Versión del servidor: 5.7.24
 -- Versión de PHP: 7.4.20
 
@@ -24,17 +24,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `accidentes`
+--
+
+CREATE TABLE `accidentes` (
+  `id` int(11) NOT NULL,
+  `fecha_accidente` datetime NOT NULL,
+  `fecha_baja` datetime NOT NULL,
+  `descripcion` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `zona_lesionada` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `lugar` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `id_centro` int(11) NOT NULL,
+  `id_trabajador_sustituto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `asuntos_propios`
 --
 
 CREATE TABLE `asuntos_propios` (
   `id` int(11) NOT NULL,
-  `codigo` varchar(20) NOT NULL,
-  `codigo_trabajador_ap` varchar(20) NOT NULL,
-  `codigo_trabajador_sustituto` varchar(20) DEFAULT NULL,
+  `codigo` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `codigo_trabajador_ap` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `codigo_trabajador_sustituto` varchar(20) CHARACTER SET latin1 DEFAULT NULL,
   `dia` date NOT NULL,
-  `motivo` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `motivo` varchar(100) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `asuntos_propios`
@@ -440,11 +457,18 @@ INSERT INTO `vacaciones` (`id`, `codigo`, `codigo_trabajador_vacaciones`, `fecha
 (13, '23', '77', '2020-07-21', '2020-07-22', 'esta malo'),
 (14, 'BA3', '14', '2020-07-28', '2020-07-30', 'esta malito'),
 (15, '254', '77', '2020-08-26', '2020-08-30', 'eo'),
-(16, '132', '77', '2020-08-26', '2020-08-31', 'eo');
+(16, '132', '77', '2020-08-26', '2020-08-31', 'eo'),
+(17, '78', '77', '2021-08-15', '2021-09-15', '');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `accidentes`
+--
+ALTER TABLE `accidentes`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `asuntos_propios`
@@ -552,6 +576,12 @@ ALTER TABLE `vacaciones`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `accidentes`
+--
+ALTER TABLE `accidentes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `asuntos_propios`
 --
 ALTER TABLE `asuntos_propios`
@@ -627,7 +657,7 @@ ALTER TABLE `trabajadores`
 -- AUTO_INCREMENT de la tabla `vacaciones`
 --
 ALTER TABLE `vacaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restricciones para tablas volcadas

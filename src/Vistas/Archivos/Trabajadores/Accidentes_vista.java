@@ -74,9 +74,9 @@ public class Accidentes_vista extends javax.swing.JFrame {
         UtilidadesPantalla.centrarTablas(tabla_incidencias);
         ponAyuda();
         pulsarX();
-        btn_modificar_incidencia.setVisible(false);
-        btn_borrar_incidencia.setVisible(false);
-        btn_limpiar_incidencia.setVisible(false);
+        btn_modificar.setVisible(false);
+        btn_borrar.setVisible(false);
+        btn_limpiar.setVisible(false);
         //INICIAMOS REPO
         repoSS = new AccidentesLaboralesRepository();
         repoSSTotal = new AccidentesLaboralesRepository();
@@ -122,9 +122,9 @@ public class Accidentes_vista extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         label_fechainicio = new org.edisoncor.gui.panel.PanelRect();
         label_descripcion = new javax.swing.JLabel();
-        btn_limpiar_incidencia = new javax.swing.JButton();
-        btn_borrar_incidencia = new javax.swing.JButton();
-        btn_modificar_incidencia = new javax.swing.JButton();
+        btn_limpiar = new javax.swing.JButton();
+        btn_borrar = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_descripcion = new javax.swing.JTextArea();
         btn_añadir_incidencia = new javax.swing.JButton();
@@ -250,35 +250,40 @@ public class Accidentes_vista extends javax.swing.JFrame {
         label_descripcion.setText("Descripción");
         label_fechainicio.add(label_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 150, 35));
 
-        btn_limpiar_incidencia.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        btn_limpiar_incidencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/limpiar.png"))); // NOI18N
-        btn_limpiar_incidencia.setText("Limpiar");
-        btn_limpiar_incidencia.addActionListener(new java.awt.event.ActionListener() {
+        btn_limpiar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btn_limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/limpiar.png"))); // NOI18N
+        btn_limpiar.setText("Limpiar");
+        btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_limpiar_incidenciaActionPerformed(evt);
+                btn_limpiarActionPerformed(evt);
             }
         });
-        label_fechainicio.add(btn_limpiar_incidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, 200, 35));
+        label_fechainicio.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, 200, 35));
 
-        btn_borrar_incidencia.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        btn_borrar_incidencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/borrar.png"))); // NOI18N
-        btn_borrar_incidencia.setText("Borrar");
-        btn_borrar_incidencia.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_borrar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btn_borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/borrar.png"))); // NOI18N
+        btn_borrar.setText("Borrar");
+        btn_borrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_borrar_incidenciaMouseClicked(evt);
+                btn_borrarMouseClicked(evt);
             }
         });
-        label_fechainicio.add(btn_borrar_incidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 200, 35));
+        label_fechainicio.add(btn_borrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 200, 35));
 
-        btn_modificar_incidencia.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        btn_modificar_incidencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
-        btn_modificar_incidencia.setText("Modificar");
-        btn_modificar_incidencia.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_modificar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
+        btn_modificar.setText("Modificar");
+        btn_modificar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_modificar_incidenciaMouseClicked(evt);
+                btn_modificarMouseClicked(evt);
             }
         });
-        label_fechainicio.add(btn_modificar_incidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 200, 35));
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
+        label_fechainicio.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 200, 35));
 
         txt_descripcion.setColumns(20);
         txt_descripcion.setLineWrap(true);
@@ -402,11 +407,11 @@ public class Accidentes_vista extends javax.swing.JFrame {
         txt_buscar.setText("");
     }//GEN-LAST:event_txt_buscarMouseClicked
 
-    private void btn_limpiar_incidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiar_incidenciaActionPerformed
+    private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
         restablecerTodo();
-    }//GEN-LAST:event_btn_limpiar_incidenciaActionPerformed
+    }//GEN-LAST:event_btn_limpiarActionPerformed
 
-    private void btn_borrar_incidenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_borrar_incidenciaMouseClicked
+    private void btn_borrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_borrarMouseClicked
         int filaSeleccionada = tabla_incidencias.getSelectedRow();
         int opcionborrar = JOptionPane.showConfirmDialog(rootPane, "¿Estas seguro de borrar el registro?\nContrato: " + (String) tabla_incidencias.getValueAt(filaSeleccionada, 1));
         switch (opcionborrar) {
@@ -423,9 +428,9 @@ public class Accidentes_vista extends javax.swing.JFrame {
                 restablecerTodo();
                 break;
         }
-    }//GEN-LAST:event_btn_borrar_incidenciaMouseClicked
+    }//GEN-LAST:event_btn_borrarMouseClicked
 
-    private void btn_modificar_incidenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificar_incidenciaMouseClicked
+    private void btn_modificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_modificarMouseClicked
         /*if (txt_descripcion.getText().equals("") || txt_fecha_fin.getDate().equals("") || txt_horas.getText().equals(0) || txt_codigo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Ningún campo puede estar vacio");
         } else {
@@ -449,7 +454,7 @@ public class Accidentes_vista extends javax.swing.JFrame {
             repoSS.update(incidencia);
             restablecerTodo();
         }*/
-    }//GEN-LAST:event_btn_modificar_incidenciaMouseClicked
+    }//GEN-LAST:event_btn_modificarMouseClicked
 
     private void btn_añadir_incidenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_añadir_incidenciaMouseClicked
         /*if (txt_descripcion.getText().equals("") || txt_fecha_fin.getDate() == null || txt_codigo.getText().equals("")) {
@@ -514,6 +519,10 @@ public class Accidentes_vista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigo_trabajador_sustitutoKeyReleased
 
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
     public static void main(String args[]) {
 
         try {
@@ -529,9 +538,9 @@ public class Accidentes_vista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_añadir_incidencia;
-    private javax.swing.JButton btn_borrar_incidencia;
-    private javax.swing.JButton btn_limpiar_incidencia;
-    private javax.swing.JButton btn_modificar_incidencia;
+    private javax.swing.JButton btn_borrar;
+    private javax.swing.JButton btn_limpiar;
+    private javax.swing.JButton btn_modificar;
     private org.jdesktop.swingx.JXDatePicker fecha_accidente;
     private org.jdesktop.swingx.JXDatePicker fecha_baja;
     private javax.swing.JTextField hora_accidente;
@@ -561,9 +570,9 @@ public class Accidentes_vista extends javax.swing.JFrame {
 
     private void rellenardatos(int filaSeleccionada) {
         btn_añadir_incidencia.setVisible(false);
-        btn_borrar_incidencia.setVisible(true);
-        btn_limpiar_incidencia.setVisible(true);
-        btn_modificar_incidencia.setVisible(true);
+        btn_borrar.setVisible(true);
+        btn_limpiar.setVisible(true);
+        btn_modificar.setVisible(true);
         AccidentesLaborales plus;
         int id = (int) tabla_incidencias.getValueAt(filaSeleccionada, 0);
         plus = repoSS.getById(id);
@@ -618,9 +627,9 @@ public class Accidentes_vista extends javax.swing.JFrame {
         hora_accidente1.setText("");
         txt_zona_lesionada.setText("");
         txt_lugar.setText("");
-        btn_modificar_incidencia.setVisible(false);
-        btn_borrar_incidencia.setVisible(false);
-        btn_limpiar_incidencia.setVisible(false);
+        btn_modificar.setVisible(false);
+        btn_borrar.setVisible(false);
+        btn_limpiar.setVisible(false);
         btn_añadir_incidencia.setVisible(true);
     }
 
